@@ -26,6 +26,7 @@ import { Camera } from "./components/Camera";
 import "semantic-ui-css/semantic.min.css";
 import { SelectedCategory } from "./components/catergories/Main";
 import { Loading } from "./components/Loading";
+import { Button, Icon } from "semantic-ui-react";
 
 function App() {
   const [rotate, setRotate] = useState(false);
@@ -63,7 +64,10 @@ function App() {
     try {
       return (
         <Suspense fallback={<Loading />}>
-          <SelectedCategory setCatagorySelected={setCatagorySelected} />
+          <SelectedCategory
+            setCatagorySelected={setCatagorySelected}
+            catagorySelected={catagorySelected}
+          />
         </Suspense>
       );
     } catch (e) {
@@ -212,6 +216,7 @@ export default App;
 
 function LandingComponent({ setIsLanding }) {
   const [animationComplete, setAnimationComplete] = useState(false);
+  const btnRef = useRef();
 
   console.count("landing component render");
 
@@ -223,13 +228,59 @@ function LandingComponent({ setIsLanding }) {
     return () => clearTimeout(timeout);
   }, []);
 
+  const handleMouseMove = (e) => {
+    // const btn = e.target;
+    // const rect = btn.getBoundingClientRect();
+    // const x = e.clientX * 3 - rect.left;
+    // btn.style.setProperty("--x", x + "deg");
+  };
+
   return (
     <div className="landing-screen-wrapper">
       <div
-        onClick={() => setIsLanding(false)}
-        className={`enter-btn ${animationComplete ? "animation-complete" : ""}`}
+        style={{
+          border: "1px solid black",
+          position: "absolute",
+          top: "8em",
+          width: "5em",
+          textAlign: "center",
+          // left: 30,
+          right: "10em",
+        }}
       >
+        Explore our work
+      </div>
+      <div onClick={() => setIsLanding(false)} className={`enter-btn`}>
         <img src="../img/in3dlogo.png" />
+        <div className="landing-screen-enter-btn">
+          {/* <Button
+            // className="landing-screen-actual-enter-btn"
+            // ref={btnRef}
+            // style={{
+            //   // borderRadius: "50%",
+            //   height: "4em",
+            //   background: "rgba(128, 0, 0, 0.84)",
+            //   color: "white",
+            //   border: "1px solid black",
+            // }}
+            animated
+          >
+            <Button.Content visible>Go</Button.Content>
+            <Button.Content hidden>
+              <Icon name="arrow right" />
+            </Button.Content>
+          </Button> */}
+          <a
+            className="link-btn"
+            href="#"
+            ref={btnRef}
+            onMouseMove={handleMouseMove}
+          >
+            <i className="link-smtng"></i>
+            <i className="link-smtng"></i>
+            <span className="link-span">ENTER</span>
+          </a>
+        </div>
       </div>
       <div className="animation-container">
         <span className="animation-letter">I</span>
@@ -244,4 +295,14 @@ function LandingComponent({ setIsLanding }) {
       </div>
     </div>
   );
+}
+{
+  /* <script>
+let btn=document.getElementsByClassName('link-btn');
+btn.addEventListener('mousemove', e=> {
+  let rect = e.target.getBoundingClientRect();
+  let x = e.clientX * 3 - rect.left;
+  btn.style.setProperty('--x', x + 'deg')
+}
+</script> */
 }

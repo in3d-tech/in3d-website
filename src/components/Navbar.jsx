@@ -25,7 +25,7 @@ export function Navbar({
         inline: "nearest",
       });
     }
-    setCatagorySelected(true);
+    setCatagorySelected(label);
   };
 
   const [navbarVisible, setNavbarVisible] = useState(false);
@@ -189,15 +189,28 @@ const NavOpen = React.memo(
               <NavItem
                 handleNavClick={handleNavClick}
                 name={"תעשייה ביטחונית"}
+                src={"../../img/taasia-b-icon.png"}
               />
-              <NavItem handleNavClick={handleNavClick} name="תעשייה" />
+              <NavItem
+                handleNavClick={handleNavClick}
+                name="תעשייה"
+                src={"../../img/tassia-icon.png"}
+              />
             </ul>
           </div>
           <div className="nav-open-list">
             <ul className="outer-ul">
               <NavItem handleNavClick={handleNavClick} name="מייקרוסופט" />
-              <NavItem handleNavClick={handleNavClick} name="גופי ביטחון" />
-              <NavItem handleNavClick={handleNavClick} name="Customize" />
+              <NavItem
+                handleNavClick={handleNavClick}
+                name="גופי ביטחון"
+                src={"../../img/body-icon.png"}
+              />
+              <NavItem
+                handleNavClick={handleNavClick}
+                name="Customize"
+                src={"../../img/customize-icon.png"}
+              />
             </ul>
           </div>
         </div>

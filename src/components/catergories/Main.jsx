@@ -19,8 +19,18 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { Helix, Slider } from "./Slider";
 import { getSliderPosition } from "./logic/getSliderPosition";
 import React from "react";
+import baffle from "baffle";
 
-export function SelectedCategory({ setCatagorySelected }) {
+export function SelectedCategory({ setCatagorySelected, catagorySelected }) {
+  // useEffect(() => {
+  //   const target = baffle(".title");
+  //   target.set({
+  //     characters: "░M░i░c░r░o░s░o░s░o░f░t░",
+  //     speed: 100,
+  //   });
+  //   target.start();
+  //   target.reveal(1000, 1000);
+  // });
   const texture = useLoader(TextureLoader, "/img/in3dlogo.png");
 
   const arrayOfSliders = new Array(20).fill(" ");
@@ -117,13 +127,13 @@ export function SelectedCategory({ setCatagorySelected }) {
               style={{
                 color: "#cdcbca",
                 position: "absolute",
-                top: `65vh`,
-                left: "50%",
+                top: `80vh`,
+                left: "50vw",
                 fontSize: "13em",
                 transform: `translate(-50%,-50%)`,
               }}
             >
-              Microsoft
+              {catagorySelected}
             </h1>
 
             <div className="row" style={{ position: "absolute", top: `132vh` }}>

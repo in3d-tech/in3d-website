@@ -19,8 +19,7 @@ export function NavItem({ handleNavClick, name, src }) {
         />
         <i
           onClick={(e) => {
-            handleNavClick(e);
-            //   handleCategoryClick(healingRef);
+            handleNavClick(e, name);
           }}
           className="nav-item"
         >
@@ -28,9 +27,9 @@ export function NavItem({ handleNavClick, name, src }) {
         </i>
       </div>
       <ul className="inner-ul">
-        <li className="inner-li">הולגרמות, דיוק, הנגשת נתונים</li>
-        <li className="inner-li">כללית, איכילוב, שניידר</li>
-        <li className="inner-li">שני רופאים בוחנים הולוגרמה בעזרת הולולנס</li>
+        <li className="inner-li">health benifits</li>
+        <li className="inner-li">general work</li>
+        <li className="inner-li">hololens </li>
       </ul>
     </li>
   );
