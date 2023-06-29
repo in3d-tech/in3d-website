@@ -7,17 +7,17 @@ import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
-import CommentIcon from "@mui/icons-material/Comment";
 import { capitalizeFirstLetter } from "../../common/capitzalize";
 import LoadingButton from "@mui/lab/LoadingButton";
-import SaveIcon from "@mui/icons-material/Save";
 import SendIcon from "@mui/icons-material/Send";
+import PhoneIcon from "@mui/icons-material/Phone";
+import EmailIcon from "@mui/icons-material/Email";
 
 export function About({ openInfoNav }) {
   return (
     <>
-      <p>
-        in3D Technologies Ltd is a software development company that specialize
+      <p style={{ width: "90%", marginTop: "6em" }}>
+        In3D Technologies Ltd is a software development company that specialize
         in 3D development.<br></br>
         <br></br> We at in3D have extensive experience in developing and
         adapting the right solution to the clients needs focusing on the world
@@ -49,6 +49,8 @@ export function Contact({ openInfoNav }) {
   const [loading, setLoading] = useState(false);
   return (
     <>
+      {/* <CancelIcon className="nav-contact-cancel-icon" /> */}
+
       <Box
         sx={{
           "& > :not(style)": { m: 1 },
@@ -135,16 +137,30 @@ export function Contact({ openInfoNav }) {
               //   color: "rgb(151, 20, 20)",
             }}
             onClick={() => {
+              // if (!name || !email || !message) {
+              //   return;
+              // } else {
               setLoading(true);
               setTimeout(() => setLoading(false), 1000);
+              // }
             }}
           >
             Send
           </LoadingButton>
         </span>
         <div style={{ marginTop: "4em" }}>
-          Feel free to contact us at any time for any question:<br></br>{" "}
-          +972-54-218-5021 or +1(302)-219-4023 or by email: sales@in3d-tech.com
+          Feel free to contact us at any time for any question:<br></br>
+          <br></br>
+          <span className="contact-nav-phones-wrapper">
+            <PhoneIcon fontSize="small" /> +972-54-218-5021
+          </span>
+          <span className="contact-nav-phones-wrapper">
+            <PhoneIcon fontSize="small" />
+            +1(302)-219-4023
+          </span>
+          <span className="contact-nav-phones-wrapper">
+            <EmailIcon />: sales@in3d-tech.com
+          </span>
           <br></br> We also invite you to meet us at 1 Shefa Tal street, Tel
           Aviv.
         </div>

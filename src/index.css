@@ -97,6 +97,11 @@ button:focus-visible {
   border-radius: 5px;
 }
 
+.contact-nav-phones-wrapper {
+  display: flex;
+  align-items: center;
+}
+
 .landing-screen-enter-btn {
   /* animation: fade 3s infinite; */
   text-align: center;
@@ -349,7 +354,7 @@ label.icon {
 
 nav {
   /* background: #fdf6f6; */
-  background: rgb(224, 210, 210, 0.4);
+  background: rgb(224, 210, 210, 0.6);
   /* background: linear-gradient(
     to right,
     rgb(4, 4, 4) 15%,
@@ -371,14 +376,16 @@ nav {
   border-right: 1px solid rgb(112, 112, 112);
 }
 
-nav:hover {
+/* nav:hover {
   background: rgb(224, 210, 210, 1);
-}
+} */
 
 .open-info-nav {
   width: 40em;
-  background: rgba(224, 210, 210, 1);
-
+  /* background: rgba(224, 210, 210, 1); */
+  background: linear-gradient(to left, #943333 1%, rgb(240, 233, 233) 28%);
+  opacity: 0.9;
+  border: none;
   /* background-image: url("../img/in3dlogo.png");
   background-position: center;
   background-repeat: no-repeat; */
@@ -416,6 +423,22 @@ nav:hover {
   /* overflow: scroll; */
   opacity: 1;
   z-index: -100;
+}
+
+.nav-contact-cancel-icon {
+  position: absolute;
+  right: 1em;
+  top: 1em;
+}
+
+.thing {
+  position: absolute;
+  right: 7em;
+}
+
+.nav-contact-cancel-icon:hover {
+  color: rgb(233, 244, 244, 0.6);
+  cursor: pointer;
 }
 
 .nav2 {

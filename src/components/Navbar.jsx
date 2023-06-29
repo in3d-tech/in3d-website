@@ -3,6 +3,7 @@ import { Html } from "@react-three/drei";
 import { NavItem } from "./nav/NavItem";
 import { About, Contact } from "./nav/AboutContact";
 import { capitalizeFirstLetter } from "../common/capitzalize";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 export function Navbar({ setSelectedNav, setCategorySelected }) {
   const healing = useRef();
@@ -71,18 +72,24 @@ export function Navbar({ setSelectedNav, setCategorySelected }) {
             </div> */}
             <div className="open-info-nav-extension">
               {/* <div className="about-contact-nav-title">{openInfoNav}</div> */}
-
+              <h2 className="thing">
+                {openInfoNav == "About" ? "About us" : "Send us a message!"}
+              </h2>
+              <CancelIcon
+                className="nav-contact-cancel-icon"
+                onClick={() => setOpenInfoNav("")}
+              />
               {openInfoNav == "About" ? (
                 <About openInfoNav={openInfoNav} />
               ) : (
                 <Contact openInfoNav={openInfoNav} />
               )}
-              <button
+              {/* <button
                 style={{ position: "absolute", right: "1em", bottom: "1em" }}
                 onClick={() => setOpenInfoNav("")}
               >
                 Close
-              </button>
+              </button> */}
             </div>
           </>
         ) : (
