@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   RoundedBox,
   ScrollControls,
@@ -21,7 +21,18 @@ import { getSliderPosition } from "./logic/getSliderPosition";
 import React from "react";
 import baffle from "baffle";
 
-export function SelectedCategory({ setCatagorySelected, catagorySelected }) {
+export function SelectedCategory({ setCategorySelected, categorySelected }) {
+  const [scrollState, setScrollState] = useState({
+    isScrolling: false,
+    clientX: 0,
+    ScrollX: 0,
+  });
+  const scrollRef = useRef();
+  // const secondScrollRef = useRef({
+  //   isScrolling: false,
+  //   clientX: 0,
+  //   ScrollX: 0,
+  // });
   // useEffect(() => {
   //   const target = baffle(".title");
   //   target.set({
@@ -32,6 +43,36 @@ export function SelectedCategory({ setCatagorySelected, catagorySelected }) {
   //   target.reveal(1000, 1000);
   // });
   const texture = useLoader(TextureLoader, "/img/in3dlogo.png");
+
+  const onMouseDown = (e) => {
+    console.log("PPPPPPPPPPPPPPPP");
+    setScrollState({ ...scrollState, isScrolling: true, clientX: e.clientX });
+  };
+
+  const onMouseUp = () => {
+    console.log("XXXXXXXXXXXX");
+    setScrollState({ ...scrollState, isScrolling: false });
+  };
+
+  const onMouseMove = (e) => {
+    console.log("its the heart of a champion1");
+    const { clientX, scrollX, isScrolling } = scrollState;
+    if (
+      isScrolling &&
+      clientXFinal != e.clientX &&
+      scrollXFinal != scrollX + e.clientX - clientX
+    ) {
+      console.log("and we are scrolling!~");
+      scrollRef.current.scrollLeft = scrollX + e.clientX - clientX;
+      const scrollXFinal = scrollX + e.clientX - clientX;
+      const clientXFinal = e.clientX;
+      setScrollState({
+        ...scrollState,
+        ScrollX: scrollXFinal,
+        ClientX: clientXFinal,
+      });
+    }
+  };
 
   const arrayOfSliders = new Array(20).fill(" ");
 
@@ -51,7 +92,14 @@ export function SelectedCategory({ setCatagorySelected, catagorySelected }) {
   });
 
   return (
-    <div className="overlay-black" style={{ height: "100vh" }}>
+    <div
+      className="overlay-black"
+      style={{ height: "100vh" }}
+      ref={scrollRef}
+      onMouseDown={(e) => onMouseDown(e)}
+      onMouseUp={(e) => onMouseUp(e)}
+      onMouseMove={(e) => onMouseMove(e)}
+    >
       <Canvas>
         <color attach="background" args={["#333333"]} />
         <ambientLight intensity={0.2} />
@@ -70,7 +118,7 @@ export function SelectedCategory({ setCatagorySelected, catagorySelected }) {
           <div
             onClick={() => {
               // setShowNav(true);
-              setCatagorySelected(false);
+              setCategorySelected(false);
             }}
             className="btn btn-three"
           >
@@ -90,7 +138,7 @@ export function SelectedCategory({ setCatagorySelected, catagorySelected }) {
         <ScrollControls pages={6} damping={0.1}>
           {mappedSliders}
 
-          <Robot scale={0.8} />
+          <Robot scale={0.8} categorySelected={categorySelected} />
 
           <Sparkles size={2} color={"#fff"} scale={[10, 10, 10]}></Sparkles>
           <Backdrop
@@ -133,7 +181,7 @@ export function SelectedCategory({ setCatagorySelected, catagorySelected }) {
                 transform: `translate(-50%,-50%)`,
               }}
             >
-              {catagorySelected}
+              {categorySelected}
             </h1>
 
             <div className="row" style={{ position: "absolute", top: `132vh` }}>

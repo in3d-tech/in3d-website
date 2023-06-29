@@ -14,21 +14,10 @@
   -webkit-text-size-adjust: 100%;
 }
 
-/* a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-} */
-
 body {
   margin: 0;
-  /* display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh; */
+  background-color: #e0d2d2;
+  overflow: hidden;
 }
 
 h1 {
@@ -62,6 +51,27 @@ button:focus-visible {
   padding: 5px;
 }
 
+.about-contact-nav {
+  position: absolute;
+  top: 0;
+  height: 5em;
+  width: 100%;
+}
+
+.about-contact-nav-title {
+  color: rgb(3, 3, 3);
+  /* bottom: 0.2em; */
+  width: 100%;
+  text-align: center;
+  font-family: "Atma", cursive;
+  font-family: "Cabin Sketch", cursive;
+  font-family: "Cousine", monospace;
+  font-family: "Jost", sans-serif;
+  font-family: "Roboto", sans-serif;
+  font-size: 2em;
+  font-weight: bold;
+}
+
 .enter-btn {
   position: absolute;
   top: 50%;
@@ -73,22 +83,106 @@ button:focus-visible {
   /* align-content: center; */
 }
 
+.contact-inputs-wrapper {
+  height: 7em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 2em;
+  /* width: 90%; */
+}
+
+.contact-input {
+  height: 2em;
+  border-radius: 5px;
+}
+
 .landing-screen-enter-btn {
   /* animation: fade 3s infinite; */
-  opacity: 0.4;
   text-align: center;
+  margin-top: 1em;
 }
 
-.landing-screen-actual-enter-btn {
+.landing-screen-nav-btn {
+  border: 1px solid black;
   border-radius: 50%;
-  height: 4em;
-  background: rgba(128, 0, 0, 0.84);
-  color: white;
-  border: 1px solid green;
+  position: absolute;
+  top: 8em;
+  width: 5em;
+  height: 5em;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  right: 10em;
+  -webkit-transition: all 5.5s ease;
+  -moz-transition: all 5.5s ease;
+  -o-transition: all 5.5s ease;
+  transition: all 5.5s ease;
+  transition: border-color 0.5s;
 }
 
-.landing-screen-enter-btn:hover {
-  opacity: 1;
+.border-transition:hover {
+  border-image: yellow;
+  border-image-slice: 1;
+  animation: border-transition-animation 3s linear forwards;
+  border-color: rgb(
+    221,
+    221,
+    221
+  ); /* Add this line to keep the new color while hovered */
+}
+
+@keyframes border-transition-animation {
+  0% {
+    border-image-slice: 1;
+  }
+  100% {
+    border-image-slice: 100%;
+  }
+}
+
+.landing-screen-nav-btn:hover {
+  cursor: pointer;
+  border-image-slice: 1;
+  animation: border-transition-animation 3s linear forwards;
+  border-color: #a73838;
+}
+@keyframes landing-screen-nav-btn {
+  0% {
+    border-image-slice: 1;
+  }
+  100% {
+    border-image-slice: 100%;
+  }
+}
+
+.landing-screen-nav-open {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 1;
+  background: #e0d2d2;
+  /* background-image: linear-gradient(
+    to right,
+    black,
+    rgb(113, 29, 29),
+    rgb(224, 223, 223)
+  ); */
+  animation-name: fadeIn;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+}
+
+@keyframes landing-screen-nav-open {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 /* .enter-btn:hover {
@@ -114,10 +208,6 @@ button:focus-visible {
   background: lightblue url("/img/5594016.jpg") no-repeat center;
   display: flex;
   flex-direction: column-reverse;
-  /* background-repeat: no-repeat, repeat;
-  background-image: url("/img/5594016.jpg");
-
-  background-blend-mode: lighten; */
 }
 
 .overlay-black {
@@ -165,12 +255,10 @@ button:focus-visible {
 }
 
 .nav-display-btn:focus {
-  /* Reset focus styling */
   outline: none;
 }
 
 .x-nav-btn:focus {
-  /* Reset focus styling */
   outline: none;
 }
 
@@ -182,15 +270,11 @@ button:focus-visible {
     color: #213547;
     background-color: #ffffff;
   }
-  /* a:hover {
-    color: #747bff;
-  } */
+
   button {
     background-color: #f9f9f9;
   }
 }
-
-/* menu testing ? */
 
 input#menu {
   display: none;
@@ -264,25 +348,59 @@ label.icon {
 }
 
 nav {
-  background: #fdf6f6;
+  /* background: #fdf6f6; */
+  background: rgb(224, 210, 210, 0.4);
+  /* background: linear-gradient(
+    to right,
+    rgb(4, 4, 4) 15%,
+    rgb(191, 22, 22) 35%,
+    rgb(206, 120, 120) 85%,
+    rgb(255, 254, 254) 100%
+  ); */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  /* padding-top: 60px; */
   position: fixed;
   transition: width ease 1.8s;
-  /* width: 100vw; */
   width: 12em;
-
-  /* z-index: 100; */
 
   overflow: hidden;
   text-align: flex-start;
-  opacity: 1;
+  border-right: 1px solid rgb(112, 112, 112);
+}
 
-  /* overflow-y: scroll;*/
+nav:hover {
+  background: rgb(224, 210, 210, 1);
+}
+
+.open-info-nav {
+  width: 40em;
+  background: rgba(224, 210, 210, 1);
+
+  /* background-image: url("../img/in3dlogo.png");
+  background-position: center;
+  background-repeat: no-repeat; */
+  /* border-left: 42em solid rgb(0, 0, 0, 0.4);
+  border-top: 50px solid transparent;
+  border-bottom: 50px solid transparent;
+  z-index: -1; */
+}
+
+.open-info-nav-extension {
+  width: 90%;
+  height: 96%;
+  /* border: 1px solid rgb(21, 21, 21, 0.6); */
+  box-shadow: -3px 6px 34px 4px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: -3px 6px 34px 4px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: -3px 6px 34px 4px rgba(0, 0, 0, 0.6);
+  border-radius: 5px;
+  padding: 3px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  z-index: -1;
 }
 
 .nav-full-wrapper {
@@ -309,6 +427,28 @@ nav {
   width: 200px;
 }
 
+.bottom-nav-list {
+  width: 8em;
+  text-align: center;
+  list-style-type: none;
+  padding: 0;
+}
+
+.bottom-nav-list-option {
+  font-family: "Atma", cursive;
+  font-family: "Cabin Sketch", cursive;
+  font-family: "Cousine", monospace;
+  font-family: "Jost", sans-serif;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.2em;
+}
+
+.bottom-nav-list-option:hover {
+  cursor: pointer;
+  color: black;
+  font-size: 1.3em;
+}
+
 .nav-container {
   opacity: 0.8;
   width: 50%;
@@ -329,6 +469,7 @@ nav {
 
 .nav-container-open {
   position: absolute;
+  background-color: #000;
   top: 50%;
   transform: translate(5%, -50%);
   display: flex;
@@ -338,14 +479,9 @@ nav {
   height: 90%;
   width: 90%;
   box-shadow: 4px 6px 15px 2px rgba(128, 0, 0, 0.84);
-  /* background-image: url("../img/lines_texture.png"); */
-  /* background-size: 50%;
-  background-position: center; */
-  /* background-repeat: no-repeat; */
 }
 
 .nav-item {
-  /* font-weight: 900; */
   font-size: 2em;
   font-family: "Atma", cursive;
   font-family: "Cabin Sketch", cursive;
@@ -395,9 +531,6 @@ nav {
 }
 
 .inner-ul {
-  /* list-style: none; */
-  /* margin: 0; */
-  /* padding: 0; */
   width: 60%;
 }
 
@@ -405,23 +538,9 @@ nav {
   color: #bfd2bc;
   font-size: 0.8em;
   line-height: 2;
+  list-style-type: none;
 }
 
-/* nav ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-nav li {
-  margin-top: 7em;
-  cursor: pointer;
-  display: block;
-  line-height: 60px;
-  padding-left: 16px;
-  white-space: nowrap;
-  font-size: 20px;
-  color: #c3d6e2;
-} */
 nav i {
   /* color: #9fb1bd; */
   margin-right: 24px;
@@ -448,25 +567,14 @@ nav i {
   display: flex;
   flex-direction: row-reverse;
   padding: 3px;
-  display: flex;
   justify-content: space-between;
-  align-items: center;
-  /* width: 100vw; */
-
-  /* height: 100em; */
-  /* margin-top: 15px;
-  min-height: 50vh; */
-  /* background-image: url("../img/in3dlogo.png");
-  background-size: contain;
-  background-position: bottom;
-  background-repeat: no-repeat;
-  border-top: 1px solid rgba(0, 0, 0, 0.4);
-  overflow: scroll; */
+  align-items: flex-end;
 }
 
 .nav-open-options {
   flex: 1;
   display: flex;
+  animation: fadeIn 2.2s;
 }
 
 .nav-open-list {
@@ -522,12 +630,12 @@ div[className*="box"] {
 
 .btn {
   position: absolute;
-  top: 20px;
-  left: 30px;
+  top: 3em;
+  left: 3em;
   line-height: 50px;
   height: 50px;
   text-align: center;
-  width: 250px;
+  width: 200px;
   cursor: pointer;
 }
 
@@ -614,7 +722,7 @@ div[className*="box"] {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 13em;
+  margin-bottom: 9em;
 }
 
 .animation-letter {
@@ -726,6 +834,12 @@ label {
   height: 55px;
   display: inline-block;
   border-radius: 5px;
+  animation: fadeIn 2.2s;
+  opacity: 1;
+}
+
+.link-btn:hover {
+  opacity: 0.8;
 }
 
 .link-smtng {
@@ -733,7 +847,7 @@ label {
   inset: -2px;
   display: block;
   border-radius: 5px;
-  background: #f00;
+  background: rgb(151, 20, 20);
 }
 
 a,

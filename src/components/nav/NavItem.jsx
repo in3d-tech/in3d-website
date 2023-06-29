@@ -1,5 +1,4 @@
 import React from "react";
-import { Button, Icon } from "semantic-ui-react";
 
 export function NavItem({ handleNavClick, name, src }) {
   return (
@@ -27,9 +26,9 @@ export function NavItem({ handleNavClick, name, src }) {
         </i>
       </div>
       <ul className="inner-ul">
-        <li className="inner-li">health benifits</li>
-        <li className="inner-li">general work</li>
-        <li className="inner-li">hololens </li>
+        <li className="inner-li">- health benifits</li>
+        <li className="inner-li">- general work</li>
+        <li className="inner-li">- hololens </li>
       </ul>
     </li>
   );

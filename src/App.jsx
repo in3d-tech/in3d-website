@@ -1,10 +1,8 @@
-import { useRef, useState, useEffect, useMemo, Suspense } from "react";
+import { useRef, useState, useEffect, Suspense } from "react";
 import { Canvas, useLoader } from "@react-three/fiber";
 import {
   OrbitControls,
   Environment,
-  RoundedBox,
-  Stats,
   Sky,
   Sparkles,
   Backdrop,
@@ -14,59 +12,42 @@ import {
   Html,
 } from "@react-three/drei";
 import { DoubleSide, TextureLoader } from "three";
-import { Navbar } from "./components/Navbar";
-// import { Card } from "./components/Card";
+import { NavOpen, Navbar } from "./components/Navbar";
 import { Moon } from "./components/Moon";
-// import { Podium } from "./components/Podium";
 import { Camera } from "./components/Camera";
-// import { AboutNav } from "./components/AboutNav";
-// import { ContactNav } from "./components/ContactNav";
-// import { useControls } from "leva";
-// import { TestComp } from "./components/TestComp";
-import "semantic-ui-css/semantic.min.css";
 import { SelectedCategory } from "./components/catergories/Main";
 import { Loading } from "./components/Loading";
-import { Button, Icon } from "semantic-ui-react";
 
 function App() {
-  const [rotate, setRotate] = useState(false);
   const [rotateCamera, setRotateCamera] = useState(false);
-  const [showImageBox, setShowImageBox] = useState(true);
   const [isCardView, setIsCardView] = useState(false);
   const [selectedNav, setSelectedNav] = useState("");
   const [isVisible, setIsVisible] = useState(false);
-  const [selectedStatue, setSelectedStatue] = useState(0);
   const [showNav, setShowNav] = useState(true);
   const [isLanding, setIsLanding] = useState(true);
   const [loadingAnimations, setLoadingAnimations] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [aboutNav, setAboutNav] = useState(false);
-  const [contactNav, setContactNav] = useState(false);
   const [moveCameraToModel, setMoveCameraToModel] = useState(null);
-  const [catagorySelected, setCatagorySelected] = useState(false);
-
-  const roundedBoxRef = useRef();
-
-  const handleClick = () => {
-    setIsVisible(false);
-    setShowImageBox(true); // show the image box
-    setRotateCamera(true);
-    //roundedBoxRef.current.visible = false; // hide the rounded box
-  };
+  const [categorySelected, setCategorySelected] = useState(false);
 
   const texture = useLoader(TextureLoader, "../img/in3dlogo.png");
   const moonTexture = useLoader(TextureLoader, "../img/moon.png");
-  const marsTexture = useLoader(TextureLoader, "../img/mars_texture.png");
-  const in3dTexture = useLoader(TextureLoader, "../img/in3dlogo.png");
 
-  if (isLanding) return <LandingComponent setIsLanding={setIsLanding} />;
-  if (catagorySelected) {
+  if (isLanding)
+    return (
+      <LandingComponent
+        setIsLanding={setIsLanding}
+        setSelectedNav={setSelectedNav}
+        setCategorySelected={setCategorySelected}
+      />
+    );
+  if (categorySelected) {
     try {
       return (
         <Suspense fallback={<Loading />}>
           <SelectedCategory
-            setCatagorySelected={setCatagorySelected}
-            catagorySelected={catagorySelected}
+            setCategorySelected={setCategorySelected}
+            categorySelected={categorySelected}
           />
         </Suspense>
       );
@@ -74,8 +55,6 @@ function App() {
       console.log(e);
     }
   }
-  // if (aboutNav) return <AboutNav setAboutNav={setAboutNav} />;
-  // if (contactNav) return <ContactNav />;
 
   setTimeout(() => {
     setIsLoading(true);
@@ -143,55 +122,10 @@ function App() {
         </Float>
 
         <Environment preset="dawn" />
-
-        {/* <RoundedBox
-          args={[10, 0.5, 10]}
-          radius={1}
-          smoothness={4}
-          position={[0, -0.25, 0]}
-          onClick={handleClick}
-          ref={roundedBoxRef}
-        >
-          <meshStandardMaterial color="#6f6f6f" />
-        </RoundedBox>
-        {showImageBox && (
-          <mesh position={[0, 4, 0]} rotation={[0, -Math.PI, 0]}>
-            <planeGeometry args={[6, 4]} />
-            <meshBasicMaterial
-              side={DoubleSide}
-              map={texture}
-            ></meshBasicMaterial>
-          </mesh>
-        )}
-        <Podium
-          position={[0, 0.1, 0]}
-          rotate={rotate}
-          setRotate={setRotate}
-          texture={in3dTexture}
-          marsTexture={marsTexture}
-          selectedStatue={selectedStatue}
-          setSelectedStatue={setSelectedStatue}
-          setMoveCameraToModel={setMoveCameraToModel}
-        /> */}
-        {/* {isVisible ? (
-          <Card selectedNav={selectedNav} setSelectedNav={setSelectedNav} />
-        ) : null} */}
-        {/* <axesHelper args={[20]} />
-
-        <gridHelper args={[40, 40, 40]} /> */}
-        {/* <Stats /> */}
         {showNav ? (
           <Navbar
-            setIsCardView={setIsCardView}
             setSelectedNav={setSelectedNav}
-            setIsVisible={setIsVisible}
-            selectedStatue={selectedStatue}
-            setSelectedStatue={setSelectedStatue}
-            setShowNav={setShowNav}
-            setAboutNav={setAboutNav}
-            setContactNav={setContactNav}
-            showNav={showNav}
-            setCatagorySelected={setCatagorySelected}
+            setCategorySelected={setCategorySelected}
           />
         ) : !isLoading ? null : (
           <Html position={[-21, 13, 5]}>
@@ -214,8 +148,15 @@ function App() {
 
 export default App;
 
-function LandingComponent({ setIsLanding }) {
+function LandingComponent({
+  setIsLanding,
+  setSelectedNav,
+  setCategorySelected,
+}) {
   const [animationComplete, setAnimationComplete] = useState(false);
+  const [newClass, setNewClass] = useState(false);
+  const [navOpen, setNavOpen] = useState(false);
+
   const btnRef = useRef();
 
   console.count("landing component render");
@@ -228,57 +169,51 @@ function LandingComponent({ setIsLanding }) {
     return () => clearTimeout(timeout);
   }, []);
 
-  const handleMouseMove = (e) => {
-    // const btn = e.target;
-    // const rect = btn.getBoundingClientRect();
-    // const x = e.clientX * 3 - rect.left;
-    // btn.style.setProperty("--x", x + "deg");
+  const toggleNavbar = () => {
+    console.log({ newClass });
+    setNewClass((prevState) => !prevState);
+
+    setTimeout(
+      () => setNavOpen((prevState) => !prevState),
+      navOpen ? 100 : 800
+    );
   };
 
-  return (
+  const handleNavClick = (ref, label) => {
+    setSelectedNav(label);
+    if (ref.current) {
+      ref.current.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+        inline: "nearest",
+      });
+    }
+    setCategorySelected(label);
+  };
+
+  return navOpen ? (
+    <NavOpen handleNavClick={handleNavClick} toggleNavbar={toggleNavbar} />
+  ) : (
     <div className="landing-screen-wrapper">
       <div
-        style={{
-          border: "1px solid black",
-          position: "absolute",
-          top: "8em",
-          width: "5em",
-          textAlign: "center",
-          // left: 30,
-          right: "10em",
+        className={
+          newClass ? "landing-screen-nav-open" : "landing-screen-nav-btn"
+        }
+        onClick={() => {
+          // setNewClass((prevState) => !prevState);
+
+          toggleNavbar();
         }}
       >
-        Explore our work
+        Quick Explore
       </div>
       <div onClick={() => setIsLanding(false)} className={`enter-btn`}>
         <img src="../img/in3dlogo.png" />
         <div className="landing-screen-enter-btn">
-          {/* <Button
-            // className="landing-screen-actual-enter-btn"
-            // ref={btnRef}
-            // style={{
-            //   // borderRadius: "50%",
-            //   height: "4em",
-            //   background: "rgba(128, 0, 0, 0.84)",
-            //   color: "white",
-            //   border: "1px solid black",
-            // }}
-            animated
-          >
-            <Button.Content visible>Go</Button.Content>
-            <Button.Content hidden>
-              <Icon name="arrow right" />
-            </Button.Content>
-          </Button> */}
-          <a
-            className="link-btn"
-            href="#"
-            ref={btnRef}
-            onMouseMove={handleMouseMove}
-          >
+          <a className="link-btn" href="#" ref={btnRef}>
             <i className="link-smtng"></i>
             <i className="link-smtng"></i>
-            <span className="link-span">ENTER</span>
+            <span className="link-span">Explore</span>
           </a>
         </div>
       </div>
@@ -295,14 +230,4 @@ function LandingComponent({ setIsLanding }) {
       </div>
     </div>
   );
-}
-{
-  /* <script>
-let btn=document.getElementsByClassName('link-btn');
-btn.addEventListener('mousemove', e=> {
-  let rect = e.target.getBoundingClientRect();
-  let x = e.clientX * 3 - rect.left;
-  btn.style.setProperty('--x', x + 'deg')
-}
-</script> */
 }

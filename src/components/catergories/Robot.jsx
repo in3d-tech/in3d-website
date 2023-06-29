@@ -7,14 +7,19 @@ import React, { useRef, useLayoutEffect } from "react";
 import { useGLTF, useScroll } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import gsap from "gsap";
+import { getCategoryDetails } from "./logic/getCategoryDetails";
 
 export function Robot(props) {
   const { nodes, materials } = useGLTF("/robot/phantoms-transformed.glb");
-
-  console.log(nodes, materials);
+  console.log("abbabadybi");
+  // console.log(nodes, materials);
   const robot = useRef();
   const scroll = useScroll();
   const tl = useRef();
+  // console.log("innn #1");
+  // console.log(props.categorySelected);
+  const details = getCategoryDetails(props.categorySelected);
+  // console.log(details);
 
   return (
     <group {...props} dispose={null} ref={robot}>
@@ -25,7 +30,7 @@ export function Robot(props) {
           castShadow
         >
           <meshPhysicalMaterial
-            color="#FFA500" // "#FFA500" //"#aaa"
+            color={details.color} // "#FFA500" //"#aaa"
             roughness={0.2}
             metalness={1}
             reflectivity={0.5}
@@ -56,6 +61,5 @@ export function Robot(props) {
     </group>
   );
 }
-// useGLTF.preload("/models/phantoms-transformed.glb");
 
 useGLTF.preload("/robot/phantoms-transformed.glb");
