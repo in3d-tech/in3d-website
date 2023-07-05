@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect, Suspense } from "react";
-import { Canvas, useLoader } from "@react-three/fiber";
+import { Canvas, useLoader, useThree } from "@react-three/fiber";
 import {
   OrbitControls,
   Environment,
@@ -9,29 +9,34 @@ import {
   Float,
   Ring,
   Stars,
-  Html,
 } from "@react-three/drei";
-import { DoubleSide, TextureLoader } from "three";
-import { NavOpen, Navbar } from "./components/Navbar";
+import { CubeTextureLoader, DoubleSide, TextureLoader, FogExp2 } from "three";
+import { NavOpen, Navbar } from "./components/NavbarOld";
 import { Moon } from "./components/Moon";
 import { Camera } from "./components/Camera";
 import { SelectedCategory } from "./components/catergories/Main";
 import { Loading } from "./components/Loading";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 function App() {
   const [rotateCamera, setRotateCamera] = useState(false);
-  const [isCardView, setIsCardView] = useState(false);
   const [selectedNav, setSelectedNav] = useState("");
   const [isVisible, setIsVisible] = useState(false);
   const [showNav, setShowNav] = useState(true);
   const [isLanding, setIsLanding] = useState(true);
-  const [loadingAnimations, setLoadingAnimations] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [moveCameraToModel, setMoveCameraToModel] = useState(null);
+  const [moveCameraToModel, setMoveCameraToModel] = useState(false);
   const [categorySelected, setCategorySelected] = useState(false);
 
   const texture = useLoader(TextureLoader, "../img/in3dlogo.png");
   const moonTexture = useLoader(TextureLoader, "../img/moon.png");
+
+  const shipModel = useLoader(
+    GLTFLoader,
+    "../assets/in3d-island/Island test .gltf"
+  );
+
+  console.count("app load");
 
   if (isLanding)
     return (
@@ -56,39 +61,64 @@ function App() {
     }
   }
 
-  setTimeout(() => {
-    setIsLoading(true);
-  }, 5000);
+  function SkyBox() {
+    const { scene } = useThree();
+    const loader = new CubeTextureLoader();
+    // The CubeTextureLoader load method takes an array of urls representing all 6 sides of the cube.
+    const texture = loader.load([
+      "/images/right.png", //front
+      "/images/left.png", // back -right
+      "/images/top.png", //top - right
+      "/images/bottom.png", //bottom
+      "/images/front.png", // left
+      "/images/back.png", //right -- right
+    ]);
+
+    // Set the scene background property to the resulting texture.
+    scene.fog = new FogExp2("#545454", 0.005);
+    scene.background = texture;
+    return null;
+  }
+
+  // const skybox = useCubeTexture(
+  //   ["back.png", "bottom.png", "front.png", "left.png", "right.png", "top.png"],
+  //   { path: "/assets/in3d-skybox" }
+  // );
+
   return (
-    <div className="overlay-black" style={{ background: "black" }}>
+    <div className="overlay-black">
       <Canvas
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-        }}
+      // style={{
+      //   position: "absolute",
+      //   top: 0,
+      //   left: 0,
+      //   width: "100%",
+      //   height: "100%",
+      // }}
       >
         <Moon moonTexture={moonTexture} DoubleSide={DoubleSide} />
         <perspectiveCamera />
         <Camera
-          rotate={rotateCamera}
-          setRotate={setRotateCamera}
-          isCardView={isCardView}
-          setIsCardView={setIsCardView}
-          setIsVisible={setIsVisible}
-          loadingAnimations={loadingAnimations}
-          setLoadingAnimations={setLoadingAnimations}
           moveCameraToModel={moveCameraToModel}
           setMoveCameraToModel={setMoveCameraToModel}
         />
         <ambientLight intensity={0.5} />
 
-        <Stars />
-        <Sky sunPosition={[0.2, 0, 0]} />
-        <spotLight position={[10, 15, 10]} angle={0.3} penumbra={1} />
-        <OrbitControls enableRotate={isCardView ? false : true} />
+        {/* <Stars /> */}
+        {/* <Sky sunPosition={[0.2, 0, 0]} /> */}
+        <SkyBox />
+
+        <ambientLight intensity={1.2} />
+        <spotLight
+          position={[0, 25, 0]}
+          angle={1.3}
+          penumbra={1}
+          castShadow
+          intensity={2}
+          shadow-bias={-0.0001}
+        />
+        {/* <spotLight position={[10, 15, 10]} angle={0.3} penumbra={1} /> */}
+        <OrbitControls />
         <Sparkles size={2} color={"#fff"} scale={[10, 10, 10]}></Sparkles>
         <mesh rotation={[0, -Math.PI, 0]}>
           <Backdrop
@@ -101,6 +131,13 @@ function App() {
             <meshStandardMaterial color="#0a1a1f" transparent opacity={0.7} />
           </Backdrop>
         </mesh>
+        <primitive
+          object={shipModel.scene}
+          position={[-1.2, -5, -2]}
+          children-0-castShadow
+          rotation={[0, Math.PI, 0]}
+          scale={[1.5, 1.5, 1.5]}
+        />
 
         <Float
           speed={4} // Animation speed, defaults to 1
@@ -121,27 +158,11 @@ function App() {
           </Ring>
         </Float>
 
-        <Environment preset="dawn" />
-        {showNav ? (
-          <Navbar
-            setSelectedNav={setSelectedNav}
-            setCategorySelected={setCategorySelected}
-          />
-        ) : !isLoading ? null : (
-          <Html position={[-21, 13, 5]}>
-            <div onClick={() => setShowNav(true)} className="btn btn-three">
-              Explore
-            </div>
-          </Html>
-        )}
+        <Navbar
+          setSelectedNav={setSelectedNav}
+          setCategorySelected={setCategorySelected}
+        />
       </Canvas>
-      <div
-        style={{
-          width: "100vw",
-          height: "100vh",
-          background: "black",
-        }}
-      ></div>
     </div>
   );
 }
@@ -158,8 +179,6 @@ function LandingComponent({
   const [navOpen, setNavOpen] = useState(false);
 
   const btnRef = useRef();
-
-  console.count("landing component render");
 
   useEffect(() => {
     const timeout = setTimeout(() => {

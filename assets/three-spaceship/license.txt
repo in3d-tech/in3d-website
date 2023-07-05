@@ -1,0 +1,11 @@
+Model Information:
+* title:	SPACESHIP - CARGO
+* source:	https://sketchfab.com/3d-models/spaceship-cargo-e9faa887c3684271b67be00649e11dcf
+* author:	Lezalit (https://sketchfab.com/Lezalit)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "SPACESHIP - CARGO" (https://sketchfab.com/3d-models/spaceship-cargo-e9faa887c3684271b67be00649e11dcf) by Lezalit (https://sketchfab.com/Lezalit) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

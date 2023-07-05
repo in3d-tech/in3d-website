@@ -210,7 +210,7 @@ button:focus-visible {
 .landing-screen-wrapper {
   height: 100vh;
   width: 100vw;
-  background: lightblue url("/img/5594016.jpg") no-repeat center;
+  /* background: lightblue url("/img/5594016.jpg") no-repeat center; */
   display: flex;
   flex-direction: column-reverse;
 }
@@ -222,11 +222,12 @@ button:focus-visible {
   height: 100vh;
   width: 100vw;
   z-index: 1;
-  background-color: black;
+  /* background-color: black; */
   animation-name: fadeIn;
   animation-duration: 1.5s;
   animation-timing-function: ease-in;
   animation-fill-mode: forwards;
+  /* background: lightblue url("/img/background-2.jpg") no-repeat center; */
 }
 
 @keyframes fadeIn {
@@ -354,7 +355,7 @@ label.icon {
 
 nav {
   /* background: #fdf6f6; */
-  background: rgb(224, 210, 210, 0.6);
+  background: rgba(57, 56, 60, 0.6);
   /* background: linear-gradient(
     to right,
     rgb(4, 4, 4) 15%,
@@ -373,7 +374,66 @@ nav {
 
   overflow: hidden;
   text-align: flex-start;
-  border-right: 1px solid rgb(112, 112, 112);
+  /* border-right: 1px solid rgb(0, 0, 0, 0.5); */
+}
+
+.new-nav-wrapper {
+  background: rgba(57, 56, 56, 0.6);
+
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 12vh;
+  left: 0px;
+  transition: width ease 1.8s;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.new-about-contact-wrapper {
+  width: 100vw;
+  height: 8vh;
+  background: rgb(42, 1, 1);
+  opacity: 0.7;
+  color: white;
+  border-radius: 5px;
+  padding: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  opacity: 0.3;
+}
+.new-about-contact-wrapper:hover {
+  opacity: 0.1;
+  cursor: pointer;
+}
+
+.new-nav-bottom-container {
+  border: 1px solid black;
+  display: flex;
+  width: 60%;
+  height: 60%;
+
+  justify-content: space-evenly;
+}
+
+.new-nav-bottom-btns {
+  border: 2px solid white;
+  width: 20%;
+  border-radius: 4px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+}
+
+.new-nav-bottom-btns:hover {
+  opacity: 1;
+  cursor: pointer;
 }
 
 /* nav:hover {
@@ -383,7 +443,7 @@ nav {
 .open-info-nav {
   width: 40em;
   /* background: rgba(224, 210, 210, 1); */
-  background: linear-gradient(to left, #943333 1%, rgb(240, 233, 233) 28%);
+  background: linear-gradient(to left, #382d2d 1%, rgb(240, 233, 233) 28%);
   opacity: 0.9;
   border: none;
   /* background-image: url("../img/in3dlogo.png");

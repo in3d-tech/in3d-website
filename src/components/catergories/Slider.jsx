@@ -127,7 +127,7 @@ export const Helix = () => {
     return (
       <mesh
         position={positionInHelix}
-        onClick={() => console.log(positionInHelix)}
+        // onClick={() => console.log(positionInHelix)}
         // rotation={[0]}
         key={i}
         geometry={geo}

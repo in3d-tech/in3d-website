@@ -1,9 +1,10 @@
-import React, { useRef, useState, useMemo } from "react";
+import React, { useRef, useState, useMemo, useEffect } from "react";
 import { Html } from "@react-three/drei";
 import { NavItem } from "./nav/NavItem";
 import { About, Contact } from "./nav/AboutContact";
 import { capitalizeFirstLetter } from "../common/capitzalize";
 import CancelIcon from "@mui/icons-material/Cancel";
+// import useTimeout from "../common/useTimeout";
 
 export function Navbar({ setSelectedNav, setCategorySelected }) {
   const healing = useRef();
@@ -28,10 +29,9 @@ export function Navbar({ setSelectedNav, setCategorySelected }) {
 
   const [navbarVisible, setNavbarVisible] = useState(false);
   const [openInfoNav, setOpenInfoNav] = useState("");
+  // const [navVisibility, setNavVisibility] = useState(false);
 
   const delay = 2000;
-
-  console.count();
 
   const toggleNavbar = () => {
     setNavbarVisible((prevState) => !prevState);
@@ -52,101 +52,33 @@ export function Navbar({ setSelectedNav, setCategorySelected }) {
     }
   };
 
+  // useEffect(() => {
+  //   if (openInfoNav) {
+  //     useTimeout(() => setNavVisibility(true), 10000);
+  //   }
+  // }, [openInfoNav]);
+
   return (
     <Html center={false} fullscreen>
-      <nav
-        style={
-          navbarVisible
-            ? {
-                width: "100vw",
-                background: "black",
-              }
-            : {}
-        }
-        className={openInfoNav ? "open-info-nav" : ""}
+      <div className="new-nav-wrapper">
+        <div className="hello-world-two">hello world!</div>
+      </div>
+      {/* <Html center={false} position={[0, -20, 0]}> */}
+      <div
+        className="new-about-contact-wrapper"
+        onPointerOver={() => console.log("yess")}
       >
-        {openInfoNav ? (
-          <>
-            {/* <div className="about-contact-nav">
-              <div className="about-contact-nav-title">{openInfoNav}</div>
-            </div> */}
-            <div className="open-info-nav-extension">
-              {/* <div className="about-contact-nav-title">{openInfoNav}</div> */}
-              <h2 className="thing">
-                {openInfoNav == "About" ? "About us" : "Send us a message!"}
-              </h2>
-              <CancelIcon
-                className="nav-contact-cancel-icon"
-                onClick={() => setOpenInfoNav("")}
-              />
-              {openInfoNav == "About" ? (
-                <About openInfoNav={openInfoNav} />
-              ) : (
-                <Contact openInfoNav={openInfoNav} />
-              )}
-              {/* <button
-                style={{ position: "absolute", right: "1em", bottom: "1em" }}
-                onClick={() => setOpenInfoNav("")}
-              >
-                Close
-              </button> */}
-            </div>
-          </>
-        ) : (
-          <div className={navbarVisible ? "nav-wrapper-open" : "nav-wrapper"}>
-            {!navbarVisible && (
-              <div>
-                {" "}
-                <div className="outer">
-                  <div className="inner">
-                    <label
-                      onClick={() => {
-                        toggleNavbar();
-                      }}
-                    >
-                      Open
-                    </label>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {navbarVisible ? (
-              <NavOpen
-                handleNavClick={handleNavClick}
-                healingRef={healing}
-                taasiaSecurityRef={taasiaSecurity}
-                taasiaRef={taasia}
-                microsoftRef={microsoft}
-                gofeiSecurityRef={gofeiSecurity}
-                customizeRef={customize}
-                handleCategoryClick={handleCategoryClick}
-                toggleNavbar={toggleNavbar}
-                setCategorySelected={setCategorySelected}
-              />
-            ) : (
-              <div>
-                <div className="line"></div>
-                <ul className="bottom-nav-list">
-                  <li
-                    className="bottom-nav-list-option"
-                    onClick={() => setOpenInfoNav("About")}
-                  >
-                    About
-                  </li>
-                  <li
-                    className="bottom-nav-list-option"
-                    style={{ marginTop: "8px" }}
-                    onClick={() => setOpenInfoNav("Contact Us")}
-                  >
-                    Contact
-                  </li>
-                </ul>
-              </div>
-            )}
+        <div className="new-nav-bottom-container">
+          <div
+            className="new-nav-bottom-btns"
+            onPointerOver={() => console.log("yess")}
+          >
+            About
           </div>
-        )}
-      </nav>
+          <div className="new-nav-bottom-btns">Contact</div>
+        </div>
+      </div>
+      {/* </Html> */}
     </Html>
   );
 }

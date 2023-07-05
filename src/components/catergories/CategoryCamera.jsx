@@ -1,0 +1,21 @@
+import { useState } from "react";
+import { useFrame, useThree } from "@react-three/fiber";
+import * as THREE from "three";
+
+export function CategoryCamera() {
+  const [helper, setHelper] = useState(true);
+  const { camera } = useThree();
+  //   camera.position.set(477, 158.5, -200);
+
+  console.log("camera pos", camera.position);
+  camera.position.set(0, 0.2, 7);
+
+  //   if (!helper) {
+  //   camera.position.set(1, 1, 1); // Adjust the z position of the camera to move it backwards
+  //   // camera.position.set(477, 158.5, -200); // Adjust the z position of the cameZra to move it backwards
+  //   }
+
+  useFrame(({ clock }) => {});
+
+  return null;
+}
