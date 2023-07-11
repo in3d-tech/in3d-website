@@ -133,6 +133,8 @@ export function Contact({ openInfoNav }) {
               height: "3em",
               width: "9em",
               justifyContent: "space-evenly",
+              color: "#2d5237",
+              border: "1px solid rgba(0, 0, 0, 0.4)",
               //   borderColor: "blue",
               //   color: "rgb(151, 20, 20)",
             }}

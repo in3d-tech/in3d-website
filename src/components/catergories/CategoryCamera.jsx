@@ -7,7 +7,6 @@ export function CategoryCamera() {
   const { camera } = useThree();
   //   camera.position.set(477, 158.5, -200);
 
-  console.log("camera pos", camera.position);
   camera.position.set(0, 0.2, 7);
 
   //   if (!helper) {

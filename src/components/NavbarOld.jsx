@@ -6,30 +6,13 @@ import { capitalizeFirstLetter } from "../common/capitzalize";
 import CancelIcon from "@mui/icons-material/Cancel";
 // import useTimeout from "../common/useTimeout";
 
-export function Navbar({ setSelectedNav, setCategorySelected }) {
-  const healing = useRef();
-  const taasiaSecurity = useRef();
-  const taasia = useRef();
-  const microsoft = useRef();
-  const gofeiSecurity = useRef();
-  const customize = useRef();
-
+export function Navbar({ setCategorySelected }) {
   const handleNavClick = (ref, label) => {
-    console.log({ label });
-    setSelectedNav(label);
-    if (ref.current) {
-      ref.current.scrollIntoView({
-        behavior: "smooth",
-        block: "end",
-        inline: "nearest",
-      });
-    }
     setCategorySelected(label);
   };
 
   const [navbarVisible, setNavbarVisible] = useState(false);
   const [openInfoNav, setOpenInfoNav] = useState("");
-  // const [navVisibility, setNavVisibility] = useState(false);
 
   const delay = 2000;
 
@@ -42,22 +25,6 @@ export function Navbar({ setSelectedNav, setCategorySelected }) {
     }
   };
 
-  const handleCategoryClick = (ref) => {
-    if (ref.current) {
-      ref.current.scrollIntoView({
-        behavior: "smooth",
-        block: "end",
-        inLine: "nearest",
-      });
-    }
-  };
-
-  // useEffect(() => {
-  //   if (openInfoNav) {
-  //     useTimeout(() => setNavVisibility(true), 10000);
-  //   }
-  // }, [openInfoNav]);
-
   return (
     <Html center={false} fullscreen>
       <nav
@@ -65,7 +32,8 @@ export function Navbar({ setSelectedNav, setCategorySelected }) {
           navbarVisible
             ? {
                 width: "100vw",
-                background: "black",
+                // background: "black",
+                opacity: 0.95,
               }
             : {}
         }
@@ -90,19 +58,12 @@ export function Navbar({ setSelectedNav, setCategorySelected }) {
               ) : (
                 <Contact openInfoNav={openInfoNav} />
               )}
-              {/* <button
-                style={{ position: "absolute", right: "1em", bottom: "1em" }}
-                onClick={() => setOpenInfoNav("")}
-              >
-                Close
-              </button> */}
             </div>
           </>
         ) : (
           <div className={navbarVisible ? "nav-wrapper-open" : "nav-wrapper"}>
             {!navbarVisible && (
               <div>
-                {" "}
                 <div className="outer">
                   <div className="inner">
                     <label
@@ -120,15 +81,7 @@ export function Navbar({ setSelectedNav, setCategorySelected }) {
             {navbarVisible ? (
               <NavOpen
                 handleNavClick={handleNavClick}
-                healingRef={healing}
-                taasiaSecurityRef={taasiaSecurity}
-                taasiaRef={taasia}
-                microsoftRef={microsoft}
-                gofeiSecurityRef={gofeiSecurity}
-                customizeRef={customize}
-                handleCategoryClick={handleCategoryClick}
                 toggleNavbar={toggleNavbar}
-                setCategorySelected={setCategorySelected}
               />
             ) : (
               <div>
@@ -157,7 +110,8 @@ export function Navbar({ setSelectedNav, setCategorySelected }) {
   );
 }
 
-export const NavOpen = React.memo(({ handleNavClick, toggleNavbar }) => {
+export const NavOpen = ({ handleNavClick, toggleNavbar }) => {
+  const [visibilty, setVisibility] = useState(false);
   return (
     <div className="nav-container-open">
       {/* <div className="nav-open-line"></div> */}
@@ -238,4 +192,4 @@ export const NavOpen = React.memo(({ handleNavClick, toggleNavbar }) => {
       </div>
     </div>
   );
-});
+};

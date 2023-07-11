@@ -17,7 +17,7 @@
 body {
   margin: 0;
   background-color: #e0d2d2;
-  overflow: hidden;
+  overflow: scroll;
 }
 
 h1 {
@@ -59,7 +59,7 @@ button:focus-visible {
 }
 
 .about-contact-nav-title {
-  color: rgb(3, 3, 3);
+  color: rgb(233, 16, 16);
   /* bottom: 0.2em; */
   width: 100%;
   text-align: center;
@@ -222,11 +222,12 @@ button:focus-visible {
   height: 100vh;
   width: 100vw;
   z-index: 1;
-  /* background-color: black; */
+  background-color: rgb(53, 53, 53);
   animation-name: fadeIn;
-  animation-duration: 1.5s;
-  animation-timing-function: ease-in;
+  animation-duration: 4s;
+  animation-timing-function: ease;
   animation-fill-mode: forwards;
+  overflow-y: scroll;
   /* background: lightblue url("/img/background-2.jpg") no-repeat center; */
 }
 
@@ -355,7 +356,7 @@ label.icon {
 
 nav {
   /* background: #fdf6f6; */
-  background: rgba(57, 56, 60, 0.6);
+  background: rgba(249, 249, 249, 0.3);
   /* background: linear-gradient(
     to right,
     rgb(4, 4, 4) 15%,
@@ -443,7 +444,7 @@ nav {
 .open-info-nav {
   width: 40em;
   /* background: rgba(224, 210, 210, 1); */
-  background: linear-gradient(to left, #382d2d 1%, rgb(240, 233, 233) 28%);
+  background: linear-gradient(to left, #2d5237 1%, rgb(240, 233, 233) 26%);
   opacity: 0.9;
   border: none;
   /* background-image: url("../img/in3dlogo.png");
@@ -468,6 +469,20 @@ nav {
   display: flex;
   justify-content: center;
   z-index: -1;
+  opacity: 0;
+  animation-name: navAnimation;
+  animation-duration: 0.8s;
+  animation-delay: 0.8s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes navAnimation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .nav-full-wrapper {
@@ -524,11 +539,12 @@ nav {
   font-family: "Jost", sans-serif;
   font-family: "Roboto", sans-serif;
   font-size: 1.2em;
+  color: rgb(255, 255, 255, 0.5);
 }
 
 .bottom-nav-list-option:hover {
   cursor: pointer;
-  color: black;
+  color: rgb(255, 255, 255, 0.8);
   font-size: 1.3em;
 }
 
@@ -644,6 +660,24 @@ nav i {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  opacity: 0;
+  animation-name: cssAnimation;
+  animation-duration: 1s;
+  animation-delay: 1.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes cssAnimation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.visibility-hidden {
+  visibility: hidden;
 }
 
 .nav-open-inner-nav-wrapper {

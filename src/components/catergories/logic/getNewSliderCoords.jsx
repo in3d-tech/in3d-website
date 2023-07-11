@@ -79,28 +79,59 @@ export function getNewSliderCoords(name, tl, slider, i = 0, numberOfSliders) {
     console.log("1 baby");
 
     tl.current
-      .to(slider.current.position, { x: 0, y: 0, z: 0.8 }, 2)
+      .to(slider.current.position, { x: 0, y: 0, z: 2.5 }, 0)
       .to(slider.current.rotation, { y: 0, z: 0 }, "<")
-      .to(slider.current.position, { x: -5.1, y: 3.5, z: -3.6 }, ">")
+      .to(slider.current.position, { x: -4, y: 1.5, z: -0.5 }, ">")
       .to(slider.current.rotation, { y: Math.PI * 1.2 * -1, z: -0.3 }, "<")
       .to(slider.current.material, { opacity: 0.3 }, "<")
-      .to(slider.current.position, { x: 3.8, y: 3.5, z: -2 }, ">")
+      .to(slider.current.position, { x: -5, y: 3.7, z: -4 }, ">")
       .to(slider.current.rotation, { y: Math.PI / 1.6, z: -0.5 }, "<")
-      .to(slider.current.position, { x: 1, y: 4, z: -0.2 }, ">")
+      .to(slider.current.position, { x: -1, y: 4.4, z: -5.2 }, ">")
       .to(slider.current.rotation, { y: Math.PI / 4, z: -0.5 }, "<")
-      .to(slider.current.position, { x: -3, y: 6 }, ">");
+      .to(slider.current.position, { x: 2.8, y: 5, z: -2.5 }, ">")
+      .to(slider.current.position, { x: 1, y: 6, z: -0.2 }, ">")
+      .to(slider.current.position, { x: -2, y: 8, z: -0.2 }, ">");
   }
   if (name == 2) {
     console.log("2 baby");
     tl.current
-      .to(slider.current.position, { x: -5.1, y: 3.5, z: -3.6 }, 2)
-      .to(slider.current.rotation, { y: Math.PI * 1.2 * -1, z: -0.3 }, "<")
+
+      .to(slider.current.position, { x: -1.5, y: 0.5, z: 1.7 }, ">")
+      .to(slider.current.position, { x: -2.8, y: 1, z: 0.8 }, ">")
+
+      // 1
+      .to(slider.current.position, { x: -4, y: 1.5, z: -0.5 }, ">")
+      // .to(slider.current.rotation, { y: Math.PI * 1.2 * -1, z: -0.3 }, "<")
       .to(slider.current.material, { opacity: 0.3 }, "<")
-      .to(slider.current.position, { x: 3.8, y: 3.5, z: -2 }, ">")
-      .to(slider.current.rotation, { y: Math.PI / 1.6, z: -0.5 }, "<")
-      .to(slider.current.position, { x: 1, y: 4, z: -0.2 }, ">")
-      .to(slider.current.rotation, { y: Math.PI / 4, z: -0.5 }, "<")
-      .to(slider.current.position, { x: -3, y: 6 }, ">");
+
+      .to(slider.current.position, { x: -4.6, y: 2.2, z: -1.7 }, ">")
+      .to(slider.current.position, { x: -5.2, y: 2.9, z: -2.9 }, ">")
+
+      // 2
+      .to(slider.current.position, { x: -5, y: 3.7, z: -5 }, ">")
+      // .to(slider.current.rotation, { y: Math.PI / 1.6, z: -0.5 }, "<")
+
+      .to(slider.current.position, { x: -3.7, y: 3.9, z: -4.5 }, ">")
+      .to(slider.current.position, { x: -2.4, y: 4.1, z: -4.95 }, ">")
+
+      //3
+      .to(slider.current.position, { x: -1, y: 4.4, z: -5.2 }, ">")
+      // .to(slider.current.rotation, { y: Math.PI / 4, z: -0.5 }, "<")
+
+      .to(slider.current.position, { x: 0.6, y: 4.7, z: -4.8 }, ">")
+      .to(slider.current.position, { x: 1.8, y: 4.8, z: -3.8 }, ">")
+
+      //4
+      .to(slider.current.position, { x: 2.8, y: 5, z: -2.5 }, ">")
+
+      .to(slider.current.position, { x: 2.2, y: 6.3, z: 0.2 }, ">")
+      .to(slider.current.position, { x: 1.6, y: 6.6, z: 0.2 }, ">")
+
+      //5
+      .to(slider.current.position, { x: 1, y: 6, z: -0.2 }, ">")
+      //6
+      .to(slider.current.position, { x: -2, y: 8, z: -0.2 }, ">");
+    // .to(slider.current.position, { x: 2, y: 9, z: -2.5 }, ">"); // jump upwards
   }
 }
 

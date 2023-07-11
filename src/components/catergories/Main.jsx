@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useMemo } from "react";
+import { useEffect, useState, useRef, useMemo, Suspense } from "react";
 import {
   RoundedBox,
   ScrollControls,
@@ -31,6 +31,8 @@ import {
 import React from "react";
 import baffle from "baffle";
 import { CategoryCamera } from "./CategoryCamera";
+import { Ocean } from "../ornaments/Water";
+import { LoaderComponent } from "../../App";
 
 export function SelectedCategory({ setCategorySelected, categorySelected }) {
   const [scrollState, setScrollState] = useState({
@@ -39,26 +41,14 @@ export function SelectedCategory({ setCategorySelected, categorySelected }) {
     ScrollX: 0,
   });
   const scrollRef = useRef();
-  const point1 = new Vector3(-1.2, 4.4, -4.4);
-  const point2 = new Vector3(2.8, 5, -2);
+  function getDistanceBetweenTwoVectors() {
+    const point1 = new Vector3(-1.2, 4.4, -4.4);
+    const point2 = new Vector3(2.8, 5, -2);
 
-  const distance = point1.distanceTo(point2);
-  console.log("Distance:", distance);
+    const distance = point1.distanceTo(point2);
+    console.log("Distance:", distance);
+  }
 
-  // const secondScrollRef = useRef({
-  //   isScrolling: false,
-  //   clientX: 0,
-  //   ScrollX: 0,
-  // });
-  // useEffect(() => {
-  //   const target = baffle(".title");
-  //   target.set({
-  //     characters: "░M░i░c░r░o░s░o░s░o░f░t░",
-  //     speed: 100,
-  //   });
-  //   target.start();
-  //   target.reveal(1000, 1000);
-  // });
   const texture = useLoader(TextureLoader, "/img/in3dlogo.png");
 
   const geom = useMemo(() => new BoxGeometry(0.3, 0.3, 0.3), []);
@@ -66,8 +56,8 @@ export function SelectedCategory({ setCategorySelected, categorySelected }) {
   // mat.wireframe = true;
 
   // lookg into why I cant change other properties
-
   const verticiesArr = new Array(10).fill(1);
+
   const boxes = verticiesArr.map((box, index) => {
     const { position, prevPosition } = getSliderPosition(index);
 
@@ -138,7 +128,7 @@ export function SelectedCategory({ setCategorySelected, categorySelected }) {
   //   }
   // };
 
-  const arrayOfSliders = new Array(20).fill(" ");
+  const arrayOfSliders = new Array(1).fill(" ");
 
   const mappedSliders = arrayOfSliders.map((item, idx) => {
     const sliderPosition = getSliderPosition(idx, arrayOfSliders.length);
@@ -155,6 +145,66 @@ export function SelectedCategory({ setCategorySelected, categorySelected }) {
     );
   });
 
+  const radius = 4; // You can change this value for the shape of the spiral.
+  const speed = 1; // You can change this value for the speed of the animation.
+  const maxHeight = 3;
+  const minHeight = -2;
+
+  //   const angle =
+  //     state.clock.getElapsedTime() * speed * direction + props.index * 0.1;
+
+  //   // Calculate the new position on the spiral
+  let angle = 10;
+  var x = radius * Math.cos(angle);
+  var z = radius * Math.sin(angle);
+  var y = 1 * angle * 0.1; // This part is reversed when direction is -1
+
+  const bigTest = new Array(1).fill(" ");
+  const materialsTest = bigTest.map((item, idx) => {
+    return (
+      <mesh key={idx} position={[x, y, z]} geometry={geom} material={mat}>
+        {/* <boxGeometry args={[2, 2, 2]} />
+        <meshBasicMaterial color={"white"} /> */}
+      </mesh>
+    );
+  });
+
+  // useFrame((state) => {
+  //   let dir = 1;
+  //   // Calculate new angle based on time.
+  //   // We add a constant times the index of current slider to create a phase difference.
+  //   const angle =
+  //     state.clock.getElapsedTime() * speed * direction + props.index * 0.1;
+
+  //   // Calculate the new position on the spiral
+  //   var x = radius * Math.cos(angle);
+  //   var z = radius * Math.sin(angle);
+  //   var y = dir * angle * 0.1; // This part is reversed when direction is -1
+
+  //   slider.current.position.set(x, y, z);
+
+  //   // When the slider reaches a certain point, reverse direction
+
+  //   if (y > 1) {
+  //     console.log("we uppp");
+  //     dir = -1;
+  //     setDirection(-1);
+  //   }
+  //   if (y < -1) {
+  //     dir = 1;
+  //     console.log("we down!!");
+  //     setDirection(1);
+  //   }
+  //   console.log(y);
+  //   // if (
+  //   //   (y > maxHeight && direction === 1) ||
+  //   //   (y < minHeight && direction === -1)
+  //   // ) {
+  //   //   console.log("yeee baby we in here");
+  //   //   setDirection(-direction);
+  //   // }
+  // });
+
   return (
     <div
       className="overlay-black"
@@ -165,6 +215,7 @@ export function SelectedCategory({ setCategorySelected, categorySelected }) {
       // onMouseMove={(e) => onMouseMove(e)}
     >
       <Canvas>
+        {/* <Suspense fallback={null}> */}
         <color attach="background" args={["#333333"]} />
         <CategoryCamera />
         <ambientLight intensity={0.2} />
@@ -177,6 +228,7 @@ export function SelectedCategory({ setCategorySelected, categorySelected }) {
           shadow-bias={-0.0001}
         />
         <OrbitControls />
+        {materialsTest}
         {/* <mesh position={[0, 3, 0]}>
           <boxGeometry args={[0.5, 0.5, 0.5]} />
           <meshBasicMaterial color={"lime"} wireframe />
@@ -205,10 +257,12 @@ export function SelectedCategory({ setCategorySelected, categorySelected }) {
             opacity={0}
           ></meshBasicMaterial>
         </mesh> */}
-        <Helix />
+        {/* <Helix /> */}
+        <Ocean position={[0, -20, 0]} />
+
         <ScrollControls pages={6} damping={0.1}>
           {mappedSliders}
-          {intermediaryBoxes}
+          {/* {intermediaryBoxes} */}
           <Robot scale={0.8} categorySelected={categorySelected} />
 
           {/* <Sparkles size={2} color={"#fff"} scale={[10, 10, 10]}></Sparkles>
@@ -239,7 +293,7 @@ export function SelectedCategory({ setCategorySelected, categorySelected }) {
             </Ring>
           </Float> */}
 
-          <Scroll></Scroll>
+          {/* <Scroll></Scroll> */}
           {/* <Scroll html>
             <h1
               className="title"
@@ -304,6 +358,7 @@ export function SelectedCategory({ setCategorySelected, categorySelected }) {
             </button>
           </Scroll> */}
         </ScrollControls>
+        {/* </Suspense> */}
       </Canvas>
     </div>
   );
