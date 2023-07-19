@@ -17,7 +17,7 @@ import {
 } from "@react-three/drei";
 import { TextureLoader, FogExp2 } from "three";
 import { Navbar } from "./components/NavbarOld";
-import { Moon } from "./components/Moon";
+// import { Moon } from "./components/Moon";
 import { Camera } from "./components/Camera";
 import { SelectedCategory } from "./components/catergories/Main";
 import { Loading } from "./components/Loading";
@@ -55,10 +55,10 @@ function App() {
       />
     );
 
-  const moonTexture = useLoader(TextureLoader, "../img/moon.png");
-  const in3dTexture = useLoader(TextureLoader, "../img/in3dlogo.png");
+  // const moonTexture = useLoader(TextureLoader, "../img/moon.png");
+  // const in3dTexture = useLoader(TextureLoader, "../img/in3dlogo.png");
 
-  const shipModel = useGLTF("../assets/in3d-island/Island test .gltf");
+  // const shipModel = useGLTF("../assets/in3d-island/Island test .gltf");
   const tankModel = useGLTF(
     "../assets/in3d-tank/tank island material to gltf .gltf"
   );
@@ -150,7 +150,7 @@ function App() {
               }}
             />
             {selectedIsland && <Camera />}
-            {selectedIsland && (
+            {/* {selectedIsland && (
               <RotatingThing
                 position={position} //{[2, 50, -2]}
                 color="blue"
@@ -158,46 +158,46 @@ function App() {
                 distance={80}
                 orbitalSpeed={1.5}
               />
-            )}
+            )} */}
           </group>
         )}
       </>
     );
   }
 
-  const RotatingThing = ({
-    position,
-    color,
-    intensity,
-    orbitalOffset = 0,
-    orbitalSpeed = 1,
-  }) => {
-    const ref = useRef();
-    useFrame(() => {
-      let date = Date.now() * orbitalSpeed * 0.0007 + orbitalOffset;
-      ref.current.position.set(
-        Math.cos(date) * 40 + position[0],
-        0, //Math.sin(date) * 20 + position[1],
-        Math.sin(date) * 30 + position[2]
-      );
-    });
-    // const texture = useTexture("in3dlogo.png");
-    return (
-      <group position={position} ref={ref} rotation={[0, Math.PI / 1.4, 0]}>
-        <sprite>
-          <boxGeometry args={[0.01, 15, 15]} />
-          <meshBasicMaterial map={in3dTexture} visible={true} />
-        </sprite>
+  // const RotatingThing = ({
+  //   position,
+  //   color,
+  //   intensity,
+  //   orbitalOffset = 0,
+  //   orbitalSpeed = 1,
+  // }) => {
+  //   const ref = useRef();
+  //   useFrame(() => {
+  //     let date = Date.now() * orbitalSpeed * 0.0007 + orbitalOffset;
+  //     ref.current.position.set(
+  //       Math.cos(date) * 40 + position[0],
+  //       0, //Math.sin(date) * 20 + position[1],
+  //       Math.sin(date) * 30 + position[2]
+  //     );
+  //   });
+  //   // const texture = useTexture("in3dlogo.png");
+  //   return (
+  //     <group position={position} ref={ref} rotation={[0, Math.PI / 1.4, 0]}>
+  //       <sprite>
+  //         <boxGeometry args={[0.01, 15, 15]} />
+  //         <meshBasicMaterial map={in3dTexture} visible={true} />
+  //       </sprite>
 
-        <pointLight
-          color={color}
-          intensity={intensity}
-          decay={2}
-          distance={20}
-        />
-      </group>
-    );
-  };
+  //       <pointLight
+  //         color={color}
+  //         intensity={intensity}
+  //         decay={2}
+  //         distance={20}
+  //       />
+  //     </group>
+  //   );
+  // };
 
   function BasicFog() {
     const { scene } = useThree();
