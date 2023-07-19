@@ -56,7 +56,10 @@ function App() {
     );
 
   // const moonTexture = useLoader(TextureLoader, "../img/moon.png");
-  // const in3dTexture = useLoader(TextureLoader, "../img/in3dlogo.png");
+  const in3dTexture = useLoader(
+    TextureLoader,
+    "/public/static/images/in3dlogo.png"
+  );
 
   // const shipModel = useGLTF("../assets/in3d-island/Island test .gltf");
   const tankModel = useGLTF(
@@ -246,12 +249,12 @@ function App() {
 
   const envMap = useEnvironment({
     files: [
-      "/images/right",
-      "/images/left",
-      "/images/top",
-      "/images/bottom",
-      "/images/front",
-      "/images/back",
+      "/static/images/right",
+      "/static/images/left",
+      "/static/images/top",
+      "/static/images/bottom",
+      "/static/images/front",
+      "/static/images/back",
     ].map((n) => `${n}.png`),
   });
 
@@ -332,9 +335,8 @@ function LandingComponent({ setIsLanding, setCategorySelected }) {
     setCategorySelected(label);
   };
 
-  return navOpen ? (
-    <NavOpen handleNavClick={handleNavClick} toggleNavbar={toggleNavbar} />
-  ) : (
+  return navOpen ? null : (
+    // <NavOpen handleNavClick={handleNavClick} toggleNavbar={toggleNavbar} />
     <div className="landing-screen-wrapper">
       <div
         className={

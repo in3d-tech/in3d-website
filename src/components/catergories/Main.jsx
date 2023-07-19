@@ -49,7 +49,10 @@ export function SelectedCategory({ setCategorySelected, categorySelected }) {
     console.log("Distance:", distance);
   }
 
-  const texture = useLoader(TextureLoader, "/img/in3dlogo.png");
+  const texture = useLoader(
+    TextureLoader,
+    "/public/static/images/in3dlogo.png"
+  );
 
   const geom = useMemo(() => new BoxGeometry(0.3, 0.3, 0.3), []);
   const mat = useMemo(() => new MeshBasicMaterial(), []);

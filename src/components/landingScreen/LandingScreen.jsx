@@ -61,7 +61,7 @@ export function LandingComponent({
         onClick={() => startTransition(() => setIsLanding(false))}
         className={`enter-btn`}
       >
-        <img src="../img/in3dlogo.png" />
+        <img src="/public/static/images/in3dTexture.png" />
         {/* <div className="landing-screen-enter-btn">
             <a className="link-btn" href="#" ref={btnRef}>
               <i className="link-smtng"></i>
