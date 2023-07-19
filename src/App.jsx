@@ -354,7 +354,7 @@ function LandingComponent({ setIsLanding, setCategorySelected }) {
         onClick={() => startTransition(() => setIsLanding(false))}
         className={`enter-btn`}
       >
-        <img src="/public/in3dlogo.png" />
+        <img src="/in3dlogo.png" />
       </div>
       <div className="animation-container">
         <span className="animation-letter">I</span>
