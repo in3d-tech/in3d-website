@@ -1,3 +1,5 @@
+import { NavOpen } from "../NavbarOld";
+
 export function LandingComponent({
   setIsLanding,
   setSelectedNav,

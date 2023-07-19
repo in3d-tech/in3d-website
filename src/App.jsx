@@ -1,21 +1,7 @@
-import {
-  useRef,
-  useState,
-  useEffect,
-  Suspense,
-  startTransition,
-  useLayoutEffect,
-} from "react";
-import {
-  Canvas,
-  useFrame,
-  useLoader,
-  useThree,
-  extend,
-} from "@react-three/fiber";
+import { useRef, useState, useEffect, Suspense, startTransition } from "react";
+import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import {
   OrbitControls,
-  Stars,
   Preload,
   Stats,
   Html,
@@ -24,56 +10,20 @@ import {
   useTexture,
   useAnimations,
   useGLTF,
-  ScrollControls,
+  useEnvironment,
+  Environment,
+  Clone,
+  Backdrop,
 } from "@react-three/drei";
-import {
-  CubeTextureLoader,
-  DoubleSide,
-  TextureLoader,
-  FogExp2,
-  MeshLambertMaterial,
-  MeshBasicMaterial,
-  MeshStandardMaterial,
-  CustomToneMapping,
-  BoxGeometry,
-  PerspectiveCamera,
-} from "three";
-import { NavOpen, Navbar } from "./components/NavbarOld";
+import { TextureLoader, FogExp2 } from "three";
+import { Navbar } from "./components/NavbarOld";
 import { Moon } from "./components/Moon";
 import { Camera } from "./components/Camera";
 import { SelectedCategory } from "./components/catergories/Main";
 import { Loading } from "./components/Loading";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { Ocean } from "./components/ornaments/Water";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
-extend({ ScrollTrigger });
-
-function moveCamera(cameraRef) {
-  const proxy = { scroll: 0 };
-  const ctx = document.body.getElementsByTagName("canvas")[0];
-
-  gsap.to(proxy, {
-    scroll: 1,
-    scrollTrigger: {
-      trigger: ctx,
-      scrub: true,
-      start: "top top",
-      end: "bottom bottom",
-      onUpdate: (self) => {
-        const { progress } = self;
-        const xCoordinate = progress * 100;
-        gsap.to(cameraRef.current.position, {
-          x: xCoordinate,
-          duration: 0.5,
-          ease: "power1.inOut",
-        });
-      },
-    },
-  });
-}
+import { CameraControls } from "./common/CameraControls";
+import { Lights } from "./components/ornaments/Lights";
 
 export const LoaderComponent = () => {
   const { active, progress, errors } = useProgress();
@@ -89,29 +39,14 @@ function App() {
   const [isLanding, setIsLanding] = useState(true);
   const [moveCameraToModel, setMoveCameraToModel] = useState(false);
   const [categorySelected, setCategorySelected] = useState(false);
+  const [position, setPosition] = useState({ x: 266, y: 112, z: -5 });
+  const [target, setTarget] = useState({ x: 0, y: 0, z: 0 });
 
   const cameraRef = useRef();
   const islandGroupRef = useRef();
 
   const tl = useRef();
-  useEffect(() => {
-    if (!isLanding)
-      gsap.to(cameraRef.current?.position, {
-        scrollTrigger: {
-          start: "top top", // when the top of the element hits the top of the viewport
-          end: "bottom bottom", // end after scrolling 500px beyond the start
-          scrub: true, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
-          trigger: window,
-          invalidateOnRefresh: true,
-          markers: true,
-        },
-        x: (index) => positions[index][0], // function taking the index, returning the corresponding position
-        y: (index) => positions[index][1],
-        z: (index) => positions[index][2],
-        duration: 2,
-        ease: "power1.inOut",
-      });
-  }, [isLanding]);
+
   if (isLanding)
     return (
       <LandingComponent
@@ -121,34 +56,78 @@ function App() {
     );
 
   const moonTexture = useLoader(TextureLoader, "../img/moon.png");
+  const in3dTexture = useLoader(TextureLoader, "../img/in3dlogo.png");
 
   const shipModel = useGLTF("../assets/in3d-island/Island test .gltf");
-  gsap.registerPlugin(ScrollTrigger);
+  const tankModel = useGLTF(
+    "../assets/in3d-tank/tank island material to gltf .gltf"
+  );
+  // const medicalModel = useGLTF("../assets/in3d-medical/Medical_Island.gltf");
 
   const positions = [
     [30, 20, -200],
-    [0, 20, 0],
+    [0, 10, 0],
     [80, 20, 110],
     [140, 20, -60],
     [-100, 20, 140],
+    [-70, 20, -90],
   ];
+
+  // function TankModel({ position, idx }) {
+  //   const { scene } = useGLTF(
+  //     "../assets/in3d-tank/tank island material to gltf .gltf"
+  //   );
+  //   return (
+  //     <>
+  //       {/* <spotLight intensity={1.5} color={"blue"} position={position} /> */}
+  //       <Clone
+  //         object={scene}
+  //         scale={2.5}
+  //         position={position}
+  //         onClick={() => onChange(idx)}
+  //         rotation={[0, Math.PI * 1.85, 0]}
+  //       />
+  //     </>
+  //   );
+  // }
+  function MedicalModel({ position, idx }) {
+    const thing = useGLTF("../assets/in3d-medical/Medical_Island.gltf");
+    console.log(thing);
+    thing.materials.Medical_Hearty.transparent = true;
+    return (
+      <>
+        {/* <spotLight intensity={1.5} color={"blue"} position={position} /> */}
+        <Clone
+          object={thing.scene}
+          scale={2.5}
+          position={position}
+          onClick={(e) => console.log(e)}
+          rotation={[0, Math.PI * 1.85, 0]}
+        />
+      </>
+    );
+  }
 
   function Model({ position, idx }) {
     const [isHovered, setIsHovered] = useState(false);
-
-    // const clone = shipModel.scene.clone();
     const [shipClone, setShipClone] = useState(null);
     const [selectedIsland, setSelectedIsland] = useState(null);
 
     useEffect(() => {
-      if (shipModel.scene) {
-        setShipClone(shipModel.scene.clone());
+      if (tankModel.scene) {
+        setShipClone(tankModel.scene.clone());
       }
-    }, [shipModel]);
+    }, [tankModel]);
+
+    if (idx == 1) {
+      return <MedicalModel position={position} idx={idx} />;
+    }
 
     return (
       <>
-        {isHovered && <pointLight color={"red"} position={position} />}
+        {/* {isHovered && (
+          <pointLight color={"red"} intensity={0.5} position={position} />
+        )} */}
         {shipClone && (
           <group>
             <primitive
@@ -156,7 +135,11 @@ function App() {
               position={position}
               children-0-castShadow
               rotation={[0, Math.PI, 0]}
-              scale={[0.6, 0.7, 0.7]}
+              scale={[2.5, 2.5, 2.5]}
+              onClick={() => {
+                console.log(idx);
+                // onChange(idx);
+              }}
               onPointerOver={(e) => {
                 setIsHovered(true);
                 document.body.style.cursor = "pointer";
@@ -166,17 +149,14 @@ function App() {
                 setIsHovered(false);
               }}
             />
-            <mesh position={[position[0], position[1] + 13, position[2]]}>
-              <boxGeometry args={[8, 8, 8]} />
-              <meshBasicMaterial color={"orange"} />
-            </mesh>
+            {selectedIsland && <Camera />}
             {selectedIsland && (
-              <Camera
-                isFromIslands
-                selectedIsland={selectedIsland}
-                position={[0, 0, 0]}
-                setSelectedIsland={setSelectedIsland}
-                cameraRef={cameraRef}
+              <RotatingThing
+                position={position} //{[2, 50, -2]}
+                color="blue"
+                intensity={2}
+                distance={80}
+                orbitalSpeed={1.5}
               />
             )}
           </group>
@@ -185,32 +165,43 @@ function App() {
     );
   }
 
-  const loader = new CubeTextureLoader();
-  // The CubeTextureLoader load method takes an array of urls representing all 6 sides of the cube.
-  const textureBox = loader.load(
-    [
-      "/images/right.png", //front
-      "/images/left.png", // back
-      "/images/top.png", //top
-      "/images/bottom.png", //bottom
-      "/images/front.png", // left
-      "/images/back.png", //right
-    ],
-    function (gltf) {},
-    // called while loading is progressing
-    function (xhr) {
-      console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-    },
-    // called when loading has errors
-    function (error) {
-      console.log("An error happened");
-    }
-  );
+  const RotatingThing = ({
+    position,
+    color,
+    intensity,
+    orbitalOffset = 0,
+    orbitalSpeed = 1,
+  }) => {
+    const ref = useRef();
+    useFrame(() => {
+      let date = Date.now() * orbitalSpeed * 0.0007 + orbitalOffset;
+      ref.current.position.set(
+        Math.cos(date) * 40 + position[0],
+        0, //Math.sin(date) * 20 + position[1],
+        Math.sin(date) * 30 + position[2]
+      );
+    });
+    // const texture = useTexture("in3dlogo.png");
+    return (
+      <group position={position} ref={ref} rotation={[0, Math.PI / 1.4, 0]}>
+        <sprite>
+          <boxGeometry args={[0.01, 15, 15]} />
+          <meshBasicMaterial map={in3dTexture} visible={true} />
+        </sprite>
 
-  function SkyBox({ shipModel }) {
+        <pointLight
+          color={color}
+          intensity={intensity}
+          decay={2}
+          distance={20}
+        />
+      </group>
+    );
+  };
+
+  function BasicFog() {
     const { scene } = useThree();
-    // scene.fog = new FogExp2("#545454", 0.005);
-    scene.background = shipModel;
+    scene.fog = new FogExp2("#545454", 0.005);
 
     return null;
   }
@@ -230,63 +221,80 @@ function App() {
     }
   }
 
-  function CameraHelper() {
-    const camera = new PerspectiveCamera();
-    return (
-      <group>
-        <cameraHelper args={[camera]} />
-      </group>
-    );
+  function onChange(idx = 0) {
+    let position = { x: 24.6, y: 25.4, z: -222 };
+    let target = { x: 0, y: 0, z: 0 };
+    if (idx === 1) {
+      position = { x: -22.4, y: 19, z: -37 };
+      target = { x: 0, y: 10, z: 0 };
+    } else if (idx === 2) {
+      position = { x: 5, y: 20, z: 45 };
+      target = { x: 0, y: 7, z: 10 };
+    } else if (idx === 3) {
+      position = { x: 160, y: 25, z: -61 };
+      target = { x: 0, y: 5, z: 10 };
+    } else if (idx === 4) {
+      position = { x: 0, y: 0, z: 0 };
+      target = { x: 0, y: 0, z: 0 };
+    } else if (idx === 5) {
+      position = { x: 266, y: 112, z: -5 };
+      target = { x: 0, y: 0, z: 0 };
+    }
+    setPosition(position);
+    setTarget(target);
   }
+
+  const envMap = useEnvironment({
+    files: [
+      "/images/right",
+      "/images/left",
+      "/images/top",
+      "/images/bottom",
+      "/images/front",
+      "/images/back",
+    ].map((n) => `${n}.png`),
+  });
 
   return (
     <div className="overlay-black">
       <Canvas>
         <Suspense fallback={<LoaderComponent />}>
-          <SkyBox shipModel={textureBox} />
+          <Lights />
+          {/* <BasicFog /> */}
+          <Environment map={envMap} background />
           <Preload />
-          <Moon moonTexture={moonTexture} DoubleSide={DoubleSide} />
+          {/* <Moon moonTexture={moonTexture} DoubleSide={DoubleSide} /> */}
           <perspectiveCamera />
           <Camera
-            moveCameraToModel={moveCameraToModel}
-            setMoveCameraToModel={setMoveCameraToModel}
             cameraRef={cameraRef}
             tl={tl}
             islandGroupRef={islandGroupRef}
           />
-          <CameraHelper />
-          {/* <ambientLight intensity={0.5} /> */}
 
-          {/* <Stars /> */}
-          {/* <Sky sunPosition={[0.2, 0, 0]} /> */}
+          {/* <Backdrop
+            receiveShadow
+            floor={20.5} // Stretches the floor segment, 0.25 by default
+            segments={100} // Mesh-resolution, 20 by default
+            scale={[900, 100, 600]}
+            position={[4, -10, 0]}
+          >
+            <meshStandardMaterial color="#0a1a1f" opacity={1} />
+          </Backdrop> */}
+          {/* <OrbitControls /> */}
+          <CameraControls position={position} target={target} />
+          <group dispose={null} ref={islandGroupRef}>
+            {positions.map((p, i) => (
+              <Model key={i} position={p} idx={i} />
+            ))}
+          </group>
 
-          <spotLight
-            position={[0, 25, 0]}
-            angle={1.3}
-            penumbra={1}
-            castShadow
-            intensity={2}
-            shadow-bias={-0.0001}
-          />
-          {/* <pointLight position={[5, 10, 0]} intensity={1.4} /> */}
-          <directionalLight position={[-5, 10, 0]} intensity={0.6} />
-
-          {/* <spotLight position={[10, 15, 10]} angle={0.3} penumbra={1} /> */}
-
-          <OrbitControls />
-
-          <ScrollControls pages={6} damping={0.1}>
-            <group dispose={null} ref={islandGroupRef}>
-              {positions.map((p, i) => (
-                <Model key={i} position={p} idx={i} />
-              ))}
-            </group>
-          </ScrollControls>
-
-          <Ocean position={[0, -6, 0]} />
+          {/* <Ocean position={[0, -6, 0]} /> */}
           <Stats />
 
-          <Navbar setCategorySelected={setCategorySelected} />
+          <Navbar
+            setCategorySelected={setCategorySelected}
+            onChange={onChange}
+          />
         </Suspense>
       </Canvas>
     </div>
@@ -345,13 +353,6 @@ function LandingComponent({ setIsLanding, setCategorySelected }) {
         className={`enter-btn`}
       >
         <img src="../img/in3dlogo.png" />
-        {/* <div className="landing-screen-enter-btn">
-          <a className="link-btn" href="#" ref={btnRef}>
-            <i className="link-smtng"></i>
-            <i className="link-smtng"></i>
-            <span className="link-span">Explore</span>
-          </a>
-        </div> */}
       </div>
       <div className="animation-container">
         <span className="animation-letter">I</span>

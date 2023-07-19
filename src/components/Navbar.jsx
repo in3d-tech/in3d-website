@@ -14,19 +14,6 @@ export function Navbar({ setSelectedNav, setCategorySelected }) {
   const gofeiSecurity = useRef();
   const customize = useRef();
 
-  const handleNavClick = (ref, label) => {
-    console.log({ label });
-    setSelectedNav(label);
-    if (ref.current) {
-      ref.current.scrollIntoView({
-        behavior: "smooth",
-        block: "end",
-        inline: "nearest",
-      });
-    }
-    setCategorySelected(label);
-  };
-
   const [navbarVisible, setNavbarVisible] = useState(false);
   const [openInfoNav, setOpenInfoNav] = useState("");
   // const [navVisibility, setNavVisibility] = useState(false);
@@ -64,17 +51,9 @@ export function Navbar({ setSelectedNav, setCategorySelected }) {
         <div className="hello-world-two">hello world!</div>
       </div>
       {/* <Html center={false} position={[0, -20, 0]}> */}
-      <div
-        className="new-about-contact-wrapper"
-        onPointerOver={() => console.log("yess")}
-      >
+      <div className="new-about-contact-wrapper">
         <div className="new-nav-bottom-container">
-          <div
-            className="new-nav-bottom-btns"
-            onPointerOver={() => console.log("yess")}
-          >
-            About
-          </div>
+          <div className="new-nav-bottom-btns">About</div>
           <div className="new-nav-bottom-btns">Contact</div>
         </div>
       </div>
