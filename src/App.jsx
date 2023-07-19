@@ -6,9 +6,6 @@ import {
   Stats,
   Html,
   useProgress,
-  useFBX,
-  useTexture,
-  useAnimations,
   useGLTF,
   useEnvironment,
   Environment,
@@ -17,7 +14,6 @@ import {
 } from "@react-three/drei";
 import { TextureLoader, FogExp2 } from "three";
 import { Navbar } from "./components/NavbarOld";
-// import { Moon } from "./components/Moon";
 import { Camera } from "./components/Camera";
 import { SelectedCategory } from "./components/catergories/Main";
 import { Loading } from "./components/Loading";
@@ -39,7 +35,7 @@ function App() {
   const [isLanding, setIsLanding] = useState(true);
   const [moveCameraToModel, setMoveCameraToModel] = useState(false);
   const [categorySelected, setCategorySelected] = useState(false);
-  const [position, setPosition] = useState({ x: 266, y: 112, z: -5 });
+  const [position, setPosition] = useState({ x: -60, y: 90, z: 260 });
   const [target, setTarget] = useState({ x: 0, y: 0, z: 0 });
 
   const cameraRef = useRef();
@@ -55,7 +51,6 @@ function App() {
       />
     );
 
-  // const moonTexture = useLoader(TextureLoader, "../img/moon.png");
   const in3dTexture = useLoader(TextureLoader, "/in3dlogo.png");
 
   // const shipModel = useGLTF("../assets/in3d-island/Island test .gltf");
@@ -91,14 +86,13 @@ function App() {
   //   );
   // }
   function MedicalModel({ position, idx }) {
-    const thing = useGLTF("/assets/in3d-medical/Medical_Island.gltf");
-    console.log(thing);
-    thing.materials.Medical_Hearty.transparent = true;
+    const medicalModel = useGLTF("/assets/in3d-medical/Medical_Island.gltf");
+    if (medicalModel.materials)
+      medicalModel.materials.Medical_Hearty.transparent = true;
     return (
       <>
-        {/* <spotLight intensity={1.5} color={"blue"} position={position} /> */}
         <Clone
-          object={thing.scene}
+          object={medicalModel.scene}
           scale={2.5}
           position={position}
           onClick={(e) => console.log(e)}
@@ -225,11 +219,11 @@ function App() {
     let position = { x: 24.6, y: 25.4, z: -222 };
     let target = { x: 0, y: 0, z: 0 };
     if (idx === 1) {
-      position = { x: -22.4, y: 19, z: -37 };
-      target = { x: 0, y: 10, z: 0 };
+      position = { x: -15, y: 10, z: 44 };
+      target = { x: 0, y: 24, z: 0 };
     } else if (idx === 2) {
-      position = { x: 5, y: 20, z: 45 };
-      target = { x: 0, y: 7, z: 10 };
+      position = { x: -127, y: 30, z: 108 };
+      target = { x: -90, y: 25, z: 140 };
     } else if (idx === 3) {
       position = { x: 160, y: 25, z: -61 };
       target = { x: 0, y: 5, z: 10 };
@@ -237,7 +231,7 @@ function App() {
       position = { x: 0, y: 0, z: 0 };
       target = { x: 0, y: 0, z: 0 };
     } else if (idx === 5) {
-      position = { x: 266, y: 112, z: -5 };
+      position = { x: -60, y: 90, z: 260 };
       target = { x: 0, y: 0, z: 0 };
     }
     setPosition(position);
@@ -256,14 +250,13 @@ function App() {
   });
 
   return (
-    <div className="overlay-black">
+    <div className="overlay-black scene-bg-image">
       <Canvas>
         <Suspense fallback={<LoaderComponent />}>
           <Lights />
           {/* <BasicFog /> */}
-          <Environment map={envMap} background />
+          {/* <Environment map={envMap} background /> */}
           <Preload />
-          {/* <Moon moonTexture={moonTexture} DoubleSide={DoubleSide} /> */}
           <perspectiveCamera />
           <Camera
             cameraRef={cameraRef}
@@ -290,13 +283,9 @@ function App() {
 
           {/* <Ocean position={[0, -6, 0]} /> */}
           <Stats />
-
-          <Navbar
-            setCategorySelected={setCategorySelected}
-            onChange={onChange}
-          />
         </Suspense>
       </Canvas>
+      <Navbar setCategorySelected={setCategorySelected} onChange={onChange} />
     </div>
   );
 }
@@ -368,41 +357,5 @@ function LandingComponent({ setIsLanding, setCategorySelected }) {
   );
 }
 
-// useGLTF.preload("../assets/in3d-island/Island test .gltf");
 useGLTF.preload("/assets/in3d-tank/tank island material to gltf .gltf");
 useGLTF.preload("/assets/in3d-medical/Medical_Island.gltf");
-
-// function SuzanneFBX({ position }) {
-//   let fbx = useFBX("/assets/in3d-medical-model/DNA_01.fbx");
-//   const { nodes, materials, animations } = fbx;
-//   const { actions } = useAnimations(animations, fbx);
-//   console.log({ fbx });
-//   let fbxTexture = useTexture(
-//     "/assets/in3d-medical-model/DNA Strand_baseColor.png"
-//     // "/assets/in3d-medical-model/DNA Strand_normal.png",
-//     // "/assets/in3d-medical-model/DNA Strand_occlusionRoughnessMetallic.png"
-//   );
-//   fbx.traverse((child) => {
-//     if (child.isMesh) {
-//       child.material.map = fbxTexture;
-//     }
-//   });
-//   console.log({ nodes });
-//   console.log({ materials });
-//   console.log({ animations });
-//   return null;
-//   return (
-//     <group position={position} dispose={null}>
-//       {/* Once the model is loaded, start animation */}
-//       <primitive
-//         onClick={() => {
-//           console.log({ nodes });
-//           console.log({ animations });
-//           console.log({ materials });
-//         }}
-//         object={nodes}
-//         // material={materials["Texture.Material"]}
-//       />
-//     </group>
-//   );
-// }
