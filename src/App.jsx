@@ -60,7 +60,7 @@ function App() {
 
   // const shipModel = useGLTF("../assets/in3d-island/Island test .gltf");
   const tankModel = useGLTF(
-    "../assets/in3d-tank/tank island material to gltf .gltf"
+    "/assets/in3d-tank/tank island material to gltf .gltf"
   );
   // const medicalModel = useGLTF("../assets/in3d-medical/Medical_Island.gltf");
 
@@ -91,7 +91,7 @@ function App() {
   //   );
   // }
   function MedicalModel({ position, idx }) {
-    const thing = useGLTF("../assets/in3d-medical/Medical_Island.gltf");
+    const thing = useGLTF("/assets/in3d-medical/Medical_Island.gltf");
     console.log(thing);
     thing.materials.Medical_Hearty.transparent = true;
     return (
@@ -369,8 +369,8 @@ function LandingComponent({ setIsLanding, setCategorySelected }) {
 }
 
 // useGLTF.preload("../assets/in3d-island/Island test .gltf");
-useGLTF.preload("../assets/in3d-tank/tank island material to gltf .gltf");
-useGLTF.preload("../assets/in3d-medical/Medical_Island.gltf");
+useGLTF.preload("/assets/in3d-tank/tank island material to gltf .gltf");
+useGLTF.preload("/assets/in3d-medical/Medical_Island.gltf");
 
 // function SuzanneFBX({ position }) {
 //   let fbx = useFBX("/assets/in3d-medical-model/DNA_01.fbx");
