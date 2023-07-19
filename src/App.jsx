@@ -56,10 +56,7 @@ function App() {
     );
 
   // const moonTexture = useLoader(TextureLoader, "../img/moon.png");
-  const in3dTexture = useLoader(
-    TextureLoader,
-    "/public/static/images/in3dlogo.png"
-  );
+  const in3dTexture = useLoader(TextureLoader, "/in3dlogo.png");
 
   // const shipModel = useGLTF("../assets/in3d-island/Island test .gltf");
   const tankModel = useGLTF(
@@ -371,39 +368,41 @@ function LandingComponent({ setIsLanding, setCategorySelected }) {
   );
 }
 
-useGLTF.preload("../assets/in3d-island/Island test .gltf");
+// useGLTF.preload("../assets/in3d-island/Island test .gltf");
+useGLTF.preload("../assets/in3d-tank/tank island material to gltf .gltf");
+useGLTF.preload("../assets/in3d-medical/Medical_Island.gltf");
 
-function SuzanneFBX({ position }) {
-  let fbx = useFBX("/assets/in3d-medical-model/DNA_01.fbx");
-  const { nodes, materials, animations } = fbx;
-  const { actions } = useAnimations(animations, fbx);
-  console.log({ fbx });
-  let fbxTexture = useTexture(
-    "/assets/in3d-medical-model/DNA Strand_baseColor.png"
-    // "/assets/in3d-medical-model/DNA Strand_normal.png",
-    // "/assets/in3d-medical-model/DNA Strand_occlusionRoughnessMetallic.png"
-  );
-  fbx.traverse((child) => {
-    if (child.isMesh) {
-      child.material.map = fbxTexture;
-    }
-  });
-  console.log({ nodes });
-  console.log({ materials });
-  console.log({ animations });
-  return null;
-  return (
-    <group position={position} dispose={null}>
-      {/* Once the model is loaded, start animation */}
-      <primitive
-        onClick={() => {
-          console.log({ nodes });
-          console.log({ animations });
-          console.log({ materials });
-        }}
-        object={nodes}
-        // material={materials["Texture.Material"]}
-      />
-    </group>
-  );
-}
+// function SuzanneFBX({ position }) {
+//   let fbx = useFBX("/assets/in3d-medical-model/DNA_01.fbx");
+//   const { nodes, materials, animations } = fbx;
+//   const { actions } = useAnimations(animations, fbx);
+//   console.log({ fbx });
+//   let fbxTexture = useTexture(
+//     "/assets/in3d-medical-model/DNA Strand_baseColor.png"
+//     // "/assets/in3d-medical-model/DNA Strand_normal.png",
+//     // "/assets/in3d-medical-model/DNA Strand_occlusionRoughnessMetallic.png"
+//   );
+//   fbx.traverse((child) => {
+//     if (child.isMesh) {
+//       child.material.map = fbxTexture;
+//     }
+//   });
+//   console.log({ nodes });
+//   console.log({ materials });
+//   console.log({ animations });
+//   return null;
+//   return (
+//     <group position={position} dispose={null}>
+//       {/* Once the model is loaded, start animation */}
+//       <primitive
+//         onClick={() => {
+//           console.log({ nodes });
+//           console.log({ animations });
+//           console.log({ materials });
+//         }}
+//         object={nodes}
+//         // material={materials["Texture.Material"]}
+//       />
+//     </group>
+//   );
+// }
