@@ -60,12 +60,12 @@ function App() {
   // const medicalModel = useGLTF("../assets/in3d-medical/Medical_Island.gltf");
 
   const positions = [
-    [30, 20, -200],
+    [30, 20, -100],
     [0, 10, 0],
     [80, 20, 110],
-    [140, 20, -60],
-    [-100, 20, 140],
-    [-70, 20, -90],
+    [140, 20, 10],
+    [-100, 20, 60],
+    [-120, 20, -70],
   ];
 
   // function TankModel({ position, idx }) {
@@ -97,7 +97,28 @@ function App() {
           position={position}
           onClick={(e) => console.log(e)}
           rotation={[0, Math.PI * 1.85, 0]}
+          onPointerOver={(e) => {
+            document.body.style.cursor = "pointer";
+          }}
+          onPointerOut={() => {
+            document.body.style.cursor = "auto";
+          }}
         />
+        {/* <RotatingThing
+          position={position} //{[2, 50, -2]}
+          color="blue"
+          intensity={2}
+          distance={80}
+          orbitalSpeed={1}
+        /> */}
+        {/* <RotatingThing
+          position={position} //{[2, 50, -2]}
+          color="blue"
+          intensity={2}
+          distance={80}
+          orbitalSpeed={1.001}
+          isFromSecond
+        /> */}
       </>
     );
   }
@@ -129,6 +150,7 @@ function App() {
               position={position}
               children-0-castShadow
               rotation={[0, Math.PI, 0]}
+              visible={true}
               scale={[2.5, 2.5, 2.5]}
               onClick={() => {
                 console.log(idx);
@@ -144,7 +166,7 @@ function App() {
               }}
             />
             {selectedIsland && <Camera />}
-            {/* {selectedIsland && (
+            {selectedIsland && (
               <RotatingThing
                 position={position} //{[2, 50, -2]}
                 color="blue"
@@ -152,46 +174,46 @@ function App() {
                 distance={80}
                 orbitalSpeed={1.5}
               />
-            )} */}
+            )}
           </group>
         )}
       </>
     );
   }
 
-  // const RotatingThing = ({
-  //   position,
-  //   color,
-  //   intensity,
-  //   orbitalOffset = 0,
-  //   orbitalSpeed = 1,
-  // }) => {
-  //   const ref = useRef();
-  //   useFrame(() => {
-  //     let date = Date.now() * orbitalSpeed * 0.0007 + orbitalOffset;
-  //     ref.current.position.set(
-  //       Math.cos(date) * 40 + position[0],
-  //       0, //Math.sin(date) * 20 + position[1],
-  //       Math.sin(date) * 30 + position[2]
-  //     );
-  //   });
-  //   // const texture = useTexture("in3dlogo.png");
-  //   return (
-  //     <group position={position} ref={ref} rotation={[0, Math.PI / 1.4, 0]}>
-  //       <sprite>
-  //         <boxGeometry args={[0.01, 15, 15]} />
-  //         <meshBasicMaterial map={in3dTexture} visible={true} />
-  //       </sprite>
-
-  //       <pointLight
-  //         color={color}
-  //         intensity={intensity}
-  //         decay={2}
-  //         distance={20}
-  //       />
-  //     </group>
-  //   );
-  // };
+  const RotatingThing = ({
+    position,
+    color,
+    intensity,
+    orbitalOffset = 0,
+    orbitalSpeed = 1,
+  }) => {
+    const ref = useRef();
+    useFrame(() => {
+      let date = 0; //Date.now() * orbitalSpeed * 0.0004 + orbitalOffset;
+      ref.current.position.set(
+        Math.cos(date) * 40 + position[0],
+        20, //Math.sin(date) * 20 + position[1],
+        Math.sin(date) * 30 + position[2]
+      );
+    });
+    // const texture = useTexture("in3dlogo.png");
+    return (
+      <group position={position} ref={ref} rotation={[0, Math.PI / 2.4, 0]}>
+        <sprite>
+          <boxGeometry args={[0.01, 15, 15]} />
+          <meshBasicMaterial map={in3dTexture} visible={true} opacity={1} />
+        </sprite>
+        {/* 
+        <pointLight
+          color={color}
+          intensity={intensity}
+          decay={2}
+          distance={20}
+        /> */}
+      </group>
+    );
+  };
 
   function BasicFog() {
     const { scene } = useThree();
@@ -257,7 +279,7 @@ function App() {
           {/* <BasicFog /> */}
           {/* <Environment map={envMap} background /> */}
           <Preload />
-          <perspectiveCamera />
+          {/* <perspectiveCamera /> */}
           <Camera
             cameraRef={cameraRef}
             tl={tl}
@@ -330,11 +352,12 @@ function LandingComponent({ setIsLanding, setCategorySelected }) {
         }
         onClick={() => {
           // setNewClass((prevState) => !prevState);
-
-          toggleNavbar();
+          startTransition(() => setIsLanding(false));
+          // toggleNav);
         }}
       >
-        Quick Explore
+        Temporary Enter Button
+        {/* Quick Explore */}
       </div>
       <div
         onClick={() => startTransition(() => setIsLanding(false))}
@@ -342,6 +365,7 @@ function LandingComponent({ setIsLanding, setCategorySelected }) {
       >
         <img src="/in3dlogo.png" />
       </div>
+
       <div className="animation-container">
         <span className="animation-letter">I</span>
         <span className="animation-letter">n</span>
