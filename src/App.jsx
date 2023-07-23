@@ -1,7 +1,6 @@
 import { useRef, useState, useEffect, Suspense, startTransition } from "react";
 import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import {
-  OrbitControls,
   Preload,
   Stats,
   Html,
@@ -10,9 +9,8 @@ import {
   useEnvironment,
   Environment,
   Clone,
-  Backdrop,
 } from "@react-three/drei";
-import { TextureLoader, FogExp2 } from "three";
+import { TextureLoader } from "three";
 import { Navbar } from "./components/NavbarOld";
 import { Camera } from "./components/Camera";
 import { SelectedCategory } from "./components/catergories/Main";
@@ -37,19 +35,21 @@ function App() {
   const [categorySelected, setCategorySelected] = useState(false);
   const [position, setPosition] = useState({ x: -60, y: 90, z: 260 });
   const [target, setTarget] = useState({ x: 0, y: 0, z: 0 });
+  const [selectedIsland, setSelectedIsland] = useState(null);
 
   const cameraRef = useRef();
   const islandGroupRef = useRef();
 
   const tl = useRef();
+  const meshRef = useRef();
 
-  if (isLanding)
-    return (
-      <LandingComponent
-        setIsLanding={setIsLanding}
-        setCategorySelected={setCategorySelected}
-      />
-    );
+  // if (isLanding)
+  //   return (
+  //     <LandingComponent
+  //       setIsLanding={setIsLanding}
+  //       setCategorySelected={setCategorySelected}
+  //     />
+  //   );
 
   const in3dTexture = useLoader(TextureLoader, "/in3dlogo.png");
 
@@ -61,10 +61,10 @@ function App() {
 
   const positions = [
     [30, 20, -100],
-    [0, 10, 0],
-    [80, 20, 110],
-    [140, 20, 10],
+    [0, 10, 0], // medicine
     [-100, 20, 60],
+    [140, 20, 10],
+    [80, 20, 110], //military
     [-120, 20, -70],
   ];
 
@@ -92,10 +92,11 @@ function App() {
     return (
       <>
         <Clone
+          ref={meshRef}
           object={medicalModel.scene}
           scale={2.5}
           position={position}
-          onClick={(e) => console.log(e)}
+          onClick={(e) => onChange(1)}
           rotation={[0, Math.PI * 1.85, 0]}
           onPointerOver={(e) => {
             document.body.style.cursor = "pointer";
@@ -103,6 +104,7 @@ function App() {
           onPointerOut={() => {
             document.body.style.cursor = "auto";
           }}
+          // visible={!selectedIsland || selectedIsland == 1 ? true : false}
         />
         {/* <RotatingThing
           position={position} //{[2, 50, -2]}
@@ -110,14 +112,6 @@ function App() {
           intensity={2}
           distance={80}
           orbitalSpeed={1}
-        /> */}
-        {/* <RotatingThing
-          position={position} //{[2, 50, -2]}
-          color="blue"
-          intensity={2}
-          distance={80}
-          orbitalSpeed={1.001}
-          isFromSecond
         /> */}
       </>
     );
@@ -215,13 +209,6 @@ function App() {
     );
   };
 
-  function BasicFog() {
-    const { scene } = useThree();
-    scene.fog = new FogExp2("#545454", 0.005);
-
-    return null;
-  }
-
   if (categorySelected) {
     try {
       return (
@@ -241,11 +228,11 @@ function App() {
     let position = { x: 24.6, y: 25.4, z: -222 };
     let target = { x: 0, y: 0, z: 0 };
     if (idx === 1) {
-      position = { x: -15, y: 10, z: 44 };
-      target = { x: 0, y: 24, z: 0 };
+      position = { x: -14, y: 24, z: 68 }; // { x: 30, y: 10, z: 34 };
+      target = { x: 30, y: 24, z: 33 };
     } else if (idx === 2) {
-      position = { x: -127, y: 30, z: 108 };
-      target = { x: -90, y: 25, z: 140 };
+      position = { x: -150, y: 26, z: 18 };
+      target = { x: -110, y: 20, z: 140 };
     } else if (idx === 3) {
       position = { x: 160, y: 25, z: -61 };
       target = { x: 0, y: 5, z: 10 };
@@ -263,6 +250,7 @@ function App() {
   const envMap = useEnvironment({
     files: [
       "/static/images/right",
+
       "/static/images/left",
       "/static/images/top",
       "/static/images/bottom",
@@ -271,12 +259,28 @@ function App() {
     ].map((n) => `${n}.png`),
   });
 
+  const graphicSlides = [1, 2, 3, 4, 5, 6, 7, 8];
+
+  const thingy = graphicSlides.map((slide, idx) => {
+    return (
+      <div key={idx} className="slide">
+        <img
+          className="slide-content"
+          src={"/img/in3dlogo.png"}
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, rgba(255,255,255,0) 50%, rgba(0,0,0,0.65) 50%)",
+          }}
+        />
+      </div>
+    );
+  });
+
   return (
     <div className="overlay-black scene-bg-image">
       <Canvas>
         <Suspense fallback={<LoaderComponent />}>
           <Lights />
-          {/* <BasicFog /> */}
           {/* <Environment map={envMap} background /> */}
           <Preload />
           {/* <perspectiveCamera /> */}
@@ -285,16 +289,6 @@ function App() {
             tl={tl}
             islandGroupRef={islandGroupRef}
           />
-
-          {/* <Backdrop
-            receiveShadow
-            floor={20.5} // Stretches the floor segment, 0.25 by default
-            segments={100} // Mesh-resolution, 20 by default
-            scale={[900, 100, 600]}
-            position={[4, -10, 0]}
-          >
-            <meshStandardMaterial color="#0a1a1f" opacity={1} />
-          </Backdrop> */}
           {/* <OrbitControls /> */}
           <CameraControls position={position} target={target} />
           <group dispose={null} ref={islandGroupRef}>
@@ -307,7 +301,16 @@ function App() {
           <Stats />
         </Suspense>
       </Canvas>
-      <Navbar setCategorySelected={setCategorySelected} onChange={onChange} />
+      <Navbar
+        setCategorySelected={setCategorySelected}
+        onChange={onChange}
+        setSelectedIsland={setSelectedIsland}
+      />
+      {selectedIsland && (
+        <div className="category-graphics-view">
+          <div className="grid-container">{thingy}</div>
+        </div>
+      )}
     </div>
   );
 }
