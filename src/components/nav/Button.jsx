@@ -1,4 +1,12 @@
-export function Button({ idx, name, style, color, onChange }) {
+export function Button({
+  idx,
+  name,
+  style,
+  color,
+  onChange,
+  setSelectedIsland,
+  isGoBack,
+}) {
   return (
     // <button
     //   onClick={() => onChange(idx)}
@@ -11,7 +19,10 @@ export function Button({ idx, name, style, color, onChange }) {
     <div
       className="button"
       id="button-6"
-      onClick={() => onChange(idx)}
+      onClick={() => {
+        onChange(idx);
+        setSelectedIsland(isGoBack ? null : idx);
+      }}
       style={style ? style : null}
     >
       <div id="spin"></div>

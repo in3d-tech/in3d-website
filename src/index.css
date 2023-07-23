@@ -48,6 +48,107 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+.category-graphics-view {
+  position: absolute;
+  bottom: 5em;
+  right: 2em;
+  height: 70%;
+  width: 50%;
+  overflow-y: scroll;
+  z-index: 1;
+  opacity: 0;
+  animation-name: cssInFade;
+  animation-duration: 1.2s;
+  animation-delay: 1.2s;
+  animation-fill-mode: forwards;
+}
+
+.category-graphics-view:hover {
+  z-index: 20;
+}
+
+@keyframes cssInFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.category-graphics-view::-webkit-scrollbar {
+  width: 0.5em; /* Set the width of the scrollbar */
+}
+
+.category-graphics-view::-webkit-scrollbar-thumb {
+  background-color: #888; /* Color of the scrollbar thumb */
+  border-radius: 0.25em; /* Rounded corners for the thumb */
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two slides per row */
+  justify-content: center; /* Center the slides horizontally */
+  gap: 1.5em; /* Adjust the gap between slides as needed */
+
+  padding: 1em;
+}
+
+.slide {
+  /* background-color: white;
+  width: 96%;
+  height: 200px;
+  border-radius: 4px;
+  opacity: 0.8;
+  box-shadow: 10px 7px 12px -3px rgba(109, 53, 53, 0.75);
+  -webkit-box-shadow: 10px 7px 12px -3px rgba(82, 124, 141, 0.75);
+  -moz-box-shadow: 10px 7px 12px -3px rgba(0, 0, 0, 0.75); */
+
+  /* Add any styles you want for the slides here */
+  position: relative;
+  border-radius: 5px;
+  width: 100%;
+  height: 200px;
+  background-color: rgb(24, 24, 24);
+  opacity: 1;
+  overflow: hidden;
+  box-shadow: 10px 7px 12px -7px rgba(255, 255, 255, 0.75);
+  -webkit-box-shadow: 10px 7px 12px -7px rgba(255, 255, 255, 0.75);
+  -moz-box-shadow: 10px 7px 12px -7px rgba(255, 255, 255, 0.75);
+}
+
+.slide:hover {
+  opacity: 1;
+}
+
+.slide-content {
+  filter: grayscale(100%); /* makes image black and white */
+  background-size: 200% 200%; /* increased background size */
+  background-position: 0% 0%; /* updated to start from top left corner */
+  transition: 1s filter ease-out; /* defines how transition will run */
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.slide-content:hover {
+  filter: grayscale(0%); /* brings color to image on hover */
+  animation: ripple 0.5s linear forwards; /* animates with ripple */
+  cursor: pointer;
+}
+
+/* ripple effect animation */
+@keyframes ripple {
+  0% {
+    background-position: 0% 0%; /* top left corner */
+    opacity: 0;
+  }
+  100% {
+    background-position: 100% 100%; /* top left corner */
+    opacity: 1;
+  }
+}
+
 .enter-btn {
   position: absolute;
   top: 50%;
@@ -338,16 +439,19 @@ label.icon {
 
 .nav-explorer-btn-container {
   display: flex;
-  width: 32em;
+  width: 90%;
   z-index: 1;
   padding: 2px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  /* height: 100%; */
 }
 
 .nav-btns-wrapper {
   padding: 3px;
   flex: 1;
   display: flex;
-  flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
 }
@@ -481,12 +585,15 @@ label.icon {
 }
 
 .nav-open-lines-bg {
-  position: fixed;
-  height: 26.5em;
-  width: 28em;
+  position: absolute;
+  /* height: 18em; */
+  /* height: 6em; */
+  height: 100%;
+  width: 100%;
   background-image: url("../img/lines_texture.png");
   object-fit: cover;
   opacity: 0.1;
+
   z-index: -1;
 }
 
@@ -567,9 +674,17 @@ nav i {
   align-items: center;
   background-color: rgb(0, 0, 0, 0.4);
   /* background-image: url("../img/in3dlogo.png"); */
+  opacity: 0.2;
+  padding: 2px;
+  width: 100vw;
+  /* height: 18em; */
+  height: 6em;
+  transition: height 1.2s ease; /* Add transition property */
+}
+
+.nav-open-container:hover {
   opacity: 0.9;
-  padding: 5px;
-  width: 28em;
+  height: 22em; /* Update height on hover */
 }
 
 /* //btn animation test */

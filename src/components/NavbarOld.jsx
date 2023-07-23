@@ -3,12 +3,13 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import { Button } from "./nav/Button";
 // import useTimeout from "../common/useTimeout";
 
-export function Navbar({ setCategorySelected, onChange }) {
+export function Navbar({ setCategorySelected, onChange, setSelectedIsland }) {
   const handleNavClick = (ref, label) => {
     setCategorySelected(label);
   };
 
   const [navbarVisible, setNavbarVisible] = useState(false);
+  const [hovered, setHovered] = useState(false);
 
   const toggleNavbar = () => {
     setNavbarVisible((prevState) => !prevState);
@@ -21,12 +22,26 @@ export function Navbar({ setCategorySelected, onChange }) {
 
   return (
     <div
-      style={{
-        position: "fixed",
-        top: "3em",
-        right: "3em",
-        height: "30em",
-      }}
+      style={
+        navbarVisible
+          ? {
+              position: "fixed",
+              top: "0em",
+              right: "0em",
+              zIndex: 10,
+              // height: "30em",
+              // display: "flex",
+              // justifyContent: "center",
+              // alignItems: "center",
+              // width: "100vw",
+            }
+          : {
+              position: "fixed",
+              top: "3em",
+              right: "3em",
+              // height: "30em",
+            }
+      }
     >
       {navbarVisible ? (
         <div className="nav-wrapper-open">
@@ -48,6 +63,20 @@ export function Navbar({ setCategorySelected, onChange }) {
               </label>
             </div>
           </div>
+          <div
+            style={{
+              color: "white",
+              marginTop: "1em",
+              textAlign: "center",
+              height: "2em",
+            }}
+            onClick={() => {
+              setSelectedIsland(null);
+              onChange(5);
+            }}
+          >
+            Zoom Out
+          </div>
         </div>
       )}
     </div>
@@ -55,7 +84,10 @@ export function Navbar({ setCategorySelected, onChange }) {
 
   function NavExplorer({ toggleNavbar }) {
     return (
-      <div className="nav-open-container">
+      <div
+        className="nav-open-container"
+        // onMouseOver={() => setHovered((prevState) => !prevState)}
+      >
         {/* <div className="outer">
           <div className="inner">
             <label
@@ -81,15 +113,15 @@ export function Navbar({ setCategorySelected, onChange }) {
             textAlign: "center",
             padding: "4px",
             fontFamily: "Gotham",
-            fontSize: "1.5em",
+            fontSize: "2em",
           }}
         >
           Our Work With:
         </p>
 
         <div className="nav-explorer-btn-container">
-          <div className="nav-btns-wrapper">
-            {/* <div className="button" id="button-6">
+          {/* <div className="nav-btns-wrapper"> */}
+          {/* <div className="button" id="button-6">
               <div id="spin"></div>
               <a href="#">Medicine</a>
             </div>
@@ -101,28 +133,34 @@ export function Navbar({ setCategorySelected, onChange }) {
               <div id="spin"></div>
               <a href="#">Military</a>
             </div> */}
-            <Button
-              idx={0}
-              name={"Artifical Intelligence"}
-              color={"nav-expl-btn-green"}
-              onChange={onChange}
-              style={{ textAlign: "center" }}
-            />
-            <Button
-              idx={1}
-              name={"Security"}
-              color={"nav-expl-btn-red"}
-              onChange={onChange}
-            />
-            <Button
-              idx={2}
-              name={"Customization"}
-              color={"nav-expl-btn-yellow"}
-              onChange={onChange}
-            />
-          </div>
-          <div className="nav-btns-wrapper">
-            {/* <Button
+          <Button
+            idx={0}
+            name={"Artifical Intelligence"}
+            color={"nav-expl-btn-green"}
+            onChange={onChange}
+            style={{ textAlign: "center" }}
+            setSelectedIsland={setSelectedIsland}
+            isGoBack
+          />
+          <Button
+            idx={1}
+            name={"Security"}
+            color={"nav-expl-btn-red"}
+            onChange={onChange}
+            setSelectedIsland={setSelectedIsland}
+            isGoBack
+          />
+          <Button
+            idx={2}
+            name={"Customization"}
+            color={"nav-expl-btn-yellow"}
+            onChange={onChange}
+            setSelectedIsland={setSelectedIsland}
+            isGoBack
+          />
+          {/* </div> */}
+          {/* <div className="nav-btns-wrapper"> */}
+          {/* <Button
                 idx={3}
                 name={"Customization"}
                 color={"nav-expl-btn-orange"}
@@ -141,25 +179,29 @@ export function Navbar({ setCategorySelected, onChange }) {
                 color={"nav-expl-btn-orange"}
                 onChange={onChange}
               /> */}
-            <Button
-              idx={0}
-              name={"Microsoft"}
-              color={"nav-expl-btn-green"}
-              onChange={onChange}
-            />
-            <Button
-              idx={1}
-              name={"Medicine"}
-              color={"nav-expl-btn-red"}
-              onChange={onChange}
-            />
-            <Button
-              idx={2}
-              name={"Military"}
-              color={"nav-expl-btn-yellow"}
-              onChange={onChange}
-            />
-          </div>
+          <Button
+            idx={0}
+            name={"Microsoft"}
+            color={"nav-expl-btn-green"}
+            onChange={onChange}
+            setSelectedIsland={setSelectedIsland}
+            isGoBack
+          />
+          <Button
+            idx={1}
+            name={"Medicine"}
+            color={"nav-expl-btn-red"}
+            onChange={onChange}
+            setSelectedIsland={setSelectedIsland}
+          />
+          <Button
+            idx={2}
+            name={"Military"}
+            color={"nav-expl-btn-yellow"}
+            onChange={onChange}
+            setSelectedIsland={setSelectedIsland}
+          />
+          {/* </div> */}
         </div>
 
         <Button
@@ -168,6 +210,8 @@ export function Navbar({ setCategorySelected, onChange }) {
           style={{ marginTop: "1.5em", width: "70%" }}
           color={"nav-expl-btn-orange"}
           onChange={onChange}
+          setSelectedIsland={setSelectedIsland}
+          isGoBack
         />
       </div>
       // </div>
