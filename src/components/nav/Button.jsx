@@ -1,3 +1,5 @@
+import useTimeout from "../../common/useTimeout";
+
 export function Button({
   idx,
   name,
@@ -13,15 +15,19 @@ export function Button({
     //   className={`nav-expl-btn ${color}`}
     //   style={style ? style : null}
     // >
-    //   <span className="nav-expl-span">{name}</span>
+    //   <span className="nav-expl-span">{name}</span>\
     //   <i className="nav-expl-i"></i>
     // </button>
     <div
       className="button"
       id="button-6"
       onClick={() => {
+        setSelectedIsland(null);
         onChange(idx);
-        setSelectedIsland(isGoBack ? null : idx);
+        // useTimeout(() => setSelectedIsland(true), 300);
+        if (!isGoBack) {
+          setSelectedIsland(idx);
+        }
       }}
       style={style ? style : null}
     >

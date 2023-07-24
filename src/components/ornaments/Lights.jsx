@@ -172,7 +172,7 @@ export function Lights({ Lightcolor }) {
   // });
 
   function SpotLightWithHelper() {
-    useHelper(spotRef, THREE.SpotLightHelper, "cyan");
+    // useHelper(spotRef, THREE.SpotLightHelper, "cyan");
     return (
       <spotLight
         ref={spotRef}
@@ -239,7 +239,7 @@ export function Lights({ Lightcolor }) {
         shadow-mapSize-height={64}
         castShadow
         shadow-bias={-0.001}
-        color={"orange"}
+        // color={"orange"}
       />
     );
   }

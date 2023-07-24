@@ -107,7 +107,7 @@ export function Navbar({ setCategorySelected, onChange, setSelectedIsland }) {
         {/* <div> */}
         <div className="nav-open-lines-bg"></div>
 
-        <p
+        {/* <p
           style={{
             color: "white",
             textAlign: "center",
@@ -117,7 +117,7 @@ export function Navbar({ setCategorySelected, onChange, setSelectedIsland }) {
           }}
         >
           Our Work With:
-        </p>
+        </p> */}
 
         <div className="nav-explorer-btn-container">
           {/* <div className="nav-btns-wrapper"> */}
@@ -134,13 +134,12 @@ export function Navbar({ setCategorySelected, onChange, setSelectedIsland }) {
               <a href="#">Military</a>
             </div> */}
           <Button
-            idx={0}
+            idx={4}
             name={"Artifical Intelligence"}
             color={"nav-expl-btn-green"}
             onChange={onChange}
             style={{ textAlign: "center" }}
             setSelectedIsland={setSelectedIsland}
-            isGoBack
           />
           <Button
             idx={1}
@@ -148,7 +147,6 @@ export function Navbar({ setCategorySelected, onChange, setSelectedIsland }) {
             color={"nav-expl-btn-red"}
             onChange={onChange}
             setSelectedIsland={setSelectedIsland}
-            isGoBack
           />
           <Button
             idx={2}
@@ -156,7 +154,6 @@ export function Navbar({ setCategorySelected, onChange, setSelectedIsland }) {
             color={"nav-expl-btn-yellow"}
             onChange={onChange}
             setSelectedIsland={setSelectedIsland}
-            isGoBack
           />
           {/* </div> */}
           {/* <div className="nav-btns-wrapper"> */}
@@ -180,12 +177,11 @@ export function Navbar({ setCategorySelected, onChange, setSelectedIsland }) {
                 onChange={onChange}
               /> */}
           <Button
-            idx={0}
+            idx={4}
             name={"Microsoft"}
             color={"nav-expl-btn-green"}
             onChange={onChange}
             setSelectedIsland={setSelectedIsland}
-            isGoBack
           />
           <Button
             idx={1}

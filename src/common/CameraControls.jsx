@@ -2,7 +2,7 @@ import { OrbitControls } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import { gsap } from "gsap";
 import { useRef, useEffect } from "react";
-import { Vector3 } from "three";
+import { Vector3, SpotLight } from "three";
 
 const CameraControls = ({ position, target }) => {
   //Initialize camera controls
@@ -15,7 +15,7 @@ const CameraControls = ({ position, target }) => {
   camera.up = new Vector3(0, 1, 0);
   function cameraAnimate() {
     gsap.timeline().to(camera.position, {
-      duration: 2,
+      duration: 2.5,
       repeat: 0,
       x: position.x,
       y: position.y,
@@ -25,7 +25,7 @@ const CameraControls = ({ position, target }) => {
     gsap.timeline().to(
       ref.current.target,
       {
-        duration: 2,
+        duration: 2.5,
         repeat: 0,
         x: target.x,
         y: target.y,
@@ -46,6 +46,7 @@ const CameraControls = ({ position, target }) => {
       args={[camera, domElement]}
       panSpeed={1}
       maxPolarAngle={Math.PI / 2}
+      // enabled={false}
     />
   );
 };

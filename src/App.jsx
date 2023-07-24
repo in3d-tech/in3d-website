@@ -33,7 +33,7 @@ function App() {
   const [isLanding, setIsLanding] = useState(true);
   const [moveCameraToModel, setMoveCameraToModel] = useState(false);
   const [categorySelected, setCategorySelected] = useState(false);
-  const [position, setPosition] = useState({ x: -60, y: 90, z: 260 });
+  const [position, setPosition] = useState({ x: -60, y: 110, z: 260 });
   const [target, setTarget] = useState({ x: 0, y: 0, z: 0 });
   const [selectedIsland, setSelectedIsland] = useState(null);
 
@@ -43,13 +43,13 @@ function App() {
   const tl = useRef();
   const meshRef = useRef();
 
-  // if (isLanding)
-  //   return (
-  //     <LandingComponent
-  //       setIsLanding={setIsLanding}
-  //       setCategorySelected={setCategorySelected}
-  //     />
-  //   );
+  if (isLanding)
+    return (
+      <LandingComponent
+        setIsLanding={setIsLanding}
+        setCategorySelected={setCategorySelected}
+      />
+    );
 
   const in3dTexture = useLoader(TextureLoader, "/in3dlogo.png");
 
@@ -61,7 +61,7 @@ function App() {
 
   const positions = [
     [30, 20, -100],
-    [0, 10, 0], // medicine
+    [0, 20, 0], // medicine
     [-100, 20, 60],
     [140, 20, 10],
     [80, 20, 110], //military
@@ -120,7 +120,7 @@ function App() {
   function Model({ position, idx }) {
     const [isHovered, setIsHovered] = useState(false);
     const [shipClone, setShipClone] = useState(null);
-    const [selectedIsland, setSelectedIsland] = useState(null);
+    // const [selectedIsland, setSelectedIsland] = useState(null);
 
     useEffect(() => {
       if (tankModel.scene) {
@@ -144,7 +144,7 @@ function App() {
               position={position}
               children-0-castShadow
               rotation={[0, Math.PI, 0]}
-              visible={true}
+              visible={true} //{selectedIsland ? false : true}
               scale={[2.5, 2.5, 2.5]}
               onClick={() => {
                 console.log(idx);
@@ -160,7 +160,7 @@ function App() {
               }}
             />
             {selectedIsland && <Camera />}
-            {selectedIsland && (
+            {/* {selectedIsland && (
               <RotatingThing
                 position={position} //{[2, 50, -2]}
                 color="blue"
@@ -168,7 +168,7 @@ function App() {
                 distance={80}
                 orbitalSpeed={1.5}
               />
-            )}
+            )} */}
           </group>
         )}
       </>
@@ -228,8 +228,8 @@ function App() {
     let position = { x: 24.6, y: 25.4, z: -222 };
     let target = { x: 0, y: 0, z: 0 };
     if (idx === 1) {
-      position = { x: -14, y: 24, z: 68 }; // { x: 30, y: 10, z: 34 };
-      target = { x: 30, y: 24, z: 33 };
+      position = { x: -20, y: 24, z: 68 }; // { x: 30, y: 10, z: 34 };
+      target = { x: 22, y: 38, z: 33 };
     } else if (idx === 2) {
       position = { x: -150, y: 26, z: 18 };
       target = { x: -110, y: 20, z: 140 };
@@ -240,7 +240,7 @@ function App() {
       position = { x: 0, y: 0, z: 0 };
       target = { x: 0, y: 0, z: 0 };
     } else if (idx === 5) {
-      position = { x: -60, y: 90, z: 260 };
+      position = { x: -60, y: 110, z: 260 };
       target = { x: 0, y: 0, z: 0 };
     }
     setPosition(position);
@@ -266,7 +266,7 @@ function App() {
       <div key={idx} className="slide">
         <img
           className="slide-content"
-          src={"/img/in3dlogo.png"}
+          src={"/in3dlogo.png"}
           style={{
             backgroundImage:
               "linear-gradient(to right, rgba(255,255,255,0) 50%, rgba(0,0,0,0.65) 50%)",
@@ -281,7 +281,7 @@ function App() {
       <Canvas>
         <Suspense fallback={<LoaderComponent />}>
           <Lights />
-          {/* <Environment map={envMap} background /> */}
+          <Environment map={envMap} background />
           <Preload />
           {/* <perspectiveCamera /> */}
           <Camera
@@ -324,6 +324,8 @@ function LandingComponent({ setIsLanding, setCategorySelected }) {
 
   const btnRef = useRef();
 
+  const { active, progress, errors } = useProgress();
+
   useEffect(() => {
     const timeout = setTimeout(() => {
       setAnimationComplete(true);
@@ -359,9 +361,14 @@ function LandingComponent({ setIsLanding, setCategorySelected }) {
           // toggleNav);
         }}
       >
-        Temporary Enter Button
+        {/* Temporary Enter Button */}
+        {progress != 100
+          ? `${(Math.round(progress * 100) / 100).toFixed(2)} % loaded`
+          : "Temporary Enter Button"}
         {/* Quick Explore */}
       </div>
+      {/* <span>{`${progress} % loaded`}</span> */}
+
       <div
         onClick={() => startTransition(() => setIsLanding(false))}
         className={`enter-btn`}
