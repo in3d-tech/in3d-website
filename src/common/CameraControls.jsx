@@ -1,10 +1,27 @@
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, useHelper } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import { gsap } from "gsap";
 import { useRef, useEffect } from "react";
-import { Vector3, SpotLight } from "three";
+import { Vector3, SpotLight, DirectionalLightHelper } from "three";
 
-const CameraControls = ({ position, target }) => {
+const CameraControls = ({ position, target, idx }) => {
+  const directionalRef3 = useRef();
+
+  function DirectionalLightWithHelper() {
+    useHelper(directionalRef3, DirectionalLightHelper, 10, "green");
+    return (
+      <directionalLight
+        ref={directionalRef3}
+        intensity={1}
+        position={[-10, 30, 80]}
+        shadow-mapSize-width={64}
+        shadow-mapSize-height={64}
+        castShadow
+        shadow-bias={-0.001}
+      />
+    );
+  }
+
   //Initialize camera controls
   const {
     camera,
@@ -41,13 +58,16 @@ const CameraControls = ({ position, target }) => {
 
   // return the controls object
   return (
-    <OrbitControls
-      ref={ref}
-      args={[camera, domElement]}
-      panSpeed={1}
-      maxPolarAngle={Math.PI / 2}
-      // enabled={false}
-    />
+    <>
+      <OrbitControls
+        ref={ref}
+        args={[camera, domElement]}
+        panSpeed={1}
+        maxPolarAngle={Math.PI / 2}
+        // enabled={false}
+      />
+      {idx == 1 && <DirectionalLightWithHelper />}
+    </>
   );
 };
 export { CameraControls };

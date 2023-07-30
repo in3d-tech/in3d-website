@@ -10,7 +10,7 @@ export function Ocean({ position }) {
   const gl = useThree((state) => state.gl);
   const waterNormals = useLoader(TextureLoader, "/img/water-example.png");
   waterNormals.wrapS = waterNormals.wrapT = RepeatWrapping;
-  const geom = useMemo(() => new PlaneGeometry(10000, 10000), []);
+  const geom = useMemo(() => new PlaneGeometry(500, 600), []);
   const config = useMemo(
     () => ({
       textureWidth: 512,
@@ -18,7 +18,7 @@ export function Ocean({ position }) {
       waterNormals,
       sunDirection: new Vector3(),
       sunColor: 0xffffff,
-      waterColor: "#49AE48", // 0x001e0f,
+      waterColor: "#48AEA5", // "#49AE48", // 0x001e0f,
       distortionScale: 3.7,
       fog: false,
       format: gl.encoding,

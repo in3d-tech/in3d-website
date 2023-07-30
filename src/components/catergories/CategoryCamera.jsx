@@ -7,7 +7,7 @@ export function CategoryCamera() {
   const { camera } = useThree();
   //   camera.position.set(477, 158.5, -200);
 
-  camera.position.set(0, 0.2, 7);
+  camera.position.set(0, 1, 5);
 
   //   if (!helper) {
   //   camera.position.set(1, 1, 1); // Adjust the z position of the camera to move it backwards

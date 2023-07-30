@@ -1,15 +1,14 @@
-import { NavOpen } from "../NavbarOld";
+import { useProgress } from "@react-three/drei";
+import { startTransition, useEffect, useRef, useState } from "react";
 
-export function LandingComponent({
-  setIsLanding,
-  setSelectedNav,
-  setCategorySelected,
-}) {
+export function LandingComponent({ setIsLanding, setCategorySelected }) {
   const [animationComplete, setAnimationComplete] = useState(false);
   const [newClass, setNewClass] = useState(false);
   const [navOpen, setNavOpen] = useState(false);
 
   const btnRef = useRef();
+
+  const { progress } = useProgress();
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -30,20 +29,11 @@ export function LandingComponent({
   };
 
   const handleNavClick = (ref, label) => {
-    setSelectedNav(label);
-    if (ref.current) {
-      ref.current.scrollIntoView({
-        behavior: "smooth",
-        block: "end",
-        inline: "nearest",
-      });
-    }
     setCategorySelected(label);
   };
 
-  return navOpen ? (
-    <NavOpen handleNavClick={handleNavClick} toggleNavbar={toggleNavbar} />
-  ) : (
+  return navOpen ? null : (
+    // <NavOpen handleNavClick={handleNavClick} toggleNavbar={toggleNavbar} />
     <div className="landing-screen-wrapper">
       <div
         className={
@@ -51,25 +41,25 @@ export function LandingComponent({
         }
         onClick={() => {
           // setNewClass((prevState) => !prevState);
-
-          toggleNavbar();
+          startTransition(() => setIsLanding(false));
+          // toggleNav);
         }}
       >
-        Quick Explore
+        {/* Temporary Enter Button */}
+        {progress != 100
+          ? `${(Math.round(progress * 100) / 100).toFixed(2)} % loaded`
+          : "Temporary Enter Button"}
+        {/* Quick Explore */}
       </div>
+      {/* <span>{`${progress} % loaded`}</span> */}
+
       <div
-        onClick={() => startTransition(() => setIsLanding(false))}
+        // onClick={() => startTransition(() => setIsLanding(false))}
         className={`enter-btn`}
       >
-        <img src="/public/static/images/in3dTexture.png" />
-        {/* <div className="landing-screen-enter-btn">
-            <a className="link-btn" href="#" ref={btnRef}>
-              <i className="link-smtng"></i>
-              <i className="link-smtng"></i>
-              <span className="link-span">Explore</span>
-            </a>
-          </div> */}
+        <img src="/in3dlogo.png" />
       </div>
+
       <div className="animation-container">
         <span className="animation-letter">I</span>
         <span className="animation-letter">n</span>

@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { Button } from "./nav/Button";
+import { getCameraCoords } from "../common/getCameraCoords";
 // import useTimeout from "../common/useTimeout";
 
-export function Navbar({ setCategorySelected, onChange, setSelectedIsland }) {
+export function Navbar({
+  setCategorySelected,
+  setSelectedIsland,
+  setPosition,
+  setTarget,
+  selectedIsland,
+}) {
   const handleNavClick = (ref, label) => {
     setCategorySelected(label);
   };
@@ -29,17 +36,11 @@ export function Navbar({ setCategorySelected, onChange, setSelectedIsland }) {
               top: "0em",
               right: "0em",
               zIndex: 10,
-              // height: "30em",
-              // display: "flex",
-              // justifyContent: "center",
-              // alignItems: "center",
-              // width: "100vw",
             }
           : {
               position: "fixed",
               top: "3em",
               right: "3em",
-              // height: "30em",
             }
       }
     >
@@ -72,7 +73,7 @@ export function Navbar({ setCategorySelected, onChange, setSelectedIsland }) {
             }}
             onClick={() => {
               setSelectedIsland(null);
-              onChange(5);
+              getCameraCoords({ idx: 5, setTarget, setPosition });
             }}
           >
             Zoom Out
@@ -107,95 +108,62 @@ export function Navbar({ setCategorySelected, onChange, setSelectedIsland }) {
         {/* <div> */}
         <div className="nav-open-lines-bg"></div>
 
-        {/* <p
-          style={{
-            color: "white",
-            textAlign: "center",
-            padding: "4px",
-            fontFamily: "Gotham",
-            fontSize: "2em",
-          }}
-        >
-          Our Work With:
-        </p> */}
-
         <div className="nav-explorer-btn-container">
-          {/* <div className="nav-btns-wrapper"> */}
-          {/* <div className="button" id="button-6">
-              <div id="spin"></div>
-              <a href="#">Medicine</a>
-            </div>
-            <div className="button" id="button-6">
-              <div id="spin"></div>
-              <a href="#">Microsoft</a>
-            </div>
-            <div className="button" id="button-6">
-              <div id="spin"></div>
-              <a href="#">Military</a>
-            </div> */}
           <Button
             idx={4}
             name={"Artifical Intelligence"}
             color={"nav-expl-btn-green"}
-            onChange={onChange}
+            setPosition={setPosition}
+            setTarget={setTarget}
             style={{ textAlign: "center" }}
             setSelectedIsland={setSelectedIsland}
+            selectedIsland={selectedIsland}
           />
           <Button
-            idx={1}
+            idx={3}
             name={"Security"}
             color={"nav-expl-btn-red"}
-            onChange={onChange}
+            setPosition={setPosition}
+            setTarget={setTarget}
             setSelectedIsland={setSelectedIsland}
+            selectedIsland={selectedIsland}
           />
           <Button
-            idx={2}
+            idx={3}
             name={"Customization"}
             color={"nav-expl-btn-yellow"}
-            onChange={onChange}
+            setPosition={setPosition}
+            setTarget={setTarget}
             setSelectedIsland={setSelectedIsland}
+            selectedIsland={selectedIsland}
           />
-          {/* </div> */}
-          {/* <div className="nav-btns-wrapper"> */}
-          {/* <Button
-                idx={3}
-                name={"Customization"}
-                color={"nav-expl-btn-orange"}
-                onChange={onChange}
-              />
-              <Button
-                idx={3}
-                name={"option 5"}
-                color={"nav-expl-btn-orange"}
-                onChange={onChange}
-              />
-              <Button
-                idx={5}
-                name={"option 6"}
-                style={{ marginTop: "1.5em" }}
-                color={"nav-expl-btn-orange"}
-                onChange={onChange}
-              /> */}
+
           <Button
             idx={4}
             name={"Microsoft"}
             color={"nav-expl-btn-green"}
-            onChange={onChange}
+            setPosition={setPosition}
+            setTarget={setTarget}
             setSelectedIsland={setSelectedIsland}
+            selectedIsland={selectedIsland}
           />
           <Button
             idx={1}
             name={"Medicine"}
             color={"nav-expl-btn-red"}
-            onChange={onChange}
+            setPosition={setPosition}
+            setTarget={setTarget}
             setSelectedIsland={setSelectedIsland}
+            selectedIsland={selectedIsland}
           />
           <Button
             idx={2}
             name={"Military"}
             color={"nav-expl-btn-yellow"}
-            onChange={onChange}
+            setPosition={setPosition}
+            setTarget={setTarget}
             setSelectedIsland={setSelectedIsland}
+            selectedIsland={selectedIsland}
           />
           {/* </div> */}
         </div>
@@ -203,14 +171,38 @@ export function Navbar({ setCategorySelected, onChange, setSelectedIsland }) {
         <Button
           idx={5}
           name={"Back to full view"}
-          style={{ marginTop: "1.5em", width: "70%" }}
+          style={{ marginTop: "1em", width: "70%" }}
           color={"nav-expl-btn-orange"}
-          onChange={onChange}
           setSelectedIsland={setSelectedIsland}
+          selectedIsland={selectedIsland}
+          setPosition={setPosition}
+          setTarget={setTarget}
           isGoBack
         />
       </div>
       // </div>
     );
   }
+}
+
+{
+  /* <Button
+                idx={3}
+                name={"Customization"}
+                color={"nav-expl-btn-orange"}
+            setPosition={setPosition}
+        setTarget={setTarget}              />
+              <Button
+                idx={3}
+                name={"option 5"}
+                color={"nav-expl-btn-orange"}
+            setPosition={setPosition}
+        setTarget={setTarget}              />
+              <Button
+                idx={5}
+                name={"option 6"}
+                style={{ marginTop: "1.5em" }}
+                color={"nav-expl-btn-orange"}
+            setPosition={setPosition}
+        setTarget={setTarget}              /> */
 }
