@@ -1,47 +1,21 @@
 import { useProgress } from "@react-three/drei";
 import { startTransition, useEffect, useRef, useState } from "react";
 
-export function LandingComponent({ setIsLanding, setCategorySelected }) {
-  const [animationComplete, setAnimationComplete] = useState(false);
-  const [newClass, setNewClass] = useState(false);
+export function LandingComponent({ setIsLanding }) {
   const [navOpen, setNavOpen] = useState(false);
 
   const btnRef = useRef();
 
   const { progress } = useProgress();
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setAnimationComplete(true);
-    }, 5000); // Adjust the duration as needed
-
-    return () => clearTimeout(timeout);
-  }, []);
-
-  const toggleNavbar = () => {
-    console.log({ newClass });
-    setNewClass((prevState) => !prevState);
-
-    setTimeout(
-      () => setNavOpen((prevState) => !prevState),
-      navOpen ? 100 : 800
-    );
-  };
-
-  const handleNavClick = (ref, label) => {
-    setCategorySelected(label);
-  };
-
   return navOpen ? null : (
     // <NavOpen handleNavClick={handleNavClick} toggleNavbar={toggleNavbar} />
     <div className="landing-screen-wrapper">
       <div
-        className={
-          newClass ? "landing-screen-nav-open" : "landing-screen-nav-btn"
-        }
+        className={"landing-screen-nav-btn"}
         onClick={() => {
           // setNewClass((prevState) => !prevState);
-          startTransition(() => setIsLanding(false));
+          setIsLanding(false);
           // toggleNav);
         }}
       >

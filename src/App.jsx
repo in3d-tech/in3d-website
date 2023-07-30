@@ -1,11 +1,4 @@
-import {
-  useRef,
-  useState,
-  useEffect,
-  Suspense,
-  startTransition,
-  lazy,
-} from "react";
+import { useRef, useState, Suspense, lazy } from "react";
 import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import {
   Preload,
@@ -33,7 +26,6 @@ import YouTube from "react-youtube";
 import { LandingComponent } from "./components/landingScreen/LandingScreen";
 import { MappedModels } from "./common/Models";
 import { ContentView } from "./components/catergories/ContentView";
-import { SelectedCategory } from "./components/catergories/Main";
 import { HorizontalNav } from "./components/nav/HorizontalNav";
 
 export const LoaderComponent = () => {
@@ -61,23 +53,11 @@ function App() {
   const tl = useRef();
   const meshRef = useRef();
 
-  if (isLanding)
-    return (
-      <LandingComponent
-        setIsLanding={setIsLanding}
-        setCategorySelected={setCategorySelected}
-      />
-    );
+  // if (isLanding) return <LandingComponent setIsLanding={setIsLanding} />;
 
-  const modelURL = "http://localhost:3080/in3d-tank/in3d-tank.gltf";
-
-  // const in3dTexture = useLoader(TextureLoader, "/in3dlogo.png");
-
-  // const shipModel = useGLTF("../assets/in3d-island/Island test .gltf");
   const tankModel = useGLTF(
     "/assets/in3d-tank/tank island material to gltf .gltf"
   );
-  // const medicalModel = useGLTF("../assets/in3d-medical/Medical_Island.gltf");
 
   const envMap = useEnvironment({
     files: [
@@ -91,7 +71,9 @@ function App() {
     ].map((n) => `${n}.png`),
   });
 
-  return (
+  return isLanding ? (
+    <LandingComponent setIsLanding={setIsLanding} />
+  ) : (
     <div className="overlay-black scene-bg-image">
       <Leva collapsed />
       <Canvas>

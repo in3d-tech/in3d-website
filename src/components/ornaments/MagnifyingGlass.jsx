@@ -49,7 +49,7 @@ const MagnifyingGlass = (props) => {
     };
 
     if (deviceHasPointer) {
-      window.addEventListener("mousemove", getMousePos);
+      window.addEventListener("mousemove", getMousePos, { passive: true });
       container.addEventListener("mouseenter", showGlass);
       container.addEventListener("mouseleave", hideGlass);
     }
@@ -67,10 +67,23 @@ const MagnifyingGlass = (props) => {
         className="magnifying-glass"
         ref={containerRef}
         onClick={() => props.handleNavClick()}
-        onMouseOver={() => props.setIsHovered(props.title)}
-        onMouseOut={() => props.setIsHovered(false)}
+        onMouseOver={() => {
+          props.setIsHovered(props.title);
+        }}
+        onMouseOut={() => {
+          props.setIsHovered(false);
+        }}
+        style={{
+          opacity:
+            props.hovered === props.title || props.hovered === false ? 1 : 0.6,
+        }}
       >
-        <div className="magnifying-glass__text">{props.title}</div>
+        <div
+          className={`magnifying-glass__text`}
+          style={{ animationDelay: `${props.delay}s` }}
+        >
+          {props.title}
+        </div>
       </div>
 
       <div className="magnifying-glass__magnifier" ref={magnifierRef}>
@@ -90,3 +103,5 @@ const getContentSelection = (title) => {
   };
   return selection[title] || "medicine";
 };
+
+//            props.hovered && props.hovered == props.title ? "" : "low-opacity"
