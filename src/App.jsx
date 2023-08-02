@@ -129,11 +129,8 @@ function App() {
   // }
 
   function TileModel(props) {
-    const fbx = useFBX("/public/assets/Hex rotate.fbx");
-    const texture = useLoader(
-      TextureLoader,
-      "/public/assets/hexagon-texture.png"
-    );
+    const fbx = useFBX("/assets/Hex rotate.fbx");
+    const texture = useLoader(TextureLoader, "/assets/hexagon-texture.png");
 
     // clone the fbx model
     const fbxClone = useMemo(() => clone(fbx, texture), [fbx, texture]);
