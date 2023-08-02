@@ -1,5 +1,5 @@
 import { Clone, useGLTF } from "@react-three/drei";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { animated, useSpring } from "react-spring";
 import { useRef } from "react";
 import { useControls } from "leva";
@@ -48,7 +48,10 @@ function MedicalModel({
         object={medicalModel.scene}
         scale={2.5}
         position={position}
-        onClick={(e) => getCameraCoords({ idx: 1, setPosition, setTarget })}
+        onClick={(e) => {
+          // getCameraCoords({ idx: 1, setPosition, setTarget });
+          console.log(e.object.uuid);
+        }}
         rotation={[0, Math.PI * 1.85, 0]}
         onPointerOver={(e) => {
           document.body.style.cursor = "pointer";
@@ -176,36 +179,3 @@ export function MappedModels({
     </group>
   );
 }
-
-// if (categorySelected) {
-//   try {
-//     return (
-//       <Suspense fallback={<Loading />}>
-//         <SelectedCategory
-//           setCategorySelected={setCategorySelected}
-//           categorySelected={categorySelected}
-//         />
-//       </Suspense>
-//     );
-//   } catch (e) {
-//     console.log(e);
-//   }
-// }
-
-// function TankModel({ position, idx }) {
-//   const { scene } = useGLTF(
-//     "../assets/in3d-tank/tank island material to gltf .gltf"
-//   );
-//   return (
-//     <>
-//       {/* <spotLight intensity={1.5} color={"blue"} position={position} /> */}
-//       <Clone
-//         object={scene}
-//         scale={2.5}
-//         position={position}
-//         onClick={() => onChange(idx)}
-//         rotation={[0, Math.PI * 1.85, 0]}
-//       />
-//     </>
-//   );
-// }

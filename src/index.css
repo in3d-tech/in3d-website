@@ -284,45 +284,6 @@ button:focus-visible {
   }
 }
 
-.landing-screen-nav-open {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-  z-index: 1;
-  background: #e0d2d2;
-  /* background-image: linear-gradient(
-    to right,
-    black,
-    rgb(113, 29, 29),
-    rgb(224, 223, 223)
-  ); */
-  animation-name: fadeIn;
-  animation-duration: 0.5s;
-  animation-timing-function: ease-in;
-  animation-fill-mode: forwards;
-}
-
-@keyframes landing-screen-nav-open {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-/* .enter-btn:hover {
-  opacity: 1;
-  cursor: pointer;
-} */
-
-.hover:hover {
-  cursor: pointer;
-  color: rgb(207, 210, 164);
-}
-
 .landing-screen {
   height: 100vh;
   width: 100vw;
@@ -555,94 +516,6 @@ div[className*="box"] {
   align-items: center;
 }
 
-.btn {
-  position: absolute;
-  top: 3em;
-  left: 3em;
-  line-height: 50px;
-  height: 50px;
-  text-align: center;
-  width: 200px;
-  cursor: pointer;
-}
-
-.box-1 {
-  background-color: #ff6766;
-}
-.box-2 {
-  background-color: #3c3c3c;
-}
-.box-3 {
-  background-color: #66a182;
-}
-.btn-three {
-  color: #ff5a5a;
-  transition: all 0.5s;
-  position: relative;
-  font-size: 1.6em;
-}
-.btn-three::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  background-color: rgba(12, 9, 9, 0.168);
-  border-radius: 4px;
-  transition: all 0.3s;
-}
-.btn-three:hover::before {
-  opacity: 0;
-  transform: scale(0.5, 0.5);
-}
-.btn-three::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  opacity: 0;
-  transition: all 0.3s;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  transform: scale(1.2, 1.2);
-  border-radius: 4px;
-}
-.btn-three:hover::after {
-  opacity: 1;
-  transform: scale(1, 1);
-}
-
-.black-background {
-  background-color: black;
-}
-
-/* testing div opacity animation */
-
-@keyframes fade {
-  0%,
-  100% {
-    opacity: 0.4;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
-/* Apply the animation to the div */
-.animated-div {
-  animation: fade 1s;
-}
-
-/* Additional styling for the div */
-.animated-div {
-  width: 200px;
-  height: 200px;
-}
-
 /* testing landing screen letters */
 
 .animation-container {
@@ -845,38 +718,6 @@ a {
   color: #2d3142;
 }
 
-nav {
-  background: #fdf6f6;
-  position: absolute;
-  /* background: #fdf6f6; */
-  background: rgb(224, 210, 210, 0.4);
-  /* background: linear-gradient(
-    to right,
-    rgb(4, 4, 4) 15%,
-    rgb(191, 22, 22) 35%,
-    rgb(206, 120, 120) 85%,
-    rgb(255, 254, 254) 100%
-  ); */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  /* padding-top: 60px; */
-  position: fixed;
-  transition: width ease 1.8s;
-  /* width: 100vw; */
-  width: 12em;
-
-  /* z-index: 100; */
-
-  overflow: hidden;
-  text-align: flex-start;
-  opacity: 1;
-  border-right: 1px solid rgb(112, 112, 112);
-  z-index: 3000;
-}
-
 .horizontal-nav-wrapper {
   position: absolute;
   top: 0;
@@ -916,18 +757,7 @@ nav {
 .nav-close-icon:hover {
   cursor: pointer;
   /* font-size: 45px; */
-}
-
-.on-open {
-  width: 100vw;
-}
-
-.nav-wrapper {
-  /* height: 70%; */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  /* margin-top: 20%; */
+  color: rgba(125, 12, 12, 0.6);
 }
 
 .nav-wrapper-open {
@@ -1025,6 +855,16 @@ nav {
   grid-area: title6;
 }
 
+.h-nav-bottom-section {
+  position: absolute;
+  bottom: 1em;
+  height: 8em;
+  width: 80vw;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+}
+
 .magnifying-glass {
   /* display: flex; */
   /* width: 50vw; */
@@ -1079,7 +919,8 @@ nav {
 
 .magnifying-glass__text,
 .magnifying-glass__enlarged-text {
-  font-size: 3rem;
+  font-size: 4rem;
+  font-family: cursive;
   /* // adjust font-size of the original text */
   text-align: center;
   line-height: 1;
@@ -1101,6 +942,24 @@ nav {
 
 .h-nav-open {
   height: 100vh;
+}
+
+.h-selected-nav {
+  position: absolute;
+  top: 0;
+  right: -100%; /* Start the component outside the screen on the right */
+  /* height: 100vh; */
+  width: 100vw;
+  background: rgba(255, 255, 255);
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  transition: right 1s; /* Use 'right' property for the transition */
+  border-right: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.active {
+  right: 0;
 }
 
 .nav-topic-selection-wrapper {
@@ -1146,5 +1005,209 @@ nav {
   }
   to {
     opacity: 0.4;
+  }
+}
+
+/* CSS */
+.button-52 {
+  font-size: 16px;
+  font-weight: 200;
+  letter-spacing: 1px;
+  padding: 13px 20px 13px;
+  outline: 0;
+  border: 1px solid rgb(255, 255, 255, 0.6);
+  cursor: pointer;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  color: white;
+}
+
+.button-52:after {
+  /* content: "";
+  background-color: #680f0f;
+  width: 100%;
+  z-index: -1;
+  position: absolute;
+  height: 100%;
+  top: 7px;
+  left: 7px;
+  transition: 0.2s; */
+  content: "";
+  background-color: #660101;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  transition: 0.2s;
+  z-index: -1;
+  visibility: hidden;
+  animation: slideUp 1s ease-out forwards;
+  animation-delay: 1s;
+}
+
+.button-52:hover:after {
+  top: 1px;
+  left: 1px;
+  border: 1px solid black;
+}
+
+@media (min-width: 768px) {
+  .button-52 {
+    padding: 13px 50px 13px;
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideToPosition {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    /* Adjust the desired distance where you want the button to slide horizontally */
+    transform: translateX(200px);
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  1% {
+    visibility: visible;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.button-container {
+  padding: 1px;
+  border: 1px solid rgb(255, 255, 255, 0.6);
+}
+
+.h-nav-in3d-icon {
+  animation: slideUpIcon 1s ease-out forwards;
+  animation-delay: 0.6s;
+  opacity: 0;
+}
+
+.h-nav-open-3d-icon {
+  position: absolute;
+  top: 3em;
+  left: 0;
+  width: 12em;
+}
+
+@keyframes slideUpIcon {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.div1 {
+  background-color: pink;
+  height: 100vh;
+}
+
+.div2 {
+  background-color: salmon;
+  height: 100vh;
+}
+
+.div3 {
+  background-color: rgb(61, 203, 90);
+  height: 100vh;
+}
+
+.square {
+  width: 150px;
+  height: 150px;
+  background-color: fuchsia;
+}
+
+.red {
+  background-color: red;
+}
+
+.square2 {
+  width: 150px;
+  height: 150px;
+  background-color: rgb(190, 226, 83);
+}
+
+.square-scroll {
+  height: 100px;
+  width: 100px;
+  background: black;
+}
+
+.text-with-animation {
+  color: white;
+  font-size: 3em;
+  visibility: hidden;
+}
+
+.add-on {
+  visibility: visible;
+}
+
+.square-yellow {
+  background: yellow;
+}
+
+.wrapper.four {
+  background-color: #9ba5b4;
+  font-size: 3rem;
+  font-family: "Play", sans-serif;
+  /* visibility: hidden; */
+}
+
+.very-visible {
+  visibility: hidden;
+}
+
+.four .type {
+  padding: 2rem 1rem;
+  width: auto;
+  margin: auto;
+}
+.four h3 {
+  width: 13ch;
+  border-right: 4px solid black;
+  margin: 2rem auto;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 2s steps(13, end),
+    blink-caret 0.5s step-end infinite alternate;
+}
+@-webkit-keyframes typing {
+  from {
+    width: 0;
+  }
+}
+@-webkit-keyframes blink-caret {
+  50% {
+    border-color: transparent;
   }
 }

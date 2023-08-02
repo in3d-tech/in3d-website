@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { Button } from "./nav/Button";
 import { getCameraCoords } from "../common/getCameraCoords";
+import AppContext from "../context/context";
 // import useTimeout from "../common/useTimeout";
 
 export function Navbar({
@@ -11,26 +12,26 @@ export function Navbar({
   setTarget,
   selectedIsland,
 }) {
+  const appContext = useContext(AppContext);
+
   const handleNavClick = (ref, label) => {
     setCategorySelected(label);
   };
 
-  const [navbarVisible, setNavbarVisible] = useState(false);
-  const [hovered, setHovered] = useState(false);
+  const navOpened = 1;
+  const navClosed = 0;
 
   const toggleNavbar = () => {
-    setNavbarVisible((prevState) => !prevState);
-    if (!navbarVisible) {
-      setTimeout(() => {
-        console.log("hello world!!");
-      }, 2000);
-    }
+    appContext.setNavState((prevNavState) =>
+      prevNavState ? navClosed : navOpened
+    );
+    // setNavbarVisible((prevState) => !prevState);
   };
 
   return (
     <div
       style={
-        navbarVisible
+        appContext.navState == navOpened
           ? {
               position: "fixed",
               top: "0em",
@@ -44,7 +45,7 @@ export function Navbar({
             }
       }
     >
-      {navbarVisible ? (
+      {appContext.navState == navOpened ? (
         <div className="nav-wrapper-open">
           <NavExplorer
             handleNavClick={handleNavClick}
@@ -53,31 +54,35 @@ export function Navbar({
         </div>
       ) : (
         <div>
-          <div className="outer">
-            <div className="inner">
-              <label
-                onClick={() => {
-                  toggleNavbar();
-                }}
-              >
-                Explore
-              </label>
+          {appContext.navState == 0 && (
+            <div className="outer">
+              <div className="inner">
+                <label
+                  onClick={() => {
+                    toggleNavbar();
+                  }}
+                >
+                  Explore
+                </label>
+              </div>
             </div>
-          </div>
-          <div
-            style={{
-              color: "white",
-              marginTop: "1em",
-              textAlign: "center",
-              height: "2em",
-            }}
-            onClick={() => {
-              setSelectedIsland(null);
-              getCameraCoords({ idx: 5, setTarget, setPosition });
-            }}
-          >
-            Zoom Out
-          </div>
+          )}
+          {appContext.navState == 0 && (
+            <div
+              style={{
+                color: "white",
+                marginTop: "1em",
+                textAlign: "center",
+                height: "2em",
+              }}
+              onClick={() => {
+                setSelectedIsland(null);
+                getCameraCoords({ idx: 5, setTarget, setPosition });
+              }}
+            >
+              Zoom Out
+            </div>
+          )}
         </div>
       )}
     </div>
@@ -89,23 +94,11 @@ export function Navbar({
         className="nav-open-container"
         // onMouseOver={() => setHovered((prevState) => !prevState)}
       >
-        {/* <div className="outer">
-          <div className="inner">
-            <label
-              onClick={() => {
-                toggleNavbar();
-              }}
-            >
-              close
-            </label>
-          </div>
-        </div> */}
         <CancelIcon
           className="nav-contact-cancel-icon"
           onClick={() => toggleNavbar()}
         />
 
-        {/* <div> */}
         <div className="nav-open-lines-bg"></div>
 
         <div className="nav-explorer-btn-container">
@@ -165,7 +158,6 @@ export function Navbar({
             setSelectedIsland={setSelectedIsland}
             selectedIsland={selectedIsland}
           />
-          {/* </div> */}
         </div>
 
         <Button
@@ -180,29 +172,6 @@ export function Navbar({
           isGoBack
         />
       </div>
-      // </div>
     );
   }
-}
-
-{
-  /* <Button
-                idx={3}
-                name={"Customization"}
-                color={"nav-expl-btn-orange"}
-            setPosition={setPosition}
-        setTarget={setTarget}              />
-              <Button
-                idx={3}
-                name={"option 5"}
-                color={"nav-expl-btn-orange"}
-            setPosition={setPosition}
-        setTarget={setTarget}              />
-              <Button
-                idx={5}
-                name={"option 6"}
-                style={{ marginTop: "1.5em" }}
-                color={"nav-expl-btn-orange"}
-            setPosition={setPosition}
-        setTarget={setTarget}              /> */
 }

@@ -18,7 +18,7 @@ export function Ocean({ position }) {
       waterNormals,
       sunDirection: new Vector3(),
       sunColor: 0xffffff,
-      waterColor: "#48AEA5", // "#49AE48", // 0x001e0f,
+      waterColor: "#fff", //"#48AEA5", // "#49AE48", // 0x001e0f,
       distortionScale: 3.7,
       fog: false,
       format: gl.encoding,
