@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
@@ -12,41 +12,70 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import SendIcon from "@mui/icons-material/Send";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
-
-export function About({ openInfoNav }) {
-  return (
-    <>
-      <p style={{ width: "90%", marginTop: "6em" }}>
-        In3D Technologies Ltd is a software development company that specialize
-        in 3D development.<br></br>
-        <br></br> We at in3D have extensive experience in developing and
-        adapting the right solution to the clients needs focusing on the world
-        of XR – Extended Reality, among Virtual Reality – VR, Augmented Reality
-        – AR and Mixed Reality – MR.<br></br>
-        <br></br> We specialize in realization through verity ways, such as: 360
-        Virtual tours, 3D modeling & rendering photorealistic images, videos &
-        flythrough , virtual reality, augmented reality and more.<br></br>
-        <br></br> Our Operations Department manage large projects with medium to
-        large cooperations, military units, city halls and governments.<br></br>
-        <br></br> We define our vision by constantly seeking for innovational
-        ways to make various products accessible in new levels that simulates
-        reality.<br></br>
-        <br></br> in3D works according to international quality policies in
-        development and production, information security and privacy security –
-        ISO9001, ISO27001, ISO27701. The company undertakes and complies with
-        legal and privacy requirements, engraves on its banner a high standard
-        of service assembly, while maintaining accuracy, confidentiality and
-        information security.
-      </p>
-    </>
-  );
-}
+import { Label } from "@mui/icons-material";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export function Contact({ openInfoNav }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+
+  // Animation function
+  // const animateElements = () => {
+  //   // Animate Name input
+  //   gsap.from(".name-input", {
+  //     y: 100,
+  //     // opacity: 0,
+  //     duration: 1,
+  //     stagger: 0.2,
+  //     scrollTrigger: {
+  //       trigger: ".name-input",
+  //       start: "top 80%", // Adjust this value as needed
+  //     },
+  //   });
+
+  //   // Animate Email input
+  //   gsap.from(".email-input", {
+  //     y: 100,
+  //     // opacity: 0,
+  //     duration: 1,
+  //     stagger: 0.2,
+  //     scrollTrigger: {
+  //       trigger: ".email-input",
+  //       start: "top 80%", // Adjust this value as needed
+  //     },
+  //   });
+
+  //   // Animate Message textarea
+  //   gsap.from(".message-textarea", {
+  //     y: 100,
+  //     // opacity: 0,
+  //     duration: 1,
+  //     scrollTrigger: {
+  //       trigger: ".message-textarea",
+  //       start: "top 80%", // Adjust this value as needed
+  //     },
+  //   });
+
+  //   // Animate Send button
+  //   gsap.from(".send-button", {
+  //     y: 100,
+  //     // opacity: 0,
+  //     duration: 1,
+  //     scrollTrigger: {
+  //       trigger: ".send-button",
+  //       start: "top 80%", // Adjust this value as needed
+  //     },
+  //   });
+  // };
+
+  // // Call the animateElements function when the component mounts
+  // useEffect(() => {
+  //   animateElements();
+  // }, []);
+
   return (
     <>
       {/* <CancelIcon className="nav-contact-cancel-icon" /> */}
@@ -56,10 +85,17 @@ export function Contact({ openInfoNav }) {
           "& > :not(style)": { m: 1 },
           display: "flex",
           flexDirection: "column",
-          width: "70%",
         }}
       >
-        <FormControl variant="standard" style={{ marginTop: "5em" }}>
+        <div style={{ marginTop: "1em", fontWeight: "bold", fontSize: "2em" }}>
+          Get in touch:
+        </div>
+
+        <FormControl
+          variant="standard"
+          style={{ marginTop: "2em" }}
+          className="name-input"
+        >
           <InputLabel htmlFor="input-with-icon-adornment">Name</InputLabel>
           <Input
             id="input-with-icon-adornment"
@@ -73,6 +109,7 @@ export function Contact({ openInfoNav }) {
           />
         </FormControl>
         <TextField
+          className="email-input"
           id="input-with-icon-textfield"
           label="Email"
           InputProps={{
@@ -123,6 +160,7 @@ export function Contact({ openInfoNav }) {
             display: "flex",
             justifyContent: "center",
           }}
+          className="send-button"
         >
           <LoadingButton
             loading={loading}

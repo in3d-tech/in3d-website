@@ -94,24 +94,43 @@ function HorizontalNavOpen() {
   };
 
   const getbgImage = () => {
-    if (hovered == "Customization")
-      return { background: 'url("/customization-img.png") no-repeat center' };
-    if (hovered == "Artifical Intelligence")
-      return {
-        background: 'url("/where-is-ai-used.jpg") no-repeat center / cover',
-      };
-    if (hovered == "Microsoft")
-      return {
-        background: 'url("/microsoft-ar.png") no-repeat center / cover',
-      };
-    if (hovered == "Military")
-      return { background: 'url("/military-ar.jpg") no-repeat center / cover' };
-    if (hovered == "Security")
-      return {
-        background: 'url("/security-vr.avif") no-repeat center / cover',
-      };
+    const baseStyles = {
+      height: "100%",
+      width: "100vw",
+      position: "absolute",
+      animation: "zoomOut 0.8s ease-out forwards",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+      zIndex: "-20",
+    };
+    let url;
 
-    return { background: 'url("/another-med.jpg") no-repeat center / cover' };
+    switch (hovered) {
+      case "Customization":
+        url = "/customization-img.png";
+        break;
+      case "Artifical Intelligence":
+        url = "/where-is-ai-used.jpg";
+        break;
+      case "Microsoft":
+        url = "/microsoft-ar.png";
+        break;
+      case "Military":
+        url = "/military-ar.jpg";
+        break;
+      case "Security":
+        url = "/security-vr.avif";
+        break;
+      default:
+        url = "/another-med.jpg";
+        break;
+    }
+
+    return {
+      ...baseStyles,
+      backgroundImage: `url(${url}`,
+    };
   };
 
   const titles = [
@@ -147,7 +166,9 @@ function HorizontalNavOpen() {
   ) : (
     <div className="h-nav-open">
       <div className={`horizontal-nav-open-titles-wrapper`}>
-        {hovered && <div className="ahhh" style={getbgImage()}></div>}
+        {/* {hovered && <div style={getbgImage()}></div>} */}
+        {hovered && <div className="hoverZoom" style={getbgImage()}></div>}
+
         <div className="h-nav-open-3d-icon h-nav-in3d-icon">
           <img
             style={{
@@ -171,7 +192,11 @@ function HorizontalNavOpen() {
         <div className="h-nav-bottom-section">
           {/* <div className="in-touch-btn"></div> */}{" "}
           {/* <div className="button-container"> */}
-          <button className="button-52" role="button">
+          <button
+            className="button-52"
+            role="button"
+            onClick={() => setSelectedContent("contact")}
+          >
             Contact Us
           </button>
           {/* </div> */}

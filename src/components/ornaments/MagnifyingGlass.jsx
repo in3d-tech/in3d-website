@@ -71,7 +71,7 @@ const MagnifyingGlass = (props) => {
           props.setIsHovered(props.title);
         }}
         onMouseOut={() => {
-          props.setIsHovered(false);
+          props.setIsHovered(null);
         }}
         style={{
           opacity:

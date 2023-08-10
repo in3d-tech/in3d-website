@@ -10,7 +10,7 @@ export function Ocean({ position }) {
   const gl = useThree((state) => state.gl);
   const waterNormals = useLoader(TextureLoader, "/img/water-example.png");
   waterNormals.wrapS = waterNormals.wrapT = RepeatWrapping;
-  const geom = useMemo(() => new PlaneGeometry(500, 600), []);
+  const geom = useMemo(() => new PlaneGeometry(500, 340), []);
   const config = useMemo(
     () => ({
       textureWidth: 512,

@@ -137,6 +137,8 @@ function App() {
 
     const mixer = useRef(new AnimationMixer(fbxClone));
     const action = mixer.current.clipAction(fbxClone.animations[0]);
+    action.setLoop(THREE.LoopOnce);
+    action.clampWhenFinished = true;
     action.play();
     useFrame((state, delta) => mixer.current.update(delta));
 
@@ -159,7 +161,7 @@ function App() {
       <AppContext.Provider value={{ navState, setNavState }}>
         <Canvas>
           <Suspense fallback={<LoaderComponent />}>
-            <Lights />
+            {/* <Lights /> */}
             {/* <Environment map={envMap} background /> */}
 
             <Preload />
@@ -174,7 +176,7 @@ function App() {
               idx={selectedIsland}
             />
             {/* <Floor /> */}
-            <TileModel />
+            {/* <TileModel /> */}
             <MappedModels
               position={position}
               setPosition={setPosition}
@@ -185,7 +187,7 @@ function App() {
               islandGroupRef={islandGroupRef}
               meshRef={meshRef}
             />
-            {/* <Ocean position={[0, -6, 0]} /> */}
+            {/* <Ocean position={[0, -10, 0]} /> */}
           </Suspense>
         </Canvas>
         <HorizontalNav />
