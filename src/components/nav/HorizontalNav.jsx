@@ -122,8 +122,11 @@ function HorizontalNavOpen() {
       case "Security":
         url = "/security-vr.avif";
         break;
-      default:
+      case "Medicine":
         url = "/another-med.jpg";
+        break;
+      default:
+        url = "/in3dlogo.png";
         break;
     }
 

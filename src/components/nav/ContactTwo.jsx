@@ -126,6 +126,13 @@ const ContactForm = ({ setContact, handleCover, handleReveal }) => {
   const [message, setMessage] = useState("");
   const [subject, setSubject] = useState("");
 
+  const handleBadInput = () => {
+    if (!firstName) setFirstName(false);
+    if (!lastName) setLastName(false);
+    if (!email) setEmail(false);
+    // if (!message) setMessage(false);
+  };
+
   return (
     <div>
       <div>
@@ -157,29 +164,33 @@ const ContactForm = ({ setContact, handleCover, handleReveal }) => {
           autoComplete="off"
         >
           <TextField
+            error={firstName === false ? true : false}
             id="standard-basic"
-            label="First Name"
+            label="First Name*"
             variant="standard"
             value={capitalizeFirstLetter(firstName)}
             onChange={(e) => setFirstName(e.target.value)}
           />
           <TextField
+            error={lastName === false ? true : false}
             id="standard-basic"
-            label="Email"
-            variant="standard"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <TextField
-            id="standard-basic"
-            label="Last Name"
+            label="Last Name*"
             variant="standard"
             value={capitalizeFirstLetter(lastName)}
             onChange={(e) => setLastName(e.target.value)}
           />
+          <TextField
+            error={email === false ? true : false}
+            id="standard-basic"
+            label="Email*"
+            variant="standard"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+
           <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
             <InputLabel id="demo-simple-select-standard-label">
-              Subject
+              Subject*
             </InputLabel>
             <Select
               labelId="demo-simple-select-standard-label"
@@ -198,9 +209,10 @@ const ContactForm = ({ setContact, handleCover, handleReveal }) => {
           </FormControl>
         </Box>
         <TextField
+          error={message === false ? true : false}
           id="outlined-helperText"
           label=""
-          placeholder="Message"
+          placeholder="Message*"
           // defaultValue=""
           helperText="Leave us a message and we'll get back to you as soon as possible!"
           FormHelperTextProps={{
@@ -246,18 +258,19 @@ const ContactForm = ({ setContact, handleCover, handleReveal }) => {
               height: "3em",
               width: "9em",
               justifyContent: "space-evenly",
-              color: "#2d5237",
+              color: "rgb(94, 7, 7)",
               border: "1px solid rgba(0, 0, 0, 0.4)",
               //   borderColor: "blue",
               //   color: "rgb(151, 20, 20)",
             }}
             onClick={() => {
-              // if (!name || !email || !message) {
-              //   return;
-              // } else {
-              setLoading(true);
-              setTimeout(() => setLoading(false), 1000);
-              // }
+              if (!firstName || !lastName || !email || !message) {
+                handleBadInput();
+                return;
+              } else {
+                setLoading(true);
+                setTimeout(() => setLoading(false), 1000);
+              }
             }}
           >
             Send
