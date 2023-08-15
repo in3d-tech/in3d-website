@@ -11,7 +11,6 @@ import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import { TroubleshootOutlined } from "@mui/icons-material";
 
 export function ContactTwo() {
   const [contact, setContact] = useState(false);
@@ -58,16 +57,6 @@ export function ContactTwo() {
           >
             Get in touch
           </button>
-          {/* {contact ? (
-            <ContactForm setContact={setContact} />
-          ) : (
-            <button
-              className="get-in-touch-btn"
-              onClick={() => setContact(true)}
-            >
-              Get in touch
-            </button>
-          )} */}
         </div>
         {/* <TestButton />
         <button className="my-button">Hover me!</button> */}
@@ -158,14 +147,14 @@ const ContactForm = ({ setContact, handleCover, handleReveal }) => {
         <Box
           component="form"
           sx={{
-            "& > :not(style)": { m: 1, width: "40ch" },
+            "& > :not(style)": { m: 1, width: "44.5ch" },
           }}
           noValidate
           autoComplete="off"
         >
           <TextField
             error={firstName === false ? true : false}
-            id="standard-basic"
+            id="first-name-input"
             label="First Name*"
             variant="standard"
             value={capitalizeFirstLetter(firstName)}
@@ -173,7 +162,7 @@ const ContactForm = ({ setContact, handleCover, handleReveal }) => {
           />
           <TextField
             error={lastName === false ? true : false}
-            id="standard-basic"
+            id="last-name-input"
             label="Last Name*"
             variant="standard"
             value={capitalizeFirstLetter(lastName)}
@@ -181,7 +170,7 @@ const ContactForm = ({ setContact, handleCover, handleReveal }) => {
           />
           <TextField
             error={email === false ? true : false}
-            id="standard-basic"
+            id="email-input"
             label="Email*"
             variant="standard"
             value={email}
@@ -194,7 +183,7 @@ const ContactForm = ({ setContact, handleCover, handleReveal }) => {
             </InputLabel>
             <Select
               labelId="demo-simple-select-standard-label"
-              id="demo-simple-select-standard"
+              id="select options"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
               label="Subject"
@@ -210,7 +199,7 @@ const ContactForm = ({ setContact, handleCover, handleReveal }) => {
         </Box>
         <TextField
           error={message === false ? true : false}
-          id="outlined-helperText"
+          id="message-text-field"
           label=""
           placeholder="Message*"
           // defaultValue=""
@@ -231,11 +220,6 @@ const ContactForm = ({ setContact, handleCover, handleReveal }) => {
               marginTop: "2em",
               width: "50em",
             },
-            //   startAdornment: (
-            //     <InputAdornment position="end" style={{ marginTop: "1em" }}>
-            //       <CommentIcon />
-            //     </InputAdornment>
-            //   ),
           }}
           multiline
           value={capitalizeFirstLetter(message)}
@@ -284,25 +268,6 @@ const ContactForm = ({ setContact, handleCover, handleReveal }) => {
             Get in touch
           </button>
         </div> */}
-      </div>
-    </div>
-  );
-};
-
-const ImageAni = () => {
-  return (
-    <div className="box">
-      <div className="face face1">
-        <span className="img-span"></span>
-        <span className="img-span"></span>
-        <span className="img-span"></span>
-        <span className="img-span"></span>
-      </div>
-      <div className="face face2">
-        <span className="img-span"></span>
-        <span className="img-span"></span>
-        <span className="img-span"></span>
-        <span className="img-span"></span>
       </div>
     </div>
   );

@@ -3,7 +3,6 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import { Button } from "./nav/Button";
 import { getCameraCoords } from "../common/getCameraCoords";
 import AppContext from "../context/context";
-// import useTimeout from "../common/useTimeout";
 
 export function Navbar({
   setCategorySelected,

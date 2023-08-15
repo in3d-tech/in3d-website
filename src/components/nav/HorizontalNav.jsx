@@ -1,8 +1,7 @@
-import React, { useRef, useState, useMemo, useContext, useEffect } from "react";
+import React, { useRef, useState, useContext, useEffect } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import MagnifyingGlass from "../ornaments/MagnifyingGlass";
-import { NavTopicSelection } from "./NavTopicSelection";
 import AppContext from "../../context/context";
 import { HorizontalSelectedContent } from "./HorizontalSelectedContent";
 
@@ -161,7 +160,6 @@ function HorizontalNavOpen() {
   return selectedContent ? (
     <div>
       <HorizontalSelectedContent
-        selectedContent={selectedContent}
         setSelectedContent={setSelectedContent}
         title={selectedContent}
       />
@@ -169,7 +167,6 @@ function HorizontalNavOpen() {
   ) : (
     <div className="h-nav-open">
       <div className={`horizontal-nav-open-titles-wrapper`}>
-        {/* {hovered && <div style={getbgImage()}></div>} */}
         {hovered && <div className="hoverZoom" style={getbgImage()}></div>}
 
         <div className="h-nav-open-3d-icon h-nav-in3d-icon">
@@ -193,8 +190,6 @@ function HorizontalNavOpen() {
           }}
         ></div>
         <div className="h-nav-bottom-section">
-          {/* <div className="in-touch-btn"></div> */}{" "}
-          {/* <div className="button-container"> */}
           <button
             className="button-52"
             role="button"
@@ -202,11 +197,8 @@ function HorizontalNavOpen() {
           >
             Contact Us
           </button>
-          {/* </div> */}
         </div>
       </div>
-
-      {/* <NavTopicSelection contentRef={contentRef} /> */}
     </div>
   );
 }

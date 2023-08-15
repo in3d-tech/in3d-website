@@ -1,5 +1,13 @@
-import { useRef, useState, Suspense, lazy, useMemo, useEffect } from "react";
-import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
+import {
+  useRef,
+  useState,
+  Suspense,
+  lazy,
+  useMemo,
+  useEffect,
+  memo,
+} from "react";
+import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import {
   Preload,
   Stats,
@@ -8,15 +16,12 @@ import {
   useGLTF,
   useEnvironment,
   Environment,
-  Clone,
-  ScrollControls,
   useFBX,
 } from "@react-three/drei";
 import * as THREE from "three";
 import { TextureLoader, AnimationMixer } from "three";
 import { Navbar } from "./components/NavbarOld";
 import { Camera } from "./components/Camera";
-import { Loading } from "./components/Loading";
 import { Ocean } from "./components/ornaments/Water";
 import { CameraControls } from "./common/CameraControls";
 import { Lights } from "./components/ornaments/Lights";
@@ -128,19 +133,99 @@ function App() {
   //   );
   // }
 
-  function TileModel(props) {
+  // function TileModel(props) {
+  //   const fbx = useFBX("/assets/Hex rotate.fbx");
+  //   const texture = useLoader(TextureLoader, "/assets/hexagon-texture.png");
+
+  //   // clone the fbx model
+  //   const fbxClone = useMemo(() => clone(fbx, texture), [fbx, texture]);
+
+  //   // const mixer = useRef(new AnimationMixer(fbxClone));
+  //   // const action = mixer.current.clipAction(fbxClone.animations[0]);
+  //   // action.setLoop(THREE.LoopOnce);
+  //   // action.clampWhenFinished = true;
+  //   // action.play();
+  //   useEffect(() => {
+  //     const mixer = new AnimationMixer(fbxClone);
+  //     const action = mixer.clipAction(fbxClone.animations[0]);
+
+  //     action.setLoop(THREE.LoopOnce);
+  //     action.clampWhenFinished = true;
+  //     action.play();
+  //     useFrame((state, delta) => mixer.current.update(delta));
+
+  //     return () => mixer.stopAllAction(); // Stopping the animation when unmounting the component.
+  //   }, []);
+  //   // useFrame((state, delta) => mixer.current.update(delta));
+
+  //   console.log({ fbxClone: fbxClone.uuid });
+
+  //   return (
+  //     <primitive
+  //       object={fbxClone}
+  //       {...props}
+  //       scale={30}
+  //       position={[0, -6, 0]}
+  //       rotation={[Math.PI / 2, 0, 0]}
+  //     />
+  //   );
+  // }
+  // function TileModel(props) {
+  //   const fbx = useFBX("/assets/Hex rotate.fbx");
+  //   const texture = useLoader(TextureLoader, "/assets/hexagon-texture.png");
+
+  //   // clone the fbx model
+  //   const fbxClone = useMemo(() => clone(fbx, texture), [fbx, texture]);
+
+  //   const [mixer] = useState(() => new AnimationMixer(fbxClone));
+  //   const [action] = useState(() => mixer.clipAction(fbxClone.animations[0]));
+
+  //   useEffect(() => {
+  //     action.setLoop(THREE.LoopOnce);
+  //     action.clampWhenFinished = true;
+  //     action.play();
+
+  //     // Cleanup function to stop animation when component unmounts
+  //     return () => action.stop();
+  //   }, []); // Empty dependency array ensures this runs once on mount
+
+  //   useFrame((state, delta) => mixer.update(delta));
+
+  //   console.log({ fbxClone: fbxClone.uuid });
+
+  //   return (
+  //     <primitive
+  //       object={fbxClone}
+  //       {...props}
+  //       scale={30}
+  //       position={[0, -6, 0]}
+  //       rotation={[Math.PI / 2, 0, 0]}
+  //     />
+  //   );
+  // }
+
+  const TileModel = memo((props) => {
     const fbx = useFBX("/assets/Hex rotate.fbx");
     const texture = useLoader(TextureLoader, "/assets/hexagon-texture.png");
 
     // clone the fbx model
     const fbxClone = useMemo(() => clone(fbx, texture), [fbx, texture]);
 
-    const mixer = useRef(new AnimationMixer(fbxClone));
-    const action = mixer.current.clipAction(fbxClone.animations[0]);
-    action.setLoop(THREE.LoopOnce);
-    action.clampWhenFinished = true;
-    action.play();
-    useFrame((state, delta) => mixer.current.update(delta));
+    const [mixer] = useState(() => new AnimationMixer(fbxClone));
+    const [action] = useState(() => mixer.clipAction(fbxClone.animations[0]));
+
+    useEffect(() => {
+      action.setLoop(THREE.LoopOnce);
+      action.clampWhenFinished = true;
+      action.play();
+
+      // Cleanup function to stop animation when component unmounts
+      return () => action.stop();
+    }, []); // Empty dependency array ensures this runs once on mount
+
+    useFrame((state, delta) => mixer.update(delta));
+
+    console.log({ fbxClone: fbxClone.uuid });
 
     return (
       <primitive
@@ -151,7 +236,7 @@ function App() {
         rotation={[Math.PI / 2, 0, 0]}
       />
     );
-  }
+  });
 
   return isLanding ? (
     <LandingComponent setIsLanding={setIsLanding} />
@@ -176,8 +261,8 @@ function App() {
               idx={selectedIsland}
             />
             {/* <Floor /> */}
-            {/* <TileModel /> */}
-            <MappedModels
+            <TileModel />
+            {/* <MappedModels
               position={position}
               setPosition={setPosition}
               setTarget={setTarget}
@@ -186,7 +271,7 @@ function App() {
               tankModel={tankModel}
               islandGroupRef={islandGroupRef}
               meshRef={meshRef}
-            />
+            /> */}
             {/* <Ocean position={[0, -10, 0]} /> */}
           </Suspense>
         </Canvas>

@@ -7,18 +7,12 @@ import { ContactTwo } from "./ContactTwo";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export function HorizontalSelectedContent({
-  selectedContent,
-  setSelectedContent,
-  title,
-}) {
+export function HorizontalSelectedContent({ setSelectedContent, title }) {
   const [showContent, setShowContent] = useState(false);
-  const [secondSection, setSecondSection] = useState(false);
   const [scrollStatus, setScrollStatus] = useState("");
   const [imgSrc, setimgSrc] = useState(false);
   const wrapperRef = useRef(null);
   const closeBtnRef = useRef(null);
-  const imgRef = useRef(null);
   const midSectionRef = useRef(null);
   const titleRef = useRef(null);
   const textLeftRef = useRef(null);
@@ -29,6 +23,10 @@ export function HorizontalSelectedContent({
   const textRightRefThree = useRef(null);
   const textLeftRefFour = useRef(null);
   const textRightRefFour = useRef(null);
+  const textLeftRefFive = useRef(null);
+  const textLeftRefSix = useRef(null);
+  const textRightRefFive = useRef(null);
+  const textRightRefSix = useRef(null);
   const bgImageRef = useRef(null);
   const midImg = useRef(null);
   const sectionThreeRef = useRef(null);
@@ -96,9 +94,9 @@ export function HorizontalSelectedContent({
     //first two sections
     gsap.fromTo(
       [textLeftRef.current, textLeftRefTwo.current],
-      { xPercent: -350 },
+      { xPercent: -150 },
       {
-        xPercent: 200,
+        xPercent: 100,
         duration: 2.5,
 
         scrollTrigger: {
@@ -106,31 +104,23 @@ export function HorizontalSelectedContent({
           start: "top bottom",
           end: "bottom center",
           scrub: 1,
+          once: true,
           // toggleActions: "play none none none",
-          onUpdate: (self) => {
-            // Calculate the scroll progress as a percentage
-            const scrollProgress = self.progress * 100;
-
-            // Set the scroll position by percentage
-            // self.scrollLeft =
-            //   (scrollProgress / 100) *
-            //   (midSectionRef.current.scrollWidth -
-            //     midSectionRef.current.clientWidth);
-          },
         },
       }
     );
     gsap.fromTo(
       [textRightRef.current, textRightRefTwo.current],
-      { xPercent: 350 },
+      { xPercent: 150 },
       {
-        xPercent: -200,
+        xPercent: -140,
         duration: 2.5,
         scrollTrigger: {
           trigger: midSectionRef.current,
           start: "top bottom",
           end: "bottom center",
           scrub: 1,
+          once: true,
         },
       }
     );
@@ -139,13 +129,14 @@ export function HorizontalSelectedContent({
       [textLeftRefThree.current, textLeftRefFour.current],
       { xPercent: -350 },
       {
-        xPercent: 300,
-        duration: 5.5,
+        xPercent: 90,
+        duration: 7.5,
         scrollTrigger: {
           trigger: midSectionRef.current,
           start: "top top",
           end: "bottom center",
-          scrub: 1,
+          scrub: 4,
+          once: true,
         },
       }
     );
@@ -153,13 +144,45 @@ export function HorizontalSelectedContent({
       [textRightRefThree.current, textRightRefFour.current],
       { xPercent: 350 },
       {
-        xPercent: -300,
-        duration: 5.5,
+        xPercent: -90,
+        duration: 7.5,
         scrollTrigger: {
           trigger: midSectionRef.current,
           start: "top top",
           end: "bottom center",
-          scrub: 1,
+          scrub: 4,
+          once: true,
+        },
+      }
+    );
+
+    gsap.fromTo(
+      [textLeftRefFive.current, textLeftRefSix.current],
+      { xPercent: -350 },
+      {
+        xPercent: 100,
+        duration: 7.5,
+        scrollTrigger: {
+          trigger: midSectionRef.current,
+          start: "top top",
+          end: "bottom center",
+          scrub: 4,
+          once: true,
+        },
+      }
+    );
+    gsap.fromTo(
+      [textRightRefFive.current, textRightRefSix.current],
+      { xPercent: 350 },
+      {
+        xPercent: -80,
+        duration: 7.5,
+        scrollTrigger: {
+          trigger: midSectionRef.current,
+          start: "top top",
+          end: "bottom center",
+          scrub: 4,
+          once: true,
         },
       }
     );
@@ -249,7 +272,6 @@ export function HorizontalSelectedContent({
   }, []);
 
   const sectionStyle = {
-    // width: "100%",W
     height: "100vh",
   };
 
@@ -343,6 +365,7 @@ export function HorizontalSelectedContent({
                 right: "50%",
                 fontSize: "2.5em",
                 top: "20%",
+                fontFamily: "gotham-bold",
               }}
             >
               Here is another headline
@@ -354,6 +377,7 @@ export function HorizontalSelectedContent({
                 left: "50%",
                 top: "10%",
                 fontSize: "2.5em",
+                fontFamily: "gotham-bold",
               }}
             >
               A headline!
@@ -366,6 +390,7 @@ export function HorizontalSelectedContent({
                 right: "50%",
                 fontSize: "2.5em",
                 top: "40%",
+                fontFamily: "gotham-bold",
               }}
             >
               Here is another headline
@@ -377,6 +402,7 @@ export function HorizontalSelectedContent({
                 left: "50%",
                 top: "30%",
                 fontSize: "2.5em",
+                fontFamily: "gotham-bold",
               }}
             >
               A headline!
@@ -400,18 +426,43 @@ export function HorizontalSelectedContent({
                 left: "50%",
                 top: "60%",
                 fontSize: "2.5em",
+                fontFamily: "gotham-bold",
               }}
             >
               A Lower down headline!
+            </div>
+
+            <div
+              ref={textLeftRefFive}
+              style={{
+                position: "absolute",
+                right: "50%",
+                fontSize: "2.5em",
+                top: "90%",
+              }}
+            >
+              Here is another Low headline Again
+            </div>
+            <div
+              ref={textRightRefFive}
+              style={{
+                position: "absolute",
+                left: "50%",
+                top: "80%",
+                fontSize: "2.5em",
+                fontFamily: "gotham-bold",
+              }}
+            >
+              A Lower down headline again!
             </div>
           </div>
         </div>
 
         <div
           style={{
-            background: "white",
+            // background: "white",
             backgroundSize: "contain",
-            borderRadius: "10px",
+            // borderRadius: "10px",
             zIndex: 1,
             flex: 1,
             display: "flex",
@@ -430,30 +481,14 @@ export function HorizontalSelectedContent({
               // ref={midImg}
               alt="category image"
               src={imgSrc == 1 ? "/where-is-ai-used.jpg" : "/security-vr.avif"}
-              className="mid-img-test-two" //${
-              //   scrollStatus ? getScrollStyles[scrollStatus] : ""
-              //   }`} //${imgSrc ? "img-opacity-change" : ""}
+              className="mid-img-test-two"
             />
           </div>
-          {/* <img
-            ref={midImg}
-            alt="secoin 2-3 img"
-            src={imgSrc == 1 ? "/where-is-ai-used.jpg" : "/security-vr.avif"}
-            className={`mid-img-test ${
-              scrollStatus ? getScrollStyles[scrollStatus] : ""
-            } `} //${imgSrc ? "img-opacity-change" : ""}
-            style={{
-              // width: "50%",
-              height: "400px",
-              // position: "relative",
-              // top: 0,
-            }}
-          /> */}
         </div>
       </div>
       <div
         style={{
-          height: "70vh",
+          height: "60vh",
           padding: "10px",
           display: "flex",
           justifyContent: "center",
