@@ -53,7 +53,7 @@ export function HorizontalNav() {
               className="h-nav-in3d-icon"
               style={{ position: "absolute", top: "5em" }}
             >
-              <img style={{ width: "10em" }} src="/img/in3dlogo.png" />
+              <img style={{ width: "10em" }} src="/in3dlogo.png" />
             </div>
             <MenuIcon
               className="nav-close-icon"

@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Contact } from "./AboutContact";
 import { ContactTwo } from "./ContactTwo";
 
 gsap.registerPlugin(ScrollTrigger);

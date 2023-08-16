@@ -233,10 +233,18 @@ function App() {
         {...props}
         scale={30}
         position={[0, -6, 0]}
-        rotation={[Math.PI / 2, 0, 0]}
+        rotation={[-0.1, -0.05, 3]} //{[Math.PI / 2, 0, 0]}
       />
     );
   });
+
+  const videoIds = [
+    "9vA8qX_p11w",
+    "enJ6be4qLMs",
+    "Bj6KLv7kv2Q",
+    "rVzJDgDnKLI",
+    "mAEM5q5YFtg",
+  ];
 
   return isLanding ? (
     <LandingComponent setIsLanding={setIsLanding} />
@@ -246,7 +254,7 @@ function App() {
       <AppContext.Provider value={{ navState, setNavState }}>
         <Canvas>
           <Suspense fallback={<LoaderComponent />}>
-            {/* <Lights /> */}
+            <Lights />
             {/* <Environment map={envMap} background /> */}
 
             <Preload />
@@ -262,7 +270,7 @@ function App() {
             />
             {/* <Floor /> */}
             <TileModel />
-            {/* <MappedModels
+            <MappedModels
               position={position}
               setPosition={setPosition}
               setTarget={setTarget}
@@ -271,8 +279,8 @@ function App() {
               tankModel={tankModel}
               islandGroupRef={islandGroupRef}
               meshRef={meshRef}
-            /> */}
-            {/* <Ocean position={[0, -10, 0]} /> */}
+            />
+            <Ocean position={[0, -10, 0]} />
           </Suspense>
         </Canvas>
         <HorizontalNav />
@@ -283,7 +291,9 @@ function App() {
           setSelectedIsland={setSelectedIsland}
           selectedIsland={selectedIsland}
         />
-        {selectedIsland && <ContentView scrollRef={scrollRef} />}
+        {selectedIsland && (
+          <ContentView scrollRef={scrollRef} videoIds={videoIds} />
+        )}
       </AppContext.Provider>
     </div>
   );
