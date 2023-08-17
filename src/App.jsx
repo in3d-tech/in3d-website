@@ -17,6 +17,8 @@ import {
   useEnvironment,
   Environment,
   useFBX,
+  Stars,
+  Sparkles,
 } from "@react-three/drei";
 import * as THREE from "three";
 import { TextureLoader, AnimationMixer } from "three";
@@ -204,12 +206,45 @@ function App() {
   //   );
   // }
 
+  // const TileModel = memo((props) => {
+  //   const fbx = useFBX("/assets/Hex rotate.fbx");
+  //   const texture = useLoader(TextureLoader, "/assets/hexagon-texture.png");
+
+  //   // clone the fbx model
+  //   const fbxClone = useMemo(() => clone(fbx, texture), [fbx, texture]);
+
+  //   const [mixer] = useState(() => new AnimationMixer(fbxClone));
+  //   const [action] = useState(() => mixer.clipAction(fbxClone.animations[0]));
+
+  //   useEffect(() => {
+  //     action.setLoop(THREE.LoopOnce);
+  //     action.clampWhenFinished = true;
+  //     action.play();
+
+  //     // Cleanup function to stop animation when component unmounts
+  //     return () => action.stop();
+  //   }, []); // Empty dependency array ensures this runs once on mount
+
+  //   useFrame((state, delta) => mixer.update(delta));
+
+  //   console.log({ fbxClone: fbxClone.uuid });
+
+  //   return (
+  //     <primitive
+  //       object={fbxClone}
+  //       {...props}
+  //       scale={30} //{30}
+  //       position={[0, -6, 0]}
+  //       rotation={[Math.PI / 2, 0, 0]} //{[-0.1, -0.05, 3]} //{[Math.PI / 2, 0, 0]}
+  //     />
+  //   );
+  // });
+
   const TileModel = memo((props) => {
-    const fbx = useFBX("/assets/Hex rotate.fbx");
-    const texture = useLoader(TextureLoader, "/assets/hexagon-texture.png");
+    const fbx = useFBX("/assets/Hexagon Tile long animation.fbx");
 
     // clone the fbx model
-    const fbxClone = useMemo(() => clone(fbx, texture), [fbx, texture]);
+    const fbxClone = useMemo(() => clone(fbx), [fbx]);
 
     const [mixer] = useState(() => new AnimationMixer(fbxClone));
     const [action] = useState(() => mixer.clipAction(fbxClone.animations[0]));
@@ -231,9 +266,9 @@ function App() {
       <primitive
         object={fbxClone}
         {...props}
-        scale={30}
+        scale={10} //{30}
         position={[0, -6, 0]}
-        rotation={[-0.1, -0.05, 3]} //{[Math.PI / 2, 0, 0]}
+        rotation={[0, 0, 0]} //{[-0.1, -0.05, 3]} //{[Math.PI / 2, 0, 0]}
       />
     );
   });
@@ -254,6 +289,31 @@ function App() {
       <AppContext.Provider value={{ navState, setNavState }}>
         <Canvas>
           <Suspense fallback={<LoaderComponent />}>
+            {/* <Stars
+              count={5000}
+              depth={150}
+              factor={4}
+              saturation={5}
+              radius={50}
+              fade={true}
+              speed={0.7}
+            /> */}
+            <Stars
+              count={2000}
+              depth={50}
+              factor={4}
+              saturation={5}
+              radius={50}
+              fade={true}
+              speed={0.7}
+            />
+            {/* <Sparkles
+              count={1000}
+              color={"black"}
+              size={20000}
+              scale={1}
+              // noise={10}
+            /> */}
             <Lights />
             {/* <Environment map={envMap} background /> */}
 
@@ -280,7 +340,7 @@ function App() {
               islandGroupRef={islandGroupRef}
               meshRef={meshRef}
             />
-            <Ocean position={[0, -10, 0]} />
+            {/* <Ocean position={[0, -10, 0]} /> */}
           </Suspense>
         </Canvas>
         <HorizontalNav />

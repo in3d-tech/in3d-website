@@ -117,10 +117,12 @@ const ContactForm = ({ setContact, handleCover, handleReveal }) => {
   const [subject, setSubject] = useState("");
 
   const handleBadInput = () => {
-    if (!firstName) setFirstName(false);
-    if (!lastName) setLastName(false);
+    if (!validateEmail(email)) {
+      setEmail(false);
+      return;
+    }
     if (!email) setEmail(false);
-    // if (!message) setMessage(false);
+    if (!message) setMessage(false);
   };
 
   return (
@@ -152,6 +154,7 @@ const ContactForm = ({ setContact, handleCover, handleReveal }) => {
             justifyContent: "center",
             alignItems: "center",
             height: "100%",
+            width: "100%",
           }}
         >
           <Box
@@ -168,7 +171,7 @@ const ContactForm = ({ setContact, handleCover, handleReveal }) => {
             <TextField
               error={firstName === false ? true : false}
               id="first-name-input"
-              label="First Name*"
+              label="First Name"
               variant="standard"
               value={capitalizeFirstLetter(firstName)}
               onChange={(e) => setFirstName(e.target.value)}
@@ -176,11 +179,12 @@ const ContactForm = ({ setContact, handleCover, handleReveal }) => {
             <TextField
               error={lastName === false ? true : false}
               id="last-name-input"
-              label="Last Name*"
+              label="Last Name"
               variant="standard"
               value={capitalizeFirstLetter(lastName)}
               onChange={(e) => setLastName(e.target.value)}
             />
+
             <TextField
               error={email === false ? true : false}
               id="email-input"
@@ -192,7 +196,7 @@ const ContactForm = ({ setContact, handleCover, handleReveal }) => {
 
             <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
               <InputLabel id="demo-simple-select-standard-label">
-                Subject*
+                Subject
               </InputLabel>
               <Select
                 labelId="demo-simple-select-standard-label"
@@ -226,14 +230,14 @@ const ContactForm = ({ setContact, handleCover, handleReveal }) => {
           }}
           InputProps={{
             style: {
-              height: "100px",
+              height: "15em",
               overflowY: "hidden",
               wordWrap: "break-word",
               padding: "10px",
               display: "flex",
               alignItems: "flex-start",
               marginTop: "2em",
-              width: "50em",
+              width: "60em",
             },
           }}
           multiline
@@ -263,7 +267,7 @@ const ContactForm = ({ setContact, handleCover, handleReveal }) => {
               //   color: "rgb(151, 20, 20)",
             }}
             onClick={() => {
-              if (!firstName || !lastName || !email || !message) {
+              if (!email || !message) {
                 handleBadInput();
                 return;
               } else {
@@ -279,3 +283,8 @@ const ContactForm = ({ setContact, handleCover, handleReveal }) => {
     </div>
   );
 };
+
+function validateEmail(email) {
+  const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  return reg.test(email);
+}

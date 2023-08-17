@@ -3,7 +3,29 @@ import CloseIcon from "@mui/icons-material/Close";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ContactTwo } from "./ContactTwo";
+import ReactPlayer from "react-player";
 
+const VideoPlayer = () => (
+  <div className="player-wrapper">
+    <ReactPlayer
+      className="react-player"
+      url="/assets/video/short-vid.mp4"
+      width="100%"
+      height="100%"
+      controls={false}
+      playing={true}
+      loop={true}
+      style={{
+        position: "absolute",
+        top: "0",
+        left: "0",
+        borderRadius: "10px",
+        // border: "2px solid red",
+      }}
+      // config={{ file: { attributes: { style: "object-fit: cover;" } } }}
+    />
+  </div>
+);
 gsap.registerPlugin(ScrollTrigger);
 
 export function HorizontalSelectedContent({ setSelectedContent, title }) {
@@ -95,7 +117,7 @@ export function HorizontalSelectedContent({ setSelectedContent, title }) {
       [textLeftRef.current, textLeftRefTwo.current],
       { xPercent: -150 },
       {
-        xPercent: 100,
+        xPercent: 80,
         duration: 2.5,
 
         scrollTrigger: {
@@ -128,7 +150,7 @@ export function HorizontalSelectedContent({ setSelectedContent, title }) {
       [textLeftRefThree.current, textLeftRefFour.current],
       { xPercent: -350 },
       {
-        xPercent: 90,
+        xPercent: 80,
         duration: 7.5,
         scrollTrigger: {
           trigger: midSectionRef.current,
@@ -159,7 +181,7 @@ export function HorizontalSelectedContent({ setSelectedContent, title }) {
       [textLeftRefFive.current, textLeftRefSix.current],
       { xPercent: -350 },
       {
-        xPercent: 100,
+        xPercent: 80,
         duration: 7.5,
         scrollTrigger: {
           trigger: midSectionRef.current,
@@ -313,7 +335,7 @@ export function HorizontalSelectedContent({ setSelectedContent, title }) {
         }}
         className="h-selection-one"
       >
-        <div className="h-selection-one-left">
+        <div className="h-selection-one-left" style={{ ...getBgColor(title) }}>
           <div ref={titleRef} className="h-selected-title">
             {title}
           </div>
@@ -341,10 +363,12 @@ export function HorizontalSelectedContent({ setSelectedContent, title }) {
       <div className="h-selected-content-mid-section" ref={midSectionRef}>
         <div
           style={{
-            background: "white",
+            // background: "white",
+
             width: "100%",
             height: "100%",
             zIndex: -1,
+            borderRadius: "0px 0px 30px 0px",
           }}
           className="section-twoo"
         >
@@ -367,7 +391,7 @@ export function HorizontalSelectedContent({ setSelectedContent, title }) {
                 fontFamily: "gotham-bold",
               }}
             >
-              Here is another headline
+              "Here is another headline"
             </div>
             <div
               ref={textRightRef}
@@ -379,7 +403,7 @@ export function HorizontalSelectedContent({ setSelectedContent, title }) {
                 fontFamily: "gotham-bold",
               }}
             >
-              A headline!
+              "A headline!"
             </div>
 
             <div
@@ -392,7 +416,7 @@ export function HorizontalSelectedContent({ setSelectedContent, title }) {
                 fontFamily: "gotham-bold",
               }}
             >
-              Here is another headline
+              "Here is another headline"
             </div>
             <div
               ref={textRightRefTwo}
@@ -404,7 +428,7 @@ export function HorizontalSelectedContent({ setSelectedContent, title }) {
                 fontFamily: "gotham-bold",
               }}
             >
-              A headline!
+              "A headline!"
             </div>
 
             <div
@@ -416,7 +440,7 @@ export function HorizontalSelectedContent({ setSelectedContent, title }) {
                 top: "70%",
               }}
             >
-              Here is another Low headline
+              "Here is another Low headline"
             </div>
             <div
               ref={textRightRefThree}
@@ -428,7 +452,7 @@ export function HorizontalSelectedContent({ setSelectedContent, title }) {
                 fontFamily: "gotham-bold",
               }}
             >
-              A Lower down headline!
+              "A Lower down headline!"
             </div>
 
             <div
@@ -440,7 +464,7 @@ export function HorizontalSelectedContent({ setSelectedContent, title }) {
                 top: "90%",
               }}
             >
-              Here is another Low headline Again
+              "Here is another Low headline Again"
             </div>
             <div
               ref={textRightRefFive}
@@ -452,7 +476,7 @@ export function HorizontalSelectedContent({ setSelectedContent, title }) {
                 fontFamily: "gotham-bold",
               }}
             >
-              A Lower down headline again!
+              "A Lower down headline again!"
             </div>
           </div>
         </div>
@@ -476,12 +500,25 @@ export function HorizontalSelectedContent({ setSelectedContent, title }) {
             }`}
             ref={midImg}
           >
+            {imgSrc == 1 ? (
+              <VideoPlayer />
+            ) : (
+              <img
+                // ref={midImg}
+                alt="category image"
+                src={
+                  imgSrc == 1 ? "/where-is-ai-used.jpg" : "/security-vr.avif"
+                }
+                className="mid-img-test-two"
+              />
+            )}
+            {/* <VideoPlayer />
             <img
               // ref={midImg}
               alt="category image"
               src={imgSrc == 1 ? "/where-is-ai-used.jpg" : "/security-vr.avif"}
               className="mid-img-test-two"
-            />
+            /> */}
           </div>
         </div>
       </div>
@@ -500,3 +537,35 @@ export function HorizontalSelectedContent({ setSelectedContent, title }) {
     </div>
   );
 }
+
+const getBgColor = (title) => {
+  const bgColors = {
+    Customization: {
+      background:
+        "linear-gradient(rgba(0, 48, 42, 0.9), rgba(155, 127, 127, 0.3))",
+    },
+    "Artifical Intelligence": {
+      background:
+        "linear-gradient(rgba(0, 68, 99, 0.9), rgba(155, 127, 127, 0.3))",
+    },
+    Microsoft: {
+      background:
+        "linear-gradient(rgba(255, 115, 0, 0.9),rgba(155, 127, 127, 0.3))",
+    },
+    Security: {
+      background:
+        "linear-gradient(rgba(24, 0, 8, 0.4),rgba(155, 127, 127, 0.3))",
+    },
+    Medicine: {
+      background:
+        "linear-gradient(rgba(109, 54, 54, 0.9), rgba(155, 127, 127, 0.3))",
+    },
+    Military: {
+      background:
+        "linear-gradient(rgba(0, 56, 13, 0.3), rgba(155, 127, 127, 0.3))",
+    },
+  };
+  return bgColors[title] || { background: "rgba(0, 56, 13, 0.3)" };
+};
+
+// background: linear-gradient(rgba(155, 127, 127, 0.3), rgb(237, 250, 250));

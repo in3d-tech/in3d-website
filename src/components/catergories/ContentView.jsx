@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import YouTube from "react-youtube";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
+import ReactPlayer from "react-player/youtube";
 
 const videoz = [
   "9vA8qX_p11w",
@@ -54,11 +55,21 @@ export function ContentView({ scrollRef, videoIds }) {
     <div className="category-graphics-view">
       <div className="selected-content-container">
         <div className="selected-content-slider">
-          <YouTube
+          {/* <YouTube
             videoId={videos[0]}
             opts={opts}
             onReady={(e) => onReadyFunct(e)}
             style={{ height: "100%" }}
+          /> */}
+          <ReactPlayer
+            url={`"https://www.youtube.com/watch?v=${videos[0]}"`}
+            // muted={true}
+            playing={true}
+            height="100%"
+            width="100%"
+            playIcon
+            controls
+            onBuffer={() => console.log("the player is buffering!")}
           />
         </div>
         {/* <img
