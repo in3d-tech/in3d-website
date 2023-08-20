@@ -26,6 +26,31 @@ const VideoPlayer = () => (
     />
   </div>
 );
+
+const VideoBG = () => (
+  // <div className="player-wrapper">
+  <ReactPlayer
+    className="react-player-bg"
+    url="/assets/video/height-vid.mp4"
+    // width="100%"
+    height="100%"
+    controls={false}
+    playing={true}
+    volume={0}
+    loop={true}
+    style={{
+      position: "absolute",
+      top: "0",
+      left: "0",
+      // right: 0,
+      borderRadius: "10px",
+      zIndex: -1,
+      // border: "2px solid red",
+    }}
+    // config={{ file: { attributes: { style: "object-fit: cover;" } } }}
+  />
+  // </div>
+);
 gsap.registerPlugin(ScrollTrigger);
 
 export function HorizontalSelectedContent({ setSelectedContent, title }) {
@@ -494,32 +519,36 @@ export function HorizontalSelectedContent({ setSelectedContent, title }) {
           className="section-three"
           ref={wrapperRef}
         >
-          <div
-            className={`mid-img-test ${
-              scrollStatus ? getScrollStyles[scrollStatus] : ""
-            }`}
-            ref={midImg}
-          >
-            {imgSrc == 1 ? (
-              <VideoPlayer />
-            ) : (
-              <img
-                // ref={midImg}
-                alt="category image"
-                src={
-                  imgSrc == 1 ? "/where-is-ai-used.jpg" : "/security-vr.avif"
-                }
-                className="mid-img-test-two"
-              />
-            )}
-            {/* <VideoPlayer />
+          {title == "Medicine" && <VideoBG />}
+
+          {title != "Medicine" && (
+            <div
+              className={`mid-img-test ${
+                scrollStatus ? getScrollStyles[scrollStatus] : ""
+              }`}
+              ref={midImg}
+            >
+              {imgSrc == 1 ? (
+                <VideoPlayer />
+              ) : (
+                <img
+                  // ref={midImg}
+                  alt="category image"
+                  src={
+                    imgSrc == 1 ? "/where-is-ai-used.jpg" : "/security-vr.avif"
+                  }
+                  className="mid-img-test-two"
+                />
+              )}
+              {/* <VideoPlayer />
             <img
               // ref={midImg}
               alt="category image"
               src={imgSrc == 1 ? "/where-is-ai-used.jpg" : "/security-vr.avif"}
               className="mid-img-test-two"
             /> */}
-          </div>
+            </div>
+          )}
         </div>
       </div>
       <div

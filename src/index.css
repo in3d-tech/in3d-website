@@ -711,7 +711,8 @@ a {
   left: 0;
   height: 100%;
   width: 6.5em;
-  background: rgba(255, 255, 255, 0);
+  /* min-width: 5%; */
+  /* background: rgba(255, 255, 255, 0); */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -809,14 +810,13 @@ a {
 }
 
 .horizontal-nav-open-titles-container {
-  /* border: 1px solid yellow; */
   width: 100%;
   height: 500px;
   display: grid;
   grid-template-areas:
     "title1 title2 title3"
     "title4 title5 title6";
-  gap: 10px; /* Adjust the gap between titles as per your preference */
+  gap: 10px;
   justify-items: center; /* Center the titles horizontally */
   align-items: center; /* Center the titles vertically */
   border-radius: 5px;
@@ -863,6 +863,7 @@ a {
   padding: 2px;
   display: flex;
   align-items: center;
+  border-top: 1px solid rgb(255, 255, 255, 0.6);
 }
 
 .magnifying-glass {
@@ -961,6 +962,7 @@ a {
 
 .h-nav-open {
   height: 100vh;
+  border: 2px solid white;
 }
 
 .h-selected-nav {
@@ -1148,6 +1150,7 @@ a {
   height: 90%;
   border-left: 1px solid rgb(0, 0, 0, 0.3);
   background: url("/security-vr.avif");
+  /* background: black; */
 }
 
 .contact-us-wrapper {
@@ -1628,5 +1631,12 @@ h1 {
   flex-shrink: 0;
   min-width: 100%;
   /* min-height: 100%; */
+  max-height: 90%;
+}
+
+.react-player-bg {
+  flex-shrink: 0;
+  min-width: 100%;
+  min-height: 100%;
   max-height: 90%;
 }

@@ -79,7 +79,7 @@ function HorizontalNavOpen() {
   useEffect(() => {
     setTimeout(() => {
       if (!allowClick) setAllowClick(true);
-    }, [3000]);
+    }, [2500]);
   });
 
   const handleNavClick = (ref, label) => {
@@ -165,40 +165,32 @@ function HorizontalNavOpen() {
       />
     </div>
   ) : (
-    <div className="h-nav-open">
-      <div className={`horizontal-nav-open-titles-wrapper`}>
-        {hovered && <div className="hoverZoom" style={getbgImage()}></div>}
+    // <div className="h-nav-open">
+    <div className={`horizontal-nav-open-titles-wrapper`}>
+      {hovered && <div className="hoverZoom" style={getbgImage()}></div>}
 
-        <div className="h-nav-open-3d-icon h-nav-in3d-icon">
-          <img
-            style={{
-              width: "12em",
-            }}
-            src="/in3dlogo.png"
-          />
-        </div>
-        <div className="horizontal-nav-open-titles-container">
-          {contentSelections}
-        </div>
-        <div
+      <div className="h-nav-open-3d-icon h-nav-in3d-icon">
+        <img
           style={{
-            position: "absolute",
-            bottom: "10em",
-            borderBottom: "1px solid rgb(255, 255, 255, 0.6)",
-            width: "80vw",
-            marginTop: "3em",
+            width: "12em",
           }}
-        ></div>
-        <div className="h-nav-bottom-section">
-          <button
-            className="button-52"
-            role="button"
-            onClick={() => setSelectedContent("contact")}
-          >
-            Contact Us
-          </button>
-        </div>
+          src="/in3dlogo.png"
+        />
+      </div>
+      <div className="horizontal-nav-open-titles-container">
+        {contentSelections}
+      </div>
+
+      <div className="h-nav-bottom-section">
+        <button
+          className="button-52"
+          role="button"
+          onClick={() => setSelectedContent("contact")}
+        >
+          Contact Us
+        </button>
       </div>
     </div>
+    // </div>
   );
 }
