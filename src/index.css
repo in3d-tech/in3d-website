@@ -1,5 +1,5 @@
 @font-face {
-  font-family: "Gotham";
+  font-family: Gotham;
   src: url("../src/fonts/GothamLight.ttf");
 }
 
@@ -266,7 +266,7 @@ h1 {
 .landing-screen-wrapper {
   height: 100vh;
   width: 100vw;
-  background: lightblue url("/static/images/landing_bg.jpg") no-repeat center;
+  background: lightblue url("/landing_screen_bg.jpg") no-repeat center;
   display: flex;
   flex-direction: column-reverse;
 }
@@ -722,7 +722,8 @@ a {
 
 .horizontal-nav-wrapper-open {
   width: 100vw;
-  background-color: black;
+  /* background-color: black; */
+  /* background: url("/public/temp-6.jpg") center no-repeat; */
 }
 
 .nav-open-content {
@@ -920,8 +921,8 @@ a {
 
 .magnifying-glass__text,
 .magnifying-glass__enlarged-text {
-  font-size: 4rem;
-  font-family: cursive;
+  font-size: 4.5rem;
+  font-family: Gotham;
   /* // adjust font-size of the original text */
   text-align: center;
   line-height: 1;
@@ -953,7 +954,11 @@ a {
 
 @keyframes zoomOut {
   0% {
-    transform: scale(1.1);
+    opacity: 0;
+    transform: scale(1.05);
+  }
+  50% {
+    opacity: 1;
   }
   100% {
     transform: scale(1);
@@ -1532,6 +1537,7 @@ h1 {
 }
 
 .mid-img-test {
+  /* height: 100vh; */
   height: 500px;
   width: 80%;
   opacity: 0;

@@ -104,15 +104,15 @@ export function Lights({ Lightcolor }) {
 
   useControls("Spot Light", {
     visible: {
-      value: false,
+      value: true,
       onChange: (v) => {
         if (spotRef.current) spotRef.current.visible = v;
       },
     },
     position: {
-      x: 3,
-      y: 2.5,
-      z: 1,
+      x: -23,
+      y: 180,
+      z: 194,
       onChange: (v) => {
         spotRef.current.position.copy(v);
       },
@@ -121,6 +121,12 @@ export function Lights({ Lightcolor }) {
       value: "white",
       onChange: (v) => {
         spotRef.current.color = new THREE.Color(v);
+      },
+    },
+    intensity: {
+      value: 90,
+      onChange: (v) => {
+        spotRef.current.intensity = v;
       },
     },
   });
@@ -172,12 +178,12 @@ export function Lights({ Lightcolor }) {
   // });
 
   function SpotLightWithHelper() {
-    // useHelper(spotRef, THREE.SpotLightHelper, "cyan");
+    useHelper(spotRef, THREE.SpotLightHelper, "cyan");
     return (
       <spotLight
         ref={spotRef}
-        intensity={0.4}
-        position={[10, 100, 5]}
+        intensity={90}
+        position={[-23, 180, 194]}
         shadow-mapSize-width={64}
         shadow-mapSize-height={64}
         castShadow

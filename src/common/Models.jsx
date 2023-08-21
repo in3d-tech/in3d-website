@@ -1,9 +1,13 @@
-import { Clone, useGLTF } from "@react-three/drei";
-import { memo, useEffect, useState } from "react";
-import { animated, useSpring } from "react-spring";
+import { Clone, useFBX, useGLTF } from "@react-three/drei";
+import { memo, useEffect, useState, useContext, useMemo } from "react";
+import { animated, useSpring, a } from "react-spring";
 import { useRef } from "react";
 import { useControls } from "leva";
 import { getCameraCoords } from "./getCameraCoords";
+import AppContext from "../context/context";
+import { AnimationMixer } from "three";
+import { useFrame } from "@react-three/fiber";
+import * as THREE from "three";
 
 function MedicalModel({
   position,
@@ -12,6 +16,7 @@ function MedicalModel({
   setTarget,
   meshRef,
   selectedIsland,
+  appContext,
 }) {
   const { opacity } = useSpring({
     opacity: selectedIsland == null || selectedIsland == idx ? 1 : 0,
@@ -59,15 +64,9 @@ function MedicalModel({
         onPointerOut={() => {
           document.body.style.cursor = "auto";
         }}
-        visible={selectedIsland == null || selectedIsland == 1 ? true : false}
+        // visible={selectedIsland == null || selectedIsland == 1 ? true : false}
+        visible={appContext.navState == 2 ? false : true}
       />
-      {/* <RotatingThing
-          position={position} //{[2, 50, -2]}
-          color="blue"
-          intensity={2}
-          distance={80}
-          orbitalSpeed={1}
-        /> */}
     </>
   );
 }
@@ -79,15 +78,20 @@ function Model({
   setTarget,
   selectedIsland,
   tankModel,
-  meshRef,
 }) {
   const [isHovered, setIsHovered] = useState(false);
   const [shipClone, setShipClone] = useState(null);
-  // const [selectedIsland, setSelectedIsland] = useState(null);
+  const appContext = useContext(AppContext);
+  const [animatedPosition, setAnimatedPosition] = useState(
+    new THREE.Vector3(...position)
+  );
+  const [selectedStatue, setSelectedStatue] = useState(null);
+  const [isClicked, setIsClicked] = useState(false);
+  const [startTime, setStartTime] = useState(0);
 
   const { opacity } = useSpring({
     opacity: selectedIsland == null || selectedIsland == idx ? 1 : 0,
-    config: { duration: 500 }, // Optional: set duration of the animation
+    config: { duration: 500 },
   });
 
   useEffect(() => {
@@ -96,41 +100,42 @@ function Model({
     }
   }, [tankModel]);
 
-  if (idx == 1) {
-    return (
-      <MedicalModel
-        position={position}
-        idx={idx}
-        setTarget={setTarget}
-        setPosition={setPosition}
-        selectedIsland={selectedIsland}
-        meshRef={meshRef}
-      />
-    );
-  }
+  const getIsModelVisible = () => {
+    if (appContext.navState !== 2) return true;
+    return false;
+  };
+
+  const handleClick = () => {
+    // reset the clock, so animation starts from beginning
+    setStartTime(Date.now());
+    setIsClicked(true);
+  };
+
+  const speedFactor = 40; // Adjust this value to speed up or slow down the animation.
+
+  useFrame(({ clock }) => {
+    // let newY = Math.min(clock.getElapsedTime() * speedFactor, 81);
+    // setAnimatedPosition((prev) => new THREE.Vector3(prev.x, newY, prev.z));
+    if (isClicked) {
+      let timeElapsed = (Date.now() - startTime) / 1000; // convert to seconds
+      let newY = Math.min(timeElapsed * speedFactor, 81);
+      setAnimatedPosition((prev) => new THREE.Vector3(prev.x, newY, prev.z));
+      if (newY >= 81) setIsClicked(false);
+    }
+  });
 
   return (
     <>
-      {/* {isHovered && (
-          <pointLight color={"red"} intensity={0.5} position={position} />
-        )} */}
       {shipClone && (
-        <group>
+        <group position={animatedPosition.toArray()}>
           <primitive
             object={shipClone}
-            position={position}
-            children-0-castShadow
-            rotation={[0, Math.PI, 0]}
+            // position={position}
+            rotation={[0, 0, 0]}
             opacity={opacity}
-            // visible={false}
-            visible={
-              selectedIsland == null || selectedIsland == idx ? true : false
-            }
-            scale={[2.5, 2.5, 2.5]}
-            onClick={() => {
-              console.log(idx);
-              // onChange(idx);
-            }}
+            visible={getIsModelVisible()}
+            scale={0.05}
+            onClick={handleClick}
             onPointerOver={(e) => {
               setIsHovered(true);
               document.body.style.cursor = "pointer";
@@ -140,7 +145,6 @@ function Model({
               setIsHovered(false);
             }}
           />
-          {/* {selectedIsland && <Camera />} */}
         </group>
       )}
     </>
@@ -151,30 +155,71 @@ export function MappedModels({
   setPosition,
   setTarget,
   selectedIsland,
-  islandGroupRef,
   tankModel,
-  meshRef,
+  clone,
 }) {
   const positions = [
-    [-60, 10, 10],
-    [10, 10, 30], // medicine
-    [-160, 10, 60], // mil
-    [80, 10, 60],
-    [120, 10, 110], //military
-    [-120, 10, 20],
+    [-60, 0, 10],
+    [10, 0, 30],
+    [-160, 0, 60],
+    [80, 0, 60],
+    [120, 0, 110],
+    [-120, 0, 20],
   ];
-  return (
-    <group dispose={null} ref={islandGroupRef}>
-      {positions.map((p, i) => (
-        <Model
-          setPosition={setPosition}
-          setTarget={setTarget}
-          selectedIsland={selectedIsland}
-          key={i}
-          position={p}
-          idx={i}
-          tankModel={tankModel}
+
+  const RaisedTile = memo((props) => {
+    const fbx = useFBX("/assets/Hexagon Tile Scale.fbx");
+    const fbxClone = useMemo(() => clone(fbx), [fbx]);
+
+    console.log({ fbxAnimations: fbxClone.animations[0] });
+
+    const [mixer] = useState(() => new AnimationMixer(fbxClone));
+    const [action] = useState(() => mixer.clipAction(fbxClone.animations[0]));
+
+    useEffect(() => {
+      action.setLoop(THREE.LoopOnce);
+      action.clampWhenFinished = true;
+      action.timeScale = 0.32; // Set timeScale to slow down the action.
+
+      action.play();
+
+      return () => action.stop();
+    }, []);
+
+    useFrame((state, delta) => {
+      mixer.update(delta);
+      // positions[0];
+    });
+
+    return (
+      <group>
+        <primitive
+          object={fbxClone}
+          {...props}
+          scale={20}
+          position={props.pos}
+          rotation={[0, 0, 0]}
+          onClick={(e) => console.log(e.object)}
         />
+      </group>
+    );
+  });
+
+  return (
+    <group>
+      {positions.map((p, i) => (
+        <>
+          <RaisedTile pos={p} />
+          <Model
+            key={i}
+            position={p}
+            idx={i}
+            setPosition={setPosition}
+            setTarget={setTarget}
+            selectedIsland={selectedIsland}
+            tankModel={tankModel}
+          />
+        </>
       ))}
     </group>
   );

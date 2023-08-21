@@ -98,6 +98,7 @@ function HorizontalNavOpen() {
       width: "100vw",
       position: "absolute",
       animation: "zoomOut 0.8s ease-out forwards",
+      // animation: "fadeIn 0.8s ease-out forwards",
       backgroundSize: "cover",
       backgroundPosition: "center",
       backgroundRepeat: "no-repeat",
@@ -125,7 +126,7 @@ function HorizontalNavOpen() {
         url = "/another-med.jpg";
         break;
       default:
-        url = "/in3dlogo.png";
+        url = "/temp-5.jpg";
         break;
     }
 
@@ -168,6 +169,7 @@ function HorizontalNavOpen() {
     // <div className="h-nav-open">
     <div className={`horizontal-nav-open-titles-wrapper`}>
       {hovered && <div className="hoverZoom" style={getbgImage()}></div>}
+      {/* <div className="hoverZoom" style={getbgImage()}></div> */}
 
       <div className="h-nav-open-3d-icon h-nav-in3d-icon">
         <img

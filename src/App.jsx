@@ -52,7 +52,7 @@ function App() {
   const [isLanding, setIsLanding] = useState(true);
   const [moveCameraToModel, setMoveCameraToModel] = useState(false);
   const [categorySelected, setCategorySelected] = useState(false);
-  const [position, setPosition] = useState({ x: -30, y: 70, z: 220 });
+  const [position, setPosition] = useState({ x: -30, y: 90, z: 220 });
   const [target, setTarget] = useState({ x: 0, y: 0, z: 0 });
   const [selectedIsland, setSelectedIsland] = useState(null);
   const [navState, setNavState] = useState(0);
@@ -61,45 +61,14 @@ function App() {
   const cameraRef = useRef();
   const islandGroupRef = useRef();
   const scrollRef = useHorizontalScroll();
-
   const tl = useRef();
   const meshRef = useRef();
 
-  // if (isLanding) return <LandingComponent setIsLanding={setIsLanding} />;
+  // const tankModel = useGLTF(
+  //   "/assets/in3d-tank/tank island material to gltf .gltf"
+  // );
 
-  const tankModel = useGLTF(
-    "/assets/in3d-tank/tank island material to gltf .gltf"
-  );
-
-  const envMap = useEnvironment({
-    files: [
-      "/static/images/right",
-
-      "/static/images/left",
-      "/static/images/top",
-      "/static/images/bottom",
-      "/static/images/front",
-      "/static/images/back",
-    ].map((n) => `${n}.png`),
-  });
-
-  // function Floor() {
-  //   let hexagons = [];
-
-  //   for (let i = -10; i < 10; i++) {
-  //     for (let j = -10; j < 10; j++) {
-  //       const offset = j % 2 === 0 ? 0 : 6 * Math.sqrt(3); // offset every other row
-  //       hexagons.push(
-  //         <TileModel
-  //           key={`${i}-${j}`}
-  //           position={[i * 20 + offset, 0, j * 20]} // adjust position values
-  //         />
-  //       );
-  //     }
-  //   }
-
-  //   return <group>{hexagons}</group>;
-  // }
+  const tankModel = useGLTF("/assets/new-tank/tanky future new.gltf");
 
   function clone(fbx, texture) {
     const clone = fbx.clone(true);
@@ -113,135 +82,9 @@ function App() {
     return clone;
   }
 
-  // function TileModel(props) {
-  //   const fbx = useFBX("/assets/Hexagon Tile.fbx");
-
-  //   // clone the fbx model
-  //   const fbxClone = useMemo(() => clone(fbx), [fbx]);
-
-  //   const mixer = useRef(new AnimationMixer(fbxClone));
-  //   const action = mixer.current.clipAction(fbxClone.animations[0]);
-  //   action.play();
-  //   if (tileHovered) useFrame((state, delta) => mixer.current.update(delta));
-
-  //   return (
-  //     <primitive
-  //       object={fbxClone}
-  //       {...props}
-  //       scale={23}
-  //       onClick={() => setTileHovered(!tileHovered)}
-  //       onMouseOver={() => console.log("sdfAS:DFLJd;sfj")}
-  //     />
-  //   );
-  // }
-
-  // function TileModel(props) {
-  //   const fbx = useFBX("/assets/Hex rotate.fbx");
-  //   const texture = useLoader(TextureLoader, "/assets/hexagon-texture.png");
-
-  //   // clone the fbx model
-  //   const fbxClone = useMemo(() => clone(fbx, texture), [fbx, texture]);
-
-  //   // const mixer = useRef(new AnimationMixer(fbxClone));
-  //   // const action = mixer.current.clipAction(fbxClone.animations[0]);
-  //   // action.setLoop(THREE.LoopOnce);
-  //   // action.clampWhenFinished = true;
-  //   // action.play();
-  //   useEffect(() => {
-  //     const mixer = new AnimationMixer(fbxClone);
-  //     const action = mixer.clipAction(fbxClone.animations[0]);
-
-  //     action.setLoop(THREE.LoopOnce);
-  //     action.clampWhenFinished = true;
-  //     action.play();
-  //     useFrame((state, delta) => mixer.current.update(delta));
-
-  //     return () => mixer.stopAllAction(); // Stopping the animation when unmounting the component.
-  //   }, []);
-  //   // useFrame((state, delta) => mixer.current.update(delta));
-
-  //   console.log({ fbxClone: fbxClone.uuid });
-
-  //   return (
-  //     <primitive
-  //       object={fbxClone}
-  //       {...props}
-  //       scale={30}
-  //       position={[0, -6, 0]}
-  //       rotation={[Math.PI / 2, 0, 0]}
-  //     />
-  //   );
-  // }
-  // function TileModel(props) {
-  //   const fbx = useFBX("/assets/Hex rotate.fbx");
-  //   const texture = useLoader(TextureLoader, "/assets/hexagon-texture.png");
-
-  //   // clone the fbx model
-  //   const fbxClone = useMemo(() => clone(fbx, texture), [fbx, texture]);
-
-  //   const [mixer] = useState(() => new AnimationMixer(fbxClone));
-  //   const [action] = useState(() => mixer.clipAction(fbxClone.animations[0]));
-
-  //   useEffect(() => {
-  //     action.setLoop(THREE.LoopOnce);
-  //     action.clampWhenFinished = true;
-  //     action.play();
-
-  //     // Cleanup function to stop animation when component unmounts
-  //     return () => action.stop();
-  //   }, []); // Empty dependency array ensures this runs once on mount
-
-  //   useFrame((state, delta) => mixer.update(delta));
-
-  //   console.log({ fbxClone: fbxClone.uuid });
-
-  //   return (
-  //     <primitive
-  //       object={fbxClone}
-  //       {...props}
-  //       scale={30}
-  //       position={[0, -6, 0]}
-  //       rotation={[Math.PI / 2, 0, 0]}
-  //     />
-  //   );
-  // }
-
-  // const TileModel = memo((props) => {
-  //   const fbx = useFBX("/assets/Hex rotate.fbx");
-  //   const texture = useLoader(TextureLoader, "/assets/hexagon-texture.png");
-
-  //   // clone the fbx model
-  //   const fbxClone = useMemo(() => clone(fbx, texture), [fbx, texture]);
-
-  //   const [mixer] = useState(() => new AnimationMixer(fbxClone));
-  //   const [action] = useState(() => mixer.clipAction(fbxClone.animations[0]));
-
-  //   useEffect(() => {
-  //     action.setLoop(THREE.LoopOnce);
-  //     action.clampWhenFinished = true;
-  //     action.play();
-
-  //     // Cleanup function to stop animation when component unmounts
-  //     return () => action.stop();
-  //   }, []); // Empty dependency array ensures this runs once on mount
-
-  //   useFrame((state, delta) => mixer.update(delta));
-
-  //   console.log({ fbxClone: fbxClone.uuid });
-
-  //   return (
-  //     <primitive
-  //       object={fbxClone}
-  //       {...props}
-  //       scale={30} //{30}
-  //       position={[0, -6, 0]}
-  //       rotation={[Math.PI / 2, 0, 0]} //{[-0.1, -0.05, 3]} //{[Math.PI / 2, 0, 0]}
-  //     />
-  //   );
-  // });
-
   const TileModel = memo((props) => {
     const fbx = useFBX("/assets/Hexagon Tile long animation.fbx");
+    // const fbx = useFBX("/assets/Hexagon Tile Scale.fbx");
 
     // clone the fbx model
     const fbxClone = useMemo(() => clone(fbx), [fbx]);
@@ -263,15 +106,67 @@ function App() {
     console.log({ fbxClone: fbxClone.uuid });
 
     return (
-      <primitive
-        object={fbxClone}
-        {...props}
-        scale={10} //{30}
-        position={[0, -6, 0]}
-        rotation={[0, 0, 0]} //{[-0.1, -0.05, 3]} //{[Math.PI / 2, 0, 0]}
-      />
+      <group>
+        <primitive
+          object={fbxClone}
+          {...props}
+          scale={10} //{30}
+          position={[0, -6, 0]}
+          rotation={[0, 0, 0]} //{[-0.1, -0.05, 3]} //{[Math.PI / 2, 0, 0]}
+        />
+      </group>
     );
   });
+
+  // const positions = [
+  //   [-60, 10, 10],
+  //   [10, 10, 30], // medicine
+  //   [-160, 10, 60], // mil
+  //   [80, 10, 60],
+  //   [120, 10, 110], //military
+  //   [-120, 10, 20],
+  // ];
+
+  // const RaisedTile = memo((props) => {
+  //   const fbx = useFBX("/assets/Hexagon Tile Scale.fbx");
+  //   // const fbx = useFBX("/assets/Hexagon Tile Scale.fbx");
+
+  //   // clone the fbx model
+  //   const fbxClone = useMemo(() => clone(fbx), [fbx]);
+
+  //   const [mixer] = useState(() => new AnimationMixer(fbxClone));
+  //   const [action] = useState(() => mixer.clipAction(fbxClone.animations[0]));
+
+  //   useEffect(() => {
+  //     action.setLoop(THREE.LoopOnce);
+  //     action.clampWhenFinished = true;
+  //     action.play();
+
+  //     // Cleanup function to stop animation when component unmounts
+  //     return () => action.stop();
+  //   }, []); // Empty dependency array ensures this runs once on mount
+
+  //   useFrame((state, delta) => mixer.update(delta));
+
+  //   console.log({ fbxClone: fbxClone.uuid });
+
+  //   return (
+  //     <group>
+  //       <primitive
+  //         object={fbxClone}
+  //         {...props}
+  //         scale={20} //{30}
+  //         position={props.pos}
+  //         // position={[0, 20, 0]}
+  //         rotation={[0, 0, 0]} //{[-0.1, -0.05, 3]} //{[Math.PI / 2, 0, 0]}
+  //       />
+  //     </group>
+  //   );
+  // });
+
+  // const things = positions.map((item, idx) => {
+  //   return <RaisedTile pos={item} />;
+  // });
 
   const videoIds = [
     "9vA8qX_p11w",
@@ -289,7 +184,8 @@ function App() {
       <AppContext.Provider value={{ navState, setNavState }}>
         <Canvas>
           <Suspense fallback={<LoaderComponent />}>
-            {/* <Stars
+            {/* <Environment background preset="park" /> */}
+            <Stars
               count={5000}
               depth={150}
               factor={4}
@@ -297,8 +193,8 @@ function App() {
               radius={50}
               fade={true}
               speed={0.7}
-            /> */}
-            <Stars
+            />
+            {/* <Stars
               count={2000}
               depth={50}
               factor={4}
@@ -306,16 +202,9 @@ function App() {
               radius={50}
               fade={true}
               speed={0.7}
-            />
-            {/* <Sparkles
-              count={1000}
-              color={"black"}
-              size={20000}
-              scale={1}
-              // noise={10}
             /> */}
+
             <Lights />
-            {/* <Environment map={envMap} background /> */}
 
             <Preload />
             <Camera
@@ -328,7 +217,6 @@ function App() {
               target={target}
               idx={selectedIsland}
             />
-            {/* <Floor /> */}
             <TileModel />
             <MappedModels
               position={position}
@@ -339,8 +227,9 @@ function App() {
               tankModel={tankModel}
               islandGroupRef={islandGroupRef}
               meshRef={meshRef}
+              clone={clone}
             />
-            {/* <Ocean position={[0, -10, 0]} /> */}
+            <Ocean position={[0, -10, 0]} />
           </Suspense>
         </Canvas>
         <HorizontalNav />
