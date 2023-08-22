@@ -111,7 +111,7 @@ function Model({
     setIsClicked(true);
   };
 
-  const speedFactor = 40; // Adjust this value to speed up or slow down the animation.
+  const speedFactor = 26; // Adjust this value to speed up or slow down the animation.
 
   useFrame(({ clock }) => {
     // let newY = Math.min(clock.getElapsedTime() * speedFactor, 81);
@@ -171,25 +171,26 @@ export function MappedModels({
     const fbx = useFBX("/assets/Hexagon Tile Scale.fbx");
     const fbxClone = useMemo(() => clone(fbx), [fbx]);
 
-    console.log({ fbxAnimations: fbxClone.animations[0] });
-
     const [mixer] = useState(() => new AnimationMixer(fbxClone));
     const [action] = useState(() => mixer.clipAction(fbxClone.animations[0]));
 
-    useEffect(() => {
+    // remove useEffect since we want to play the animation on click
+    // instead of on component mount
+
+    useFrame((state, delta) => {
+      mixer.update(delta);
+    });
+
+    const handleClick = () => {
       action.setLoop(THREE.LoopOnce);
       action.clampWhenFinished = true;
       action.timeScale = 0.32; // Set timeScale to slow down the action.
 
       action.play();
 
-      return () => action.stop();
-    }, []);
-
-    useFrame((state, delta) => {
-      mixer.update(delta);
-      // positions[0];
-    });
+      // you can stop the animation here if you want
+      // using a setTimeOut or something else
+    };
 
     return (
       <group>
@@ -199,7 +200,7 @@ export function MappedModels({
           scale={20}
           position={props.pos}
           rotation={[0, 0, 0]}
-          onClick={(e) => console.log(e.object)}
+          onClick={handleClick} // define click behavior here
         />
       </group>
     );

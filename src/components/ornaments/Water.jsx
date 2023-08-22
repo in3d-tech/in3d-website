@@ -8,7 +8,7 @@ extend({ Water });
 export function Ocean({ position }) {
   const ref = useRef();
   const gl = useThree((state) => state.gl);
-  const waterNormals = useLoader(TextureLoader, "/img/water-example.png");
+  const waterNormals = useLoader(TextureLoader, "/water-example.png");
   waterNormals.wrapS = waterNormals.wrapT = RepeatWrapping;
   const geom = useMemo(() => new PlaneGeometry(450, 420), []);
   const config = useMemo(

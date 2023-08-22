@@ -50,13 +50,12 @@ export const LoaderComponent = () => {
 
 function App() {
   const [isLanding, setIsLanding] = useState(true);
-  const [moveCameraToModel, setMoveCameraToModel] = useState(false);
   const [categorySelected, setCategorySelected] = useState(false);
   const [position, setPosition] = useState({ x: -30, y: 90, z: 220 });
   const [target, setTarget] = useState({ x: 0, y: 0, z: 0 });
   const [selectedIsland, setSelectedIsland] = useState(null);
   const [navState, setNavState] = useState(0);
-  const [tileHovered, setTileHovered] = useState(false);
+  const [animate, setAnimate] = useState(false);
 
   const cameraRef = useRef();
   const islandGroupRef = useRef();
@@ -118,56 +117,6 @@ function App() {
     );
   });
 
-  // const positions = [
-  //   [-60, 10, 10],
-  //   [10, 10, 30], // medicine
-  //   [-160, 10, 60], // mil
-  //   [80, 10, 60],
-  //   [120, 10, 110], //military
-  //   [-120, 10, 20],
-  // ];
-
-  // const RaisedTile = memo((props) => {
-  //   const fbx = useFBX("/assets/Hexagon Tile Scale.fbx");
-  //   // const fbx = useFBX("/assets/Hexagon Tile Scale.fbx");
-
-  //   // clone the fbx model
-  //   const fbxClone = useMemo(() => clone(fbx), [fbx]);
-
-  //   const [mixer] = useState(() => new AnimationMixer(fbxClone));
-  //   const [action] = useState(() => mixer.clipAction(fbxClone.animations[0]));
-
-  //   useEffect(() => {
-  //     action.setLoop(THREE.LoopOnce);
-  //     action.clampWhenFinished = true;
-  //     action.play();
-
-  //     // Cleanup function to stop animation when component unmounts
-  //     return () => action.stop();
-  //   }, []); // Empty dependency array ensures this runs once on mount
-
-  //   useFrame((state, delta) => mixer.update(delta));
-
-  //   console.log({ fbxClone: fbxClone.uuid });
-
-  //   return (
-  //     <group>
-  //       <primitive
-  //         object={fbxClone}
-  //         {...props}
-  //         scale={20} //{30}
-  //         position={props.pos}
-  //         // position={[0, 20, 0]}
-  //         rotation={[0, 0, 0]} //{[-0.1, -0.05, 3]} //{[Math.PI / 2, 0, 0]}
-  //       />
-  //     </group>
-  //   );
-  // });
-
-  // const things = positions.map((item, idx) => {
-  //   return <RaisedTile pos={item} />;
-  // });
-
   const videoIds = [
     "9vA8qX_p11w",
     "enJ6be4qLMs",
@@ -181,10 +130,12 @@ function App() {
   ) : (
     <div className="overlay-black scene-bg-image">
       <Leva collapsed />
-      <AppContext.Provider value={{ navState, setNavState }}>
+      <AppContext.Provider
+        value={{ navState, setNavState, animate, setAnimate }}
+      >
         <Canvas>
           <Suspense fallback={<LoaderComponent />}>
-            {/* <Environment background preset="park" /> */}
+            {/* <Environment background preset="forest" /> */}
             <Stars
               count={5000}
               depth={150}
@@ -194,18 +145,7 @@ function App() {
               fade={true}
               speed={0.7}
             />
-            {/* <Stars
-              count={2000}
-              depth={50}
-              factor={4}
-              saturation={5}
-              radius={50}
-              fade={true}
-              speed={0.7}
-            /> */}
-
             <Lights />
-
             <Preload />
             <Camera
               cameraRef={cameraRef}
@@ -250,5 +190,5 @@ function App() {
 
 export default App;
 
-useGLTF.preload("/assets/in3d-tank/tank island material to gltf .gltf");
+useGLTF.preload("/assets/new-tank/tanky future new.gltf");
 useGLTF.preload("/assets/in3d-medical/Medical_Island.gltf");

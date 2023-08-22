@@ -432,7 +432,7 @@ label.icon {
   /* height: 6em; */
   height: 100%;
   width: 100%;
-  background-image: url("../img/lines_texture.png");
+  background-image: url("/lines_texture.png");
   object-fit: cover;
   opacity: 0.1;
 

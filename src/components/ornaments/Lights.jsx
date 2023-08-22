@@ -225,7 +225,7 @@ export function Lights({ Lightcolor }) {
     return (
       <directionalLight
         ref={directionalRef}
-        intensity={1}
+        intensity={2}
         position={[10, 100, 5]}
         shadow-mapSize-width={64}
         shadow-mapSize-height={64}
