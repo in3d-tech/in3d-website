@@ -11,15 +11,14 @@ export function HorizontalNav() {
   const horizonalNavOpened = 2;
   const navClosed = 0;
 
-  const toggleNavbar = () => {
-    appContext.setNavState((prevState) =>
-      prevState ? navClosed : horizonalNavOpened
-    );
+  const toggleNavbar = (newState) => {
+    appContext.setNavState((prevState) => {
+      if (prevState == horizonalNavOpened) return null;
+      return newState;
+    });
 
     // setNavbarVisible((prevState) => !prevState);
   };
-
-  console.log({ context: appContext.navState });
 
   return (
     <>
@@ -59,7 +58,7 @@ export function HorizontalNav() {
               className="nav-close-icon"
               sx={{ color: "white", fontSize: 50 }}
               onClick={() => {
-                toggleNavbar();
+                toggleNavbar(horizonalNavOpened);
               }}
             />
           </>

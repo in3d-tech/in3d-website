@@ -35,6 +35,7 @@ import { MappedModels } from "./common/Models";
 import { ContentView } from "./components/catergories/ContentView";
 import { HorizontalNav } from "./components/nav/HorizontalNav";
 import AppContext from "./context/context";
+import { HomePage } from "./components/HomePage";
 
 // import { AnimationMixer } from "three-stdlib";
 
@@ -51,7 +52,7 @@ export const LoaderComponent = () => {
 function App() {
   const [isLanding, setIsLanding] = useState(true);
   const [categorySelected, setCategorySelected] = useState(false);
-  const [position, setPosition] = useState({ x: -30, y: 90, z: 220 });
+  const [position, setPosition] = useState({ x: -9.5, y: 68, z: 278 });
   const [target, setTarget] = useState({ x: 0, y: 0, z: 0 });
   const [selectedIsland, setSelectedIsland] = useState(null);
   const [navState, setNavState] = useState(0);
@@ -81,42 +82,6 @@ function App() {
     return clone;
   }
 
-  const TileModel = memo((props) => {
-    const fbx = useFBX("/assets/Hexagon Tile long animation.fbx");
-    // const fbx = useFBX("/assets/Hexagon Tile Scale.fbx");
-
-    // clone the fbx model
-    const fbxClone = useMemo(() => clone(fbx), [fbx]);
-
-    const [mixer] = useState(() => new AnimationMixer(fbxClone));
-    const [action] = useState(() => mixer.clipAction(fbxClone.animations[0]));
-
-    useEffect(() => {
-      action.setLoop(THREE.LoopOnce);
-      action.clampWhenFinished = true;
-      action.play();
-
-      // Cleanup function to stop animation when component unmounts
-      return () => action.stop();
-    }, []); // Empty dependency array ensures this runs once on mount
-
-    useFrame((state, delta) => mixer.update(delta));
-
-    console.log({ fbxClone: fbxClone.uuid });
-
-    return (
-      <group>
-        <primitive
-          object={fbxClone}
-          {...props}
-          scale={10} //{30}
-          position={[0, -6, 0]}
-          rotation={[0, 0, 0]} //{[-0.1, -0.05, 3]} //{[Math.PI / 2, 0, 0]}
-        />
-      </group>
-    );
-  });
-
   const videoIds = [
     "9vA8qX_p11w",
     "enJ6be4qLMs",
@@ -125,66 +90,53 @@ function App() {
     "mAEM5q5YFtg",
   ];
 
-  return isLanding ? (
-    <LandingComponent setIsLanding={setIsLanding} />
-  ) : (
-    <div className="overlay-black scene-bg-image">
-      <Leva collapsed />
-      <AppContext.Provider
-        value={{ navState, setNavState, animate, setAnimate }}
+  return (
+    <>
+      <div
+        className={`overlay-black scene-bg-image ${
+          isLanding ? "" : "open-fade-in"
+        }`}
       >
-        <Canvas>
-          <Suspense fallback={<LoaderComponent />}>
-            {/* <Environment background preset="forest" /> */}
-            <Stars
-              count={5000}
-              depth={150}
-              factor={4}
-              saturation={5}
-              radius={50}
-              fade={true}
-              speed={0.7}
-            />
-            <Lights />
+        <Leva collapsed />
+        <AppContext.Provider
+          value={{ navState, setNavState, animate, setAnimate }}
+        >
+          <Canvas>
+            <Stats />
+            <Suspense fallback={null}>
+              {!isLanding && (
+                <HomePage
+                  position={position}
+                  setPosition={setPosition}
+                  target={target}
+                  selectedIsland={selectedIsland}
+                  setTarget={setTarget}
+                  tankModel={tankModel}
+                />
+              )}
+            </Suspense>
             <Preload />
-            <Camera
-              cameraRef={cameraRef}
-              tl={tl}
-              islandGroupRef={islandGroupRef}
-            />
-            <CameraControls
-              position={position}
-              target={target}
-              idx={selectedIsland}
-            />
-            <TileModel />
-            <MappedModels
-              position={position}
-              setPosition={setPosition}
-              setTarget={setTarget}
-              target={target}
-              selectedIsland={selectedIsland}
-              tankModel={tankModel}
-              islandGroupRef={islandGroupRef}
-              meshRef={meshRef}
-              clone={clone}
-            />
-            <Ocean position={[0, -10, 0]} />
-          </Suspense>
-        </Canvas>
-        <HorizontalNav />
-        <Navbar
-          setCategorySelected={setCategorySelected}
-          setPosition={setPosition}
-          setTarget={setTarget}
-          setSelectedIsland={setSelectedIsland}
-          selectedIsland={selectedIsland}
+          </Canvas>
+          <HorizontalNav />
+          <Navbar
+            setCategorySelected={setCategorySelected}
+            setPosition={setPosition}
+            setTarget={setTarget}
+            setSelectedIsland={setSelectedIsland}
+            selectedIsland={selectedIsland}
+          />
+          {selectedIsland && (
+            <ContentView scrollRef={scrollRef} videoIds={videoIds} />
+          )}
+        </AppContext.Provider>
+      </div>
+      {isLanding && (
+        <LandingComponent
+          onEnter={() => setIsLanding(false)}
+          started={isLanding}
         />
-        {selectedIsland && (
-          <ContentView scrollRef={scrollRef} videoIds={videoIds} />
-        )}
-      </AppContext.Provider>
-    </div>
+      )}
+    </>
   );
 }
 

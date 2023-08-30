@@ -5,6 +5,7 @@ export function getCameraCoords({ setPosition, setTarget, idx = 0 }) {
     position = { x: 4, y: 24, z: 80 }; // { x: 30, y: 10, z: 34 };
     target = { x: 44, y: 26, z: 33 };
   } else if (idx === 2) {
+    // military
     position = { x: -224, y: 102.6, z: 55 };
     target = { x: -110, y: 100, z: 140 };
   } else if (idx === 3) {
@@ -14,7 +15,7 @@ export function getCameraCoords({ setPosition, setTarget, idx = 0 }) {
     position = { x: 0, y: 0, z: 0 };
     target = { x: 0, y: 0, z: 0 };
   } else if (idx === 5) {
-    position = { x: -30, y: 70, z: 220 };
+    position = { x: -9.5, y: 63, z: 278 };
     target = { x: 0, y: 0, z: 0 };
   }
   setPosition(position);

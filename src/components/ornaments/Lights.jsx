@@ -124,7 +124,7 @@ export function Lights({ Lightcolor }) {
       },
     },
     intensity: {
-      value: 90,
+      value: 1,
       onChange: (v) => {
         spotRef.current.intensity = v;
       },
@@ -182,7 +182,7 @@ export function Lights({ Lightcolor }) {
     return (
       <spotLight
         ref={spotRef}
-        intensity={90}
+        intensity={1} //{90}
         position={[-23, 180, 194]}
         shadow-mapSize-width={64}
         shadow-mapSize-height={64}

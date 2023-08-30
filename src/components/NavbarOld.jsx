@@ -53,34 +53,35 @@ export function Navbar({
         </div>
       ) : (
         <div>
-          {appContext.navState == 0 && (
-            <div className="outer">
-              <div className="inner">
-                <label
-                  onClick={() => {
-                    toggleNavbar();
-                  }}
-                >
-                  Explore
-                </label>
+          {!appContext.navState && (
+            <>
+              <div className="outer">
+                <div className="inner">
+                  <label
+                    onClick={() => {
+                      toggleNavbar();
+                    }}
+                  >
+                    Explore
+                  </label>
+                </div>
               </div>
-            </div>
-          )}
-          {appContext.navState == 0 && (
-            <div
-              style={{
-                color: "white",
-                marginTop: "1em",
-                textAlign: "center",
-                height: "2em",
-              }}
-              onClick={() => {
-                setSelectedIsland(null);
-                getCameraCoords({ idx: 5, setTarget, setPosition });
-              }}
-            >
-              Zoom Out
-            </div>
+
+              <div
+                style={{
+                  color: "white",
+                  marginTop: "1em",
+                  textAlign: "center",
+                  height: "2em",
+                }}
+                onClick={() => {
+                  setSelectedIsland(null);
+                  getCameraCoords({ idx: 5, setTarget, setPosition });
+                }}
+              >
+                Zoom Out
+              </div>
+            </>
           )}
         </div>
       )}
@@ -95,7 +96,10 @@ export function Navbar({
       >
         <CancelIcon
           className="nav-contact-cancel-icon"
-          onClick={() => toggleNavbar()}
+          onClick={() => {
+            setSelectedIsland(null);
+            toggleNavbar();
+          }}
         />
 
         <div className="nav-open-lines-bg"></div>

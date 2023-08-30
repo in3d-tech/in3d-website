@@ -31,7 +31,7 @@ const VideoBG = () => (
   // <div className="player-wrapper">
   <ReactPlayer
     className="react-player-bg"
-    url="/assets/video/height-vid.mp4"
+    url="/assets/video/darluke.mp4"
     // width="100%"
     height="100%"
     controls={false}
@@ -248,6 +248,23 @@ export function HorizontalSelectedContent({ setSelectedContent, title }) {
     ScrollTrigger.create({
       trigger: wrapperRef.current,
       start: "top top",
+      end: "bottom center",
+      toggleClass: { targets: closeBtnRef.current, className: "white-exit" },
+    });
+
+    ScrollTrigger.create({
+      trigger: wrapperRef.current,
+      start: "center center",
+      // end: "bottom bottom",
+      toggleClass: {
+        targets: wrapperRef.current,
+        className: "section-three-bg-two",
+      },
+    });
+
+    ScrollTrigger.create({
+      trigger: wrapperRef.current,
+      start: "top top",
       end: "bottom 50.5%",
       once: true,
       scrub: 1,
@@ -255,7 +272,6 @@ export function HorizontalSelectedContent({ setSelectedContent, title }) {
       // toggleClass: { targets: midImg.current, className: "get-fixed" },
       onEnter: () => {
         setScrollStatus(1);
-        console.log("ON ENTER");
         gsap.to(midImg.current, {
           opacity: 0,
           duration: 0.1,
@@ -264,23 +280,27 @@ export function HorizontalSelectedContent({ setSelectedContent, title }) {
             gsap.fromTo(
               midImg.current,
               { opacity: 0, duration: 0.2 },
-              { opacity: 1, duration: 0.2 }
+              { opacity: 0.6, duration: 0.2 }
             );
           },
         });
       },
       onLeave: () => {
         setScrollStatus(2);
-        console.log("ON LEAVE");
       },
       onLeaveBack: () => {
         setScrollStatus(2);
-        console.log("ON LEAVE BACK");
       },
       onEnterBack: () => {
         setScrollStatus(1);
-        console.log("ON ENTER BACK");
       },
+    });
+
+    ScrollTrigger.create({
+      trigger: ".section-twoo",
+      start: "top 10%",
+      end: "bottom 20%",
+      toggleClass: { targets: closeBtnRef.current, className: "white-exit" },
     });
 
     ScrollTrigger.create({
@@ -294,8 +314,8 @@ export function HorizontalSelectedContent({ setSelectedContent, title }) {
             setimgSrc(1);
             gsap.fromTo(
               midImg.current,
-              { opacity: 0, duration: 0.2 },
-              { opacity: 1, duration: 0.2 }
+              { opacity: 0, duration: 0 },
+              { opacity: 0.6, duration: 0 }
             );
           },
         });
@@ -308,8 +328,8 @@ export function HorizontalSelectedContent({ setSelectedContent, title }) {
             setimgSrc(0);
             gsap.fromTo(
               midImg.current,
-              { opacity: 0, duration: 0.2 },
-              { opacity: 1, duration: 0.2 }
+              { opacity: 0, duration: 0 },
+              { opacity: 0.6, duration: 0 }
             );
           },
         });
@@ -370,6 +390,7 @@ export function HorizontalSelectedContent({ setSelectedContent, title }) {
           </h1>
           <div className="circle">
             <div className="quarter"></div>
+
             <div className="quarter"></div>
             <div className="quarter"></div>
             <div className="quarter"></div>
@@ -534,9 +555,7 @@ export function HorizontalSelectedContent({ setSelectedContent, title }) {
                 <img
                   // ref={midImg}
                   alt="category image"
-                  src={
-                    imgSrc == 1 ? "/where-is-ai-used.jpg" : "/security-vr.avif"
-                  }
+                  src={imgSrc == 1 ? "/where-is-ai-used.jpg" : "/temp-3d.avif"}
                   className="mid-img-test-two"
                 />
               )}

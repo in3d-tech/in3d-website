@@ -65,6 +65,9 @@ const CameraControls = ({ position, target, idx }) => {
         panSpeed={1}
         maxPolarAngle={Math.PI / 2}
         // enabled={false}
+        enablePan={false} // Disable panning
+        enableRotate={false} // Disable rotatinge
+        enableZoom={false} // Disable zooming
       />
       {idx == 1 && <DirectionalLightWithHelper />}
     </>

@@ -1,5 +1,12 @@
 import { Clone, useFBX, useGLTF } from "@react-three/drei";
-import { memo, useEffect, useState, useContext, useMemo } from "react";
+import {
+  memo,
+  useEffect,
+  useState,
+  useContext,
+  useMemo,
+  Fragment,
+} from "react";
 import { animated, useSpring, a } from "react-spring";
 import { useRef } from "react";
 import { useControls } from "leva";
@@ -48,7 +55,7 @@ function MedicalModel({
   return (
     <>
       <Clone
-        ref={meshRef}
+        // ref={meshRef}
         opacity={opacity}
         object={medicalModel.scene}
         scale={2.5}
@@ -88,6 +95,7 @@ function Model({
   const [selectedStatue, setSelectedStatue] = useState(null);
   const [isClicked, setIsClicked] = useState(false);
   const [startTime, setStartTime] = useState(0);
+  const meshRef = useRef(null);
 
   const { opacity } = useSpring({
     opacity: selectedIsland == null || selectedIsland == idx ? 1 : 0,
@@ -99,6 +107,12 @@ function Model({
       setShipClone(tankModel.scene.clone());
     }
   }, [tankModel]);
+
+  useEffect(() => {
+    if (appContext.navState !== 2) {
+      setAnimatedPosition((prev) => new THREE.Vector3(prev.x, 0, prev.z));
+    }
+  }, [appContext.navState]);
 
   const getIsModelVisible = () => {
     if (appContext.navState !== 2) return true;
@@ -116,13 +130,37 @@ function Model({
   useFrame(({ clock }) => {
     // let newY = Math.min(clock.getElapsedTime() * speedFactor, 81);
     // setAnimatedPosition((prev) => new THREE.Vector3(prev.x, newY, prev.z));
+    if (appContext.navState == 2) {
+      let timeElapsed = (Date.now() - startTime) / 1000;
+      let newY = Math.max(0, animatedPosition.y - timeElapsed * speedFactor);
+      if (newY <= 0) {
+        setAnimatedPosition((prev) => new THREE.Vector3(prev.x, newY, prev.z));
+      }
+      setIsClicked(false); // If it's in the middle of the animation, stop it.
+    }
     if (isClicked) {
-      let timeElapsed = (Date.now() - startTime) / 1000; // convert to seconds
-      let newY = Math.min(timeElapsed * speedFactor, 81);
-      setAnimatedPosition((prev) => new THREE.Vector3(prev.x, newY, prev.z));
-      if (newY >= 81) setIsClicked(false);
+      if (appContext.navState != 2) {
+        let timeElapsed = (Date.now() - startTime) / 1000; // convert to seconds
+        let newY = Math.min(timeElapsed * speedFactor, 81);
+        setAnimatedPosition((prev) => new THREE.Vector3(prev.x, newY, prev.z));
+        if (newY >= 81) setIsClicked(false);
+      }
     }
   });
+
+  if (idx == 6) {
+    return (
+      <MedicalModel
+        position={position}
+        idx={idx}
+        setTarget={setTarget}
+        setPosition={setPosition}
+        appContext={appContext}
+        // selectedIsland={selectedIsland}
+        // meshRef={meshRef}
+      />
+    );
+  }
 
   return (
     <>
@@ -159,12 +197,14 @@ export function MappedModels({
   clone,
 }) {
   const positions = [
-    [-60, 0, 10],
-    [10, 0, 30],
-    [-160, 0, 60],
-    [80, 0, 60],
-    [120, 0, 110],
-    [-120, 0, 20],
+    // left to right
+    [-60, 0, 30], // 3
+    [40, 0, 30], // 4
+    [-160, 0, 80], // 1
+    [90, 0, 60], // 5
+    [140, 0, 110], //6
+    [-110, 0, 40], // 2
+    [0, 0, 80], // 7
   ];
 
   const RaisedTile = memo((props) => {
@@ -196,6 +236,7 @@ export function MappedModels({
       <group>
         <primitive
           object={fbxClone}
+          color={"white"}
           {...props}
           scale={20}
           position={props.pos}
@@ -209,7 +250,7 @@ export function MappedModels({
   return (
     <group>
       {positions.map((p, i) => (
-        <>
+        <Fragment key={i}>
           <RaisedTile pos={p} />
           <Model
             key={i}
@@ -220,7 +261,7 @@ export function MappedModels({
             selectedIsland={selectedIsland}
             tankModel={tankModel}
           />
-        </>
+        </Fragment>
       ))}
     </group>
   );

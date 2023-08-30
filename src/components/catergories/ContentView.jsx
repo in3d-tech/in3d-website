@@ -22,7 +22,7 @@ export function ContentView({ scrollRef, videoIds }) {
   }, []);
 
   useEffect(() => {
-    console.log("annnnd a re-render", videos[0]);
+    console.log("annnnd a re-render");
   }, [videos]);
 
   const opts = {
@@ -33,8 +33,6 @@ export function ContentView({ scrollRef, videoIds }) {
       // autoplay: 1,
     },
   };
-
-  console.log("vids", videos);
 
   const onReadyFunct = (e) => {
     if (e.target) e.target.pauseVideo();
@@ -62,7 +60,7 @@ export function ContentView({ scrollRef, videoIds }) {
             style={{ height: "100%" }}
           /> */}
           <ReactPlayer
-            url={`"https://www.youtube.com/watch?v=${videos[0]}"`}
+            url={""} //{`"https://www.youtube.com/watch?v=${videos[0]}"`}
             // muted={true}
             playing={true}
             height="100%"
@@ -109,12 +107,10 @@ const BottomSelection = ({ slide, idx, vidIds, setVideos }) => {
         onMouseLeave={(e) => setHovered(false)}
         style={{ opacity: hovered ? 1 : 0.2 }}
         onClick={() => {
-          console.log(vidIds);
           const arrayCopy = [...vidIds];
           const elementToMove = arrayCopy.splice(idx, 1)[0];
           arrayCopy.unshift(elementToMove);
           setVideos(arrayCopy);
-          console.log(arrayCopy);
         }}
       >
         <div
@@ -132,7 +128,7 @@ const BottomSelection = ({ slide, idx, vidIds, setVideos }) => {
             zIndex: -1,
             pointerEvents: "none",
           }}
-          onPlay={() => console.log("CCCCCCCCCCCCCCC")}
+          onPlay={() => console.log("onPlay")}
         />
       </div>
     </div>

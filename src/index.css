@@ -207,22 +207,32 @@ h1 {
 
 .landing-screen-nav-btn {
   border-radius: 50%;
-  position: absolute;
-  top: 8em;
+  margin-top: 3em;
+  /* position: absolute; */
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: Gotham;
+  font-size: 1.2em;
+  outline: inherit;
   width: 7em;
   height: 7em;
   text-align: center;
-  display: flex;
-  align-items: center;
-  right: 10em;
   font-weight: bold;
+
   -webkit-transition: all 5.5s ease;
   -moz-transition: all 5.5s ease;
   -o-transition: all 5.5s ease;
   transition: all 5.5s ease;
   transition: border-color 0.5s;
-  box-shadow: -3px 6px 34px 4px rgba(0, 0, 0, 0.6);
-  -webkit-box-shadow: -3px 6px 34px 4px rgba(0, 0, 0, 0.6);
+  box-shadow: -3px 6px 34px 4px rgba(91, 18, 18, 0.6);
+  -webkit-box-shadow: -3px 6px 34px 4px rgba(112, 18, 18, 0.6);
+}
+
+.disable-btn {
+  opacity: 0.4;
+  cursor: progress;
 }
 
 .border-transition:hover {
@@ -246,6 +256,8 @@ h1 {
   border-image-slice: 1;
   animation: border-transition-animation 3s linear forwards;
   border-color: #a73838;
+  box-shadow: -3px 6px 34px 4px rgba(37, 36, 36, 0.6);
+  -webkit-box-shadow: -3px 6px 34px 4px rgba(47, 42, 42, 0.6);
 }
 @keyframes landing-screen-nav-btn {
   0% {
@@ -263,12 +275,30 @@ h1 {
   background: rgb(0, 0, 0);
 }
 
-.landing-screen-wrapper {
+/* .landing-screen-wrapper {
   height: 100vh;
   width: 100vw;
   background: lightblue url("/landing_screen_bg.jpg") no-repeat center;
   display: flex;
   flex-direction: column-reverse;
+} */
+
+.loadingScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: inherit;
+  background-image: inherit;
+  display: flex;
+  flex-direction: column-reverse;
+  background: lightblue url("/landing_screen_bg.jpg") no-repeat center;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 8s;
+  z-index: 1;
+  font-family: "Almendra", serif;
 }
 
 .overlay-black {
@@ -337,6 +367,9 @@ input#menu {
 .icon {
   /* background: #fff; */
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   /* display: block; */
   /* height: 24px; */
   /* padding: 16px; */
@@ -625,7 +658,6 @@ label {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  border: 1px solid green;
 }
 
 /* Layout Styling */
@@ -718,6 +750,19 @@ a {
   align-items: center;
   transition: width 1.2s;
   border-right: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.open-fade-in {
+  /* animation: fadeIn 4s;
+  animation-delay: 1s;
+  opacity: 1;
+  background: black;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 500000000; */
 }
 
 .horizontal-nav-wrapper-open {
@@ -921,7 +966,7 @@ a {
 
 .magnifying-glass__text,
 .magnifying-glass__enlarged-text {
-  font-size: 4.5rem;
+  font-size: 4.5em;
   font-family: Gotham;
   /* // adjust font-size of the original text */
   text-align: center;
@@ -940,6 +985,18 @@ a {
   position: absolute;
   /* // make the magnifier follow the mouse */
   /* other styles go here */
+}
+
+@media (max-width: 768px) {
+  .magnifying-glass__text {
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 480px) {
+  .magnifying-glass__text {
+    font-size: 1em;
+  }
 }
 
 /* .hoverZoom {
@@ -1142,20 +1199,30 @@ a {
   }
 }
 
-.text {
-  margin: 0.8em 0 0 0;
-  background: #2d4e86;
-  border-radius: 6px;
-  height: 1em;
-  width: 100%;
-}
-
 .section-three {
   position: sticky;
   height: 90%;
   border-left: 1px solid rgb(0, 0, 0, 0.3);
-  background: url("/security-vr.avif");
+  background: url("/temp-3d.avif");
   /* background: black; */
+}
+
+/* .section-three-bg-one {
+  background: url("/security-vr.avif");
+} */
+
+.section-three-bg-two {
+  background: url("/where-is-ai-used.jpg");
+  animation: fadeInHalf 0.2s;
+}
+
+@keyframes fadeInHalf {
+  0% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .contact-us-wrapper {
@@ -1171,7 +1238,7 @@ a {
   color: white;
   font-size: 6em;
   margin-top: 1em;
-  font-family: gotham-bold;
+  font-family: gotham;
   text-align: center;
 }
 
@@ -1191,6 +1258,7 @@ a {
   position: relative;
   width: 100%;
   min-height: 100vh;
+
   /* background: url("/security-vr.avif") no-repeat center; */
   /* background-size: contain; */
   opacity: 0;
@@ -1645,4 +1713,208 @@ h1 {
   min-width: 100%;
   min-height: 100%;
   max-height: 90%;
+}
+
+/* new landing screen updates: */
+
+.loadingScreen__progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 12px;
+  background-color: rgba(246, 150, 150, 0.5);
+}
+
+.loadingScreen__progress__value {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(82, 34, 34, 0.5);
+  transition: width 0.4s;
+}
+
+.loading-wrapper {
+  /* border: 1px solid black; */
+  width: 500px;
+  margin-top: 15em;
+}
+
+/* loader with animation ------ > */
+
+.loader-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* min-height: 100vh; */
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  /* background: #042104; */
+  animation: animateBg 10s linear infinite;
+}
+
+@keyframes animateBg {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+.loader-wrapper .loader {
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.loader-wrapper .loader span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(calc(18deg * var(--i)));
+}
+
+.loader-wrapper .loader span::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ff0c0c;
+  box-shadow: 0 0 5px #561515, 0 0 10px #561515, 0 0 20px #561515,
+    0 0 40px #561515, 0 0 60px #561515, 0 0 80px #561515;
+  animation: animate 0.6s linear infinite;
+  animation-delay: calc(0.1s * var(--i));
+}
+
+@keyframes animate {
+  0% {
+    transform: scale(1);
+  }
+  80%,
+  100% {
+    transform: scale(0);
+  }
+}
+
+/* and here is the actual enter btn:  */
+
+.btn-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg);
+  animation: fadeIn 2s;
+
+  &:nth-child(1) {
+    --btn-bg: #742727;
+    /* --bg: #f22c3a; */
+  }
+}
+
+.landing-button {
+  --width: 200px;
+  --height: 65px;
+  border: 0;
+  position: relative;
+  min-width: var(--width);
+  min-height: var(--height);
+  border-radius: var(--height);
+  color: #fffffff1;
+  font-family: Gotham;
+  font-size: 1em;
+  background: rgba(0, 0, 0, 0.9);
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 1rem;
+
+  .text,
+  .icon-container {
+    position: relative;
+    z-index: 2;
+    font-size: 1.6em;
+  }
+
+  .icon-container {
+    --icon-size: 25px;
+    position: relative;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    margin-left: 15px;
+    transition: transform 500ms ease;
+
+    .icon {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: var(--icon-size);
+      height: var(--icon-size);
+      transition: transform 500ms ease, opacity 250ms ease;
+
+      &--left {
+        transform: translateX(-200%);
+        opacity: 0;
+      }
+
+      svg {
+        width: 100%;
+        height: 100%;
+        fill: #fff;
+      }
+    }
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--btn-bg);
+    border-radius: var(--height);
+    z-index: 1;
+    transition: transform 500ms ease;
+  }
+
+  &:hover {
+    &::after {
+      transform: translateX(65%);
+      background-color: rgb(255, 255, 255, 0.9);
+    }
+
+    .icon-container {
+      transform: translateX(125%);
+      .icon {
+        &--left {
+          transform: translateX(0);
+          opacity: 1;
+        }
+        &--right {
+          transform: translateX(200%);
+          opacity: 0;
+        }
+      }
+    }
+  }
+}
+
+.landing-button:hover .arrow-icon {
+  color: rgb(138, 111, 111);
+}
+
+.landing-button:hover .text {
+  color: rgb(138, 111, 111);
 }
