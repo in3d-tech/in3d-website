@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import MyComponentMorph from "../../ornaments/SgvText";
 
 function Hero({ setSelectedContent }) {
   const [isColoured, setIsColoured] = useState();
