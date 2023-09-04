@@ -27,7 +27,7 @@
 body {
   margin: 0;
   background-color: #e0d2d2;
-  /* overflow: hidden; */
+  overflow: scroll;
   overflow-x: hidden;
 }
 
@@ -773,19 +773,10 @@ a {
 
 .nav-open-content {
   opacity: 0;
-  animation-name: navOpenAnimation;
+  animation-name: fadeIn;
   animation-duration: 1s;
   animation-delay: 0.8s;
   animation-fill-mode: forwards;
-}
-
-@keyframes navOpenAnimation {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }
 
 .nav-close-icon {
@@ -811,19 +802,10 @@ a {
   flex-direction: column;
   justify-content: space-between;
   opacity: 0;
-  animation-name: cssAnimation;
+  animation-name: fadeIn;
   animation-duration: 0.8s;
   animation-delay: 0.8s;
   animation-fill-mode: forwards;
-}
-
-@keyframes cssAnimation {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }
 
 .a-text {
@@ -1917,4 +1899,126 @@ h1 {
 
 .landing-button:hover .text {
   color: rgb(138, 111, 111);
+}
+
+.selected-content-new-wrapper {
+  position: absolute;
+  top: 0;
+  right: -100%; /* Start the component outside the screen on the right */
+  /* height: 100vh; */
+  width: 100vw;
+  background: rgba(255, 255, 255);
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  transition: right 1s; /* Use 'right' property for the transition */
+  border-right: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+/* here starts new scroll attempts */
+
+.hero__header {
+  height: 100vh;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.hero__header h1 {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: var(--headlineBig);
+  color: var(--primaryTextColor);
+}
+
+.hero__header h2 {
+  letter-spacing: var(--headlineSmall);
+  font-size: var(--headlineSmall);
+  text-transform: uppercase;
+  color: var(--primaryColor);
+}
+
+.scroll-section-outer {
+  /* overflow: hidden; */
+}
+
+.scroll-section-inner {
+  height: 100vh;
+  width: 400vw;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  background: white;
+}
+
+.scroll-section {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e8e5e5;
+}
+
+.scroll-section h3 {
+  color: var(--primaryTextColor);
+  letter-spacing: var(--headlineMedium);
+  font-size: var(--headlineMedium);
+  text-transform: uppercase;
+}
+
+.footer {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+}
+
+.footer span {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: var(--headlineBig);
+  color: var(--primaryTextColor);
+}
+
+.falling-title {
+  opacity: 0; /* Initially invisible */
+  font-size: 5em;
+
+  /* Animation */
+  animation: fallAndBounce 2s ease forwards, fadeIn 1s ease forwards;
+}
+
+/* Keyframes for the animation */
+@keyframes fallAndBounce {
+  0% {
+    top: -100px;
+    transform: translateX(-50%) scale(1.4); /* Initial scale */
+  }
+  70% {
+    top: calc(50% - 50px); /* Bounce to center */
+    transform: translateX(-50%) scale(2.4); /* Bounce scale */
+  }
+  100% {
+    top: calc(50% - 25px); /* Final position at the center */
+    transform: translateX(-50%) scale(2); /* Original scale */
+  }
+}
+
+.morph-container {
+  position: absolute;
+  margin: auto;
+  width: 100vw;
+  height: 80pt;
+  top: 0;
+  bottom: 0;
+
+  filter: url(#threshold) blur(0.6px);
+}
+
+.scroll-image {
+  height: 60%;
+  /* width: 40em; */
 }

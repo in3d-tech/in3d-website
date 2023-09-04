@@ -4,6 +4,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import MagnifyingGlass from "../ornaments/MagnifyingGlass";
 import AppContext from "../../context/context";
 import { HorizontalSelectedContent } from "./HorizontalSelectedContent";
+import { SelectedContextNew } from "../catergories/SelectedContentNew";
 
 export function HorizontalNav() {
   const appContext = useContext(AppContext);
@@ -159,7 +160,11 @@ function HorizontalNavOpen() {
 
   return selectedContent ? (
     <div>
-      <HorizontalSelectedContent
+      {/* <HorizontalSelectedContent
+        setSelectedContent={setSelectedContent}
+        title={selectedContent}
+      /> */}
+      <SelectedContextNew
         setSelectedContent={setSelectedContent}
         title={selectedContent}
       />
