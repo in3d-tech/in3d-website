@@ -7,6 +7,7 @@ import { HorizontalSelectedContent } from "./HorizontalSelectedContent";
 import { SelectedContextNew } from "../catergories/SelectedContentNew";
 
 export function HorizontalNav() {
+  const [ar, setAr] = useState(false);
   const appContext = useContext(AppContext);
 
   const horizonalNavOpened = 2;
@@ -62,6 +63,37 @@ export function HorizontalNav() {
                 toggleNavbar(horizonalNavOpened);
               }}
             />
+            <button
+              onClick={() => setAr(true)}
+              style={{ position: "absolute", top: "20em" }}
+            >
+              hello world!
+            </button>
+            {ar && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  height: "100vh",
+                  width: "100vw",
+                  background: "white",
+                }}
+              >
+                <a-scene embedded arjs="sourceType: webcam;">
+                  <a-marker preset="hiro">
+                    <a-box position="0 0.5 0" material="color: yellow;"></a-box>
+                  </a-marker>
+                  <a-entity camera></a-entity>
+                </a-scene>
+                <button
+                  style={{ marginTop: "300px" }}
+                  onClick={() => setAr(false)}
+                >
+                  Close
+                </button>
+              </div>
+            )}
           </>
         )}
       </div>

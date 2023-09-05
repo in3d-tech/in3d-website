@@ -1,14 +1,10 @@
 import { useState, useEffect, useRef, useLayoutEffect } from "react";
 // import styled from "styled-components";
 
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Hero from "./selectedContent/Hero";
 import ScrollSection from "./selectedContent/ScrollSection";
 import Footer from "./selectedContent/Footer";
 import { SideText } from "./selectedContent/SideText";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export function SelectedContextNew({ setSelectedContent, title }) {
   const [textSection, setTextSection] = useState(false);
@@ -42,7 +38,7 @@ export function SelectedContextNew({ setSelectedContent, title }) {
       {textSection ? (
         <SideText title={title} textSection={textSection} />
       ) : null}
-      <Hero setSelectedContent={setSelectedContent} />
+      <Hero setSelectedContent={setSelectedContent} title={title} />
       <ScrollSection
         setSelectedContent={setSelectedContent}
         setTextSection={setTextSection}

@@ -72,31 +72,34 @@ function ScrollSection({ setSelectedContent, setTextSection }) {
                 position: "relative",
               }}
               ref={innerRef}
-            >
-              <button
-                style={{ marginTop: "35em", marginLeft: "5em", zIndex: 3 }}
-                onClick={() => setSelectedContent(false)}
-              >
-                Close
-              </button>
-            </div>
+            ></div>
             <div
               style={{
                 height: "100%",
                 width: "600px",
+                border: "2px solid green",
               }}
             ></div>
             <img className="scroll-image" src="/med-temp-img.png" />
           </div>
-          <div className="scroll-section">
+          <div
+            className="scroll-section"
+            style={{ background: 'url("/microsoft-ar.png")' }}
+          >
             {/* <h3>Section 2</h3> */}
             <img className="scroll-image" src="/microsoft-ar.png" />
           </div>
-          <div className="scroll-section">
+          <div
+            className="scroll-section"
+            style={{ background: 'url("/security_two.jpg")' }}
+          >
             {/* <h3>Section 3</h3> */}
             <img className="scroll-image" src="/security_two.jpg" />
           </div>
-          <div className="scroll-section">
+          <div
+            className="scroll-section"
+            style={{ background: 'url("/another-med.jpg")' }}
+          >
             {/* <h3>Section 4</h3> */}
             <img className="scroll-image" src="/another-med.jpg" />
           </div>

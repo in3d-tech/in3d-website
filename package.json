@@ -18,6 +18,7 @@
     "@react-three/drei": "^9.77.4",
     "@react-three/fiber": "^8.13.4",
     "@use-gesture/react": "^10.2.27",
+    "aframe": "^1.4.2",
     "gsap": "^3.12.1",
     "leva": "^0.9.35",
     "mdb-ui-kit": "^6.4.0",
