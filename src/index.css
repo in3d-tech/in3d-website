@@ -1410,6 +1410,7 @@ h1 {
 .get-in-touch-btn:hover {
   /* color: rgb(255, 255, 255); */
   opacity: 0.9;
+  cursor: pointer;
 }
 
 .contact-title {
@@ -1695,6 +1696,7 @@ h1 {
   min-width: 100%;
   min-height: 100%;
   max-height: 90%;
+  animation: fadeIn 3s;
 }
 
 /* new landing screen updates: */
@@ -1985,8 +1987,9 @@ h1 {
 
 .falling-title {
   opacity: 0; /* Initially invisible */
-  font-size: 5em;
-
+  color: white;
+  font-family: Gotham;
+  font-size: 8em;
   /* Animation */
   animation: fallAndBounce 2s ease forwards, fadeIn 1s ease forwards;
 }
@@ -1998,11 +2001,11 @@ h1 {
     transform: translateX(-50%) scale(1.4); /* Initial scale */
   }
   70% {
-    top: calc(50% - 50px); /* Bounce to center */
+    top: calc(20% - 50px); /* Bounce to center */
     transform: translateX(-50%) scale(2.4); /* Bounce scale */
   }
   100% {
-    top: calc(50% - 25px); /* Final position at the center */
+    top: calc(10% - 25px); /* Final position at the center */
     transform: translateX(-50%) scale(2); /* Original scale */
   }
 }

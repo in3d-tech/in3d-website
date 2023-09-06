@@ -5,6 +5,7 @@ import Hero from "./selectedContent/Hero";
 import ScrollSection from "./selectedContent/ScrollSection";
 import Footer from "./selectedContent/Footer";
 import { SideText } from "./selectedContent/SideText";
+import CloseIcon from "@mui/icons-material/Close";
 
 export function SelectedContextNew({ setSelectedContent, title }) {
   const [textSection, setTextSection] = useState(false);
@@ -17,24 +18,24 @@ export function SelectedContextNew({ setSelectedContent, title }) {
         background: "white",
       }}
     >
-      <div
-        style={{
-          position: "fixed",
-          right: "2em",
-          top: "2em",
-          width: "300px",
-          height: "200px",
-          background: "green",
-          zIndex: 10000,
-        }}
-      >
-        <button
-          style={{ height: "70px", marginTop: "10em", width: "100px" }}
-          onClick={() => setSelectedContent(false)}
-        >
-          Close
-        </button>
+      <div>
+        <CloseIcon
+          // ref={closeBtnRef}
+          className="nav-close-icon"
+          sx={{
+            // color: "black",
+            fontSize: 60,
+            position: "fixed",
+            top: "1em",
+            right: "1em",
+            zIndex: 1,
+          }}
+          onClick={() => {
+            setSelectedContent(false);
+          }}
+        />
       </div>
+
       {textSection ? (
         <SideText title={title} textSection={textSection} />
       ) : null}
