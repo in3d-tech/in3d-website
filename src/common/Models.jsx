@@ -16,65 +16,90 @@ import { AnimationMixer } from "three";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
-function MedicalModel({
-  position,
-  idx,
+export function MappedModels({
   setPosition,
   setTarget,
-  meshRef,
   selectedIsland,
-  appContext,
+  tankModel,
+  clone,
 }) {
-  const { opacity } = useSpring({
-    opacity: selectedIsland == null || selectedIsland == idx ? 1 : 0,
-    config: { duration: 500 }, // Optional: set duration of the animation
+  const positions = [
+    // left to right
+    [-60, 0, 30], // 3
+    [40, 0, 30], // 4
+    [-160, 0, 80], // 1
+    [90, 0, 60], // 5
+    [140, 0, 110], //6
+    [-110, 0, 40], // 2
+    [0, 0, 80], // 7
+  ];
+
+  const RaisedTile = memo((props) => {
+    const fbx = useFBX("/assets/Hexagon Tile Scale.fbx");
+    const fbxClone = useMemo(() => clone(fbx), [fbx]);
+
+    const [mixer] = useState(() => new AnimationMixer(fbxClone));
+    const [action] = useState(() => mixer.clipAction(fbxClone.animations[0]));
+
+    // remove useEffect since we want to play the animation on click
+    // instead of on component mount
+
+    useFrame((state, delta) => {
+      mixer.update(delta);
+    });
+
+    const handleClick = () => {
+      action.setLoop(THREE.LoopOnce);
+      action.clampWhenFinished = true;
+      action.timeScale = 0.32; // Set timeScale to slow down the action.
+
+      action.play();
+
+      // you can stop the animation here if you want
+      // using a setTimeOut or something else
+    };
+
+    // console.log({ fbxClone });
+    // console.log(fbxClone.children[0].material.color);
+    // fbxClone.children[0].material.color = {
+    //   isColor: true,
+    //   r: 98,
+    //   g: 99,
+    //   b: 97,
+    // };
+
+    return (
+      <group>
+        <primitive
+          object={fbxClone}
+          color={"grey"}
+          {...props}
+          scale={20}
+          position={props.pos}
+          rotation={[0, 0, 0]}
+          onClick={handleClick} // define click behavior here
+        />
+      </group>
+    );
   });
-  const medicalModel = useGLTF("/assets/in3d-medical/Medical_Island.gltf");
-  if (medicalModel.materials)
-    medicalModel.materials.Medical_Hearty.transparent = true;
-
-  const posRef = useRef();
-
-  //   useControls("medical island", {
-  //     visible: {
-  //       value: true,
-  //       onChange: (v) => {
-  //         posRef.current.visible = v;
-  //       },
-  //     },
-  //     position: {
-  //       x: 1,
-  //       y: 10,
-  //       z: 10,
-  //       onChange: (v) => {
-  //         posRef.current?.position.copy(v);
-  //       },
-  //     },
-  //   });
 
   return (
-    <>
-      <Clone
-        // ref={meshRef}
-        opacity={opacity}
-        object={medicalModel.scene}
-        scale={2.5}
-        position={position}
-        onClick={(e) => {
-          // getCameraCoords({ idx: 1, setPosition, setTarget });
-          console.log(e.object.uuid);
-        }}
-        rotation={[0, Math.PI * 1.85, 0]}
-        onPointerOver={(e) => {
-          document.body.style.cursor = "pointer";
-        }}
-        onPointerOut={() => {
-          document.body.style.cursor = "auto";
-        }}
-        // visible={selectedIsland == null || selectedIsland == 1 ? true : false}
-        visible={appContext.navState == 2 ? false : true}
-      />
-    </>
+    <group>
+      {positions.map((p, i) => (
+        <Fragment key={i}>
+          <RaisedTile pos={p} />
+          <Model
+            key={i}
+            position={p}
+            idx={i}
+            setPosition={setPosition}
+            setTarget={setTarget}
+            selectedIsland={selectedIsland}
+            tankModel={tankModel}
+          />
+        </Fragment>
+      ))}
+    </group>
   );
 }
 
@@ -189,80 +214,64 @@ function Model({
   );
 }
 
-export function MappedModels({
+function MedicalModel({
+  position,
+  idx,
   setPosition,
   setTarget,
+  meshRef,
   selectedIsland,
-  tankModel,
-  clone,
+  appContext,
 }) {
-  const positions = [
-    // left to right
-    [-60, 0, 30], // 3
-    [40, 0, 30], // 4
-    [-160, 0, 80], // 1
-    [90, 0, 60], // 5
-    [140, 0, 110], //6
-    [-110, 0, 40], // 2
-    [0, 0, 80], // 7
-  ];
-
-  const RaisedTile = memo((props) => {
-    const fbx = useFBX("/assets/Hexagon Tile Scale.fbx");
-    const fbxClone = useMemo(() => clone(fbx), [fbx]);
-
-    const [mixer] = useState(() => new AnimationMixer(fbxClone));
-    const [action] = useState(() => mixer.clipAction(fbxClone.animations[0]));
-
-    // remove useEffect since we want to play the animation on click
-    // instead of on component mount
-
-    useFrame((state, delta) => {
-      mixer.update(delta);
-    });
-
-    const handleClick = () => {
-      action.setLoop(THREE.LoopOnce);
-      action.clampWhenFinished = true;
-      action.timeScale = 0.32; // Set timeScale to slow down the action.
-
-      action.play();
-
-      // you can stop the animation here if you want
-      // using a setTimeOut or something else
-    };
-
-    return (
-      <group>
-        <primitive
-          object={fbxClone}
-          color={"white"}
-          {...props}
-          scale={20}
-          position={props.pos}
-          rotation={[0, 0, 0]}
-          onClick={handleClick} // define click behavior here
-        />
-      </group>
-    );
+  const { opacity } = useSpring({
+    opacity: selectedIsland == null || selectedIsland == idx ? 1 : 0,
+    config: { duration: 500 }, // Optional: set duration of the animation
   });
+  const medicalModel = useGLTF("/assets/in3d-medical/Medical_Island.gltf");
+  if (medicalModel.materials)
+    medicalModel.materials.Medical_Hearty.transparent = true;
+
+  const posRef = useRef();
+
+  //   useControls("medical island", {
+  //     visible: {
+  //       value: true,
+  //       onChange: (v) => {
+  //         posRef.current.visible = v;
+  //       },
+  //     },
+  //     position: {
+  //       x: 1,
+  //       y: 10,
+  //       z: 10,
+  //       onChange: (v) => {
+  //         posRef.current?.position.copy(v);
+  //       },
+  //     },
+  //   });
 
   return (
-    <group>
-      {positions.map((p, i) => (
-        <Fragment key={i}>
-          <RaisedTile pos={p} />
-          <Model
-            key={i}
-            position={p}
-            idx={i}
-            setPosition={setPosition}
-            setTarget={setTarget}
-            selectedIsland={selectedIsland}
-            tankModel={tankModel}
-          />
-        </Fragment>
-      ))}
-    </group>
+    <>
+      <Clone
+        // ref={meshRef}
+        opacity={opacity}
+        object={medicalModel.scene}
+        scale={2.5}
+        position={position}
+        onClick={(e) => {
+          // getCameraCoords({ idx: 1, setPosition, setTarget });
+          console.log(e.object.uuid);
+        }}
+        rotation={[0, Math.PI * 1.85, 0]}
+        onPointerOver={(e) => {
+          document.body.style.cursor = "pointer";
+        }}
+        onPointerOut={() => {
+          document.body.style.cursor = "auto";
+        }}
+        // visible={selectedIsland == null || selectedIsland == 1 ? true : false}
+        visible={appContext.navState == 2 ? false : true}
+      />
+    </>
   );
 }

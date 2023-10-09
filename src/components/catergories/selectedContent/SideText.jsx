@@ -17,6 +17,7 @@ export function SideText({ title, textSection }) {
   tempor ex tincidunt.`;
 
   const getText = () => {
+    console.log(textSection);
     switch (textSection) {
       case "scrollSection2":
         return text1;
@@ -25,7 +26,7 @@ export function SideText({ title, textSection }) {
       case "scrollSection4":
         return text3;
       default:
-        return "CHECK OUT OUR WORK:";
+        return "";
     }
   };
   return (
@@ -34,7 +35,7 @@ export function SideText({ title, textSection }) {
         height: "100vh",
         width: "30%",
         position: "fixed",
-        background: "rgb(52, 52, 49)",
+        background: "black", //"rgb(52, 52, 49)",
         zIndex: 5000000,
         opacity: textSection == "unset" ? 0 : 1,
         animation: textSection == "unset" ? "fadeOut 0.5s" : "fadeIn 0.5s",
@@ -45,8 +46,11 @@ export function SideText({ title, textSection }) {
       }}
     >
       <div style={{ position: "relative", top: "2em" }}>
-        <h2 style={{ fontSize: "5em", color: "white", fontFamily: "Gotham" }}>
-          {title}
+        <h2
+          className="h-scroll-text-section"
+          style={{ fontSize: "5em", color: "white", fontFamily: "Gotham" }}
+        >
+          {textSection ? title : ""}
         </h2>
       </div>
       <div>
@@ -60,7 +64,7 @@ export function SideText({ title, textSection }) {
             marginTop: "5em",
           }}
         >
-          {getText()}
+          {textSection ? getText() : ""}
         </div>
       </div>
     </div>

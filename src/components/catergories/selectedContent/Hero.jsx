@@ -166,7 +166,7 @@ function Hero({ setSelectedContent, title }) {
           right: "76%",
           fontSize: "2.5em",
           top: "80%",
-          fontFamily: "gotham-bold",
+          fontFamily: "gotham",
           color: "white",
         }}
       >
@@ -179,7 +179,7 @@ function Hero({ setSelectedContent, title }) {
           left: "5%",
           top: "70%",
           fontSize: "2.5em",
-          fontFamily: "gotham-bold",
+          fontFamily: "gotham",
           color: "white",
         }}
       >

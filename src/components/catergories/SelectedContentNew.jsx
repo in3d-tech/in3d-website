@@ -43,6 +43,7 @@ export function SelectedContextNew({ setSelectedContent, title }) {
       <ScrollSection
         setSelectedContent={setSelectedContent}
         setTextSection={setTextSection}
+        textSection={textSection}
       />
       <Footer />
     </div>

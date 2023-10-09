@@ -46,7 +46,7 @@ export function HorizontalNav() {
                 toggleNavbar();
               }}
             />
-            <HorizontalNavOpen />
+            <HorizontalNavOpen appContext={appContext} />
           </div>
         ) : (
           <>
@@ -63,37 +63,6 @@ export function HorizontalNav() {
                 toggleNavbar(horizonalNavOpened);
               }}
             />
-            <button
-              onClick={() => setAr(true)}
-              style={{ position: "absolute", top: "20em" }}
-            >
-              hello world!
-            </button>
-            {ar && (
-              <div
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  height: "100vh",
-                  width: "100vw",
-                  background: "white",
-                }}
-              >
-                <a-scene embedded arjs="sourceType: webcam;">
-                  <a-marker preset="hiro">
-                    <a-box position="0 0.5 0" material="color: yellow;"></a-box>
-                  </a-marker>
-                  <a-entity camera></a-entity>
-                </a-scene>
-                <button
-                  style={{ marginTop: "300px" }}
-                  onClick={() => setAr(false)}
-                >
-                  Close
-                </button>
-              </div>
-            )}
           </>
         )}
       </div>
@@ -101,7 +70,7 @@ export function HorizontalNav() {
   );
 }
 
-function HorizontalNavOpen() {
+function HorizontalNavOpen({ appContext }) {
   const [selectedContent, setSelectedContent] = useState(null);
   const [allowClick, setAllowClick] = useState(false);
   const [hovered, setIsHovered] = useState(false);
@@ -202,6 +171,13 @@ function HorizontalNavOpen() {
       />
     </div>
   ) : (
+    // <div
+    //   className={`h-nav-selected-wrapper ${
+    //     selectedContent //horizonalNavOpened
+    //       ? "h-nav-wrapper-open"
+    //       : ""
+    //   }`}
+    // ></div>
     // <div className="h-nav-open">
     <div className={`horizontal-nav-open-titles-wrapper`}>
       {hovered && <div className="hoverZoom" style={getbgImage()}></div>}

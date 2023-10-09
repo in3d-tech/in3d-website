@@ -37,8 +37,17 @@ export function HomePage({
   }
 
   const TileModel = memo((props) => {
-    const fbx = useFBX("/assets/Hexagon Tile long animation.fbx");
+    // const fbx = useFBX("/assets/Hexagon Tile long animation.fbx");
     // const fbx = useFBX("/assets/Hexagon Tile Scale.fbx");
+    let fbx;
+    try {
+      console.log("in catch 1");
+      fbx = useFBX("/assets/as1.fbx");
+      console.log("in catch 2");
+    } catch {
+      console.log("we got caught");
+      fbx = useFBX("/assets/Hexagon Tile long animation.fbx");
+    }
 
     // clone the fbx model
     const fbxClone = useMemo(() => clone(fbx), [fbx]);
@@ -56,6 +65,24 @@ export function HomePage({
     }, []); // Empty dependency array ensures this runs once on mount
 
     useFrame((state, delta) => mixer.update(delta));
+
+    console.log({ fbxClone });
+
+    // console.log(fbxClone.children[0]);
+    // console.log("color:", fbxClone.children[1]);
+    // fbxClone.children[24].position.y = 8;
+    // fbxClone.children[24].material.color = {
+    //   isColor: true,
+    //   r: 155,
+    //   g: 195,
+    //   b: 200,
+    // };
+    // fbxClone.children[24].material.emissive = {
+    //   isColor: true,
+    //   r: 155,
+    //   g: 195,
+    //   b: 200,
+    // };
 
     return (
       <group>

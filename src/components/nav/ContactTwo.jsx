@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import PhoneIcon from "@mui/icons-material/Phone";
@@ -11,10 +11,32 @@ import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export function ContactTwo() {
   const [contact, setContact] = useState(false);
   const [coverVisible, setCoverVisible] = useState(true);
+
+  let leftRef = useRef(null);
+  let rightRef = useRef(null);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    let tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".container",
+        start: "center center",
+        end: "bottom bottom",
+        scrub: true,
+      },
+    });
+
+    tl.from(leftRef.current, { x: "50vw" }).from(rightRef.current, {
+      x: "-50vw",
+    });
+  }, []);
 
   const handleCover = () => {
     setCoverVisible(false);
@@ -34,7 +56,7 @@ export function ContactTwo() {
         height: "90%",
       }}
     >
-      <div style={{ flex: 1, padding: "30px" }}>
+      <div ref={leftRef} style={{ flex: 1, padding: "30px" }}>
         <div style={{ height: "40%" }}>
           <div className="contact-title">Contact us</div>
           <div className="contact-subtitle">with any inquiries</div>
@@ -69,6 +91,7 @@ export function ContactTwo() {
           justifyContent: "flex-start",
           marginTop: "3em",
         }}
+        ref={rightRef}
       >
         <div className={`cover ${!coverVisible ? "" : "slide-away"}`}></div>
 
