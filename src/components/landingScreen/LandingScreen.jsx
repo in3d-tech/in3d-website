@@ -64,13 +64,13 @@ export function LandingComponent({ setIsLanding, onEnter, started }) {
       <button onClick={onEnter} className={`enter-btn`}>
         <img src="/in3dlogo.png" alt="3D logo" />
       </button>
-      <div className="animation-container">
+      {/* <div className="animation-container">
         {["I", "n", "3", "D", "-", "T", "e", "c", "h"].map((letter, idx) => (
           <span className="animation-letter" key={idx}>
             {letter}
           </span>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }
