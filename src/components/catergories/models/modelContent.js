@@ -101,7 +101,6 @@ export const microsoftModel = (fbx) => {
 export const ai = (fbx, textures) => {
   // return;
   fbx.traverse((child) => {
-    console.log(child);
     if (child.isMesh) {
       switch (child.name) {
         case "Real_Human":
