@@ -1,5 +1,3 @@
-import * as THREE from "three";
-
 export const customizeModel = (fbx, textures) => {
   // return;
   console.log("inside customize model!");
@@ -55,33 +53,26 @@ export const soldierModel = (fbx, textures) => {
 
   fbx.traverse((child) => {
     if (child.isMesh) {
-      // if (child.name == "Soldier_Vest") {
-      // }
-      //assign texture conditionally
       switch (child.name) {
         case "Soldier_Vest":
-          // console.log(" in 1");
           child.material.map = textures[6];
           // child.material.transparent = true;
           // child.material.opacity = 0.4;
           break;
         case "Soldier_Body":
-          // console.log(" in 1");
           child.material.map = textures[4];
           break;
         case "Soldier_Face":
-          // console.log(" in 2");
           child.material.map = textures[5];
           break;
         case "UI_Box":
           child.material.map = textures[3];
           break;
         case "Rifle":
-          console.log(child);
           child.material.map = textures[1];
           child.material.transparent = false;
           child.material.opacity = 0.4;
-          child.material.wireframe = true;
+        // child.material.wireframe = true;
 
         default:
           break;
@@ -108,16 +99,11 @@ export const ai = (fbx, textures) => {
           break;
 
         case "Hologram_Humen":
-          // child.material = new THREE.MeshBasicMaterial({
-          //   color: 0xffffff,
-          //   map: textures[0],
-          //   transparent: true,
-          //   opacity: 0.8,
-          // });
           child.material.map = textures[0];
           child.material.transparent = true;
           child.material.opacity = 0.6;
           // child.material.wireframe = false;
+          // child.layers.enable(BLOOM_SCENE);
 
           break;
 
@@ -140,26 +126,19 @@ export const medicalModel = (fbx, textures) => {
     if (child.isMesh) {
       if (child.name == "Pedestel") {
       }
-      //assign texture conditionally
-      switch (
-        child.name //assumes each child has a unique name
-      ) {
+      switch (child.name) {
         case "Heart":
-          // console.log(" in 1");
           child.material.map = textures[2];
           child.material.transparent = true;
           child.material.opacity = 0.6;
           break;
         case "Hololens":
-          // console.log(" in 1");
           child.material.map = textures[4];
           break;
         case "Male_Body_No_Genitals_Geo005":
-          // console.log(" in 2");
           child.material.map = textures[6];
           break;
         case "Pedestel":
-          // console.log(" in 3");
           child.material.map = textures[7];
           break;
         case "Ch16_Body1":
@@ -170,4 +149,8 @@ export const medicalModel = (fbx, textures) => {
       }
     }
   });
+};
+
+export const hexagons = (fbx) => {
+  return;
 };

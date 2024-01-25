@@ -54,5 +54,5 @@ function App() {
 
 export default App;
 
-useGLTF.preload("/assets/new-tank/tanky future new.gltf");
-useGLTF.preload("/assets/in3d-medical/Medical_Island.gltf");
+// useGLTF.preload("/assets/in3d-ai/Ai_FBX.fbx");
+// useGLTF.preload("/assets/medical-model-new/Medical_Statue.fbx");

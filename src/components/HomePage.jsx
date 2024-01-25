@@ -1,9 +1,7 @@
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useMemo, useEffect } from "react";
 import { Stars, useFBX, useTexture } from "@react-three/drei";
 import { Lights } from "./ornaments/Lights";
-import { Camera } from "./Camera";
 import { CameraControls } from "../common/CameraControls";
-import { MappedModels } from "../common/Models";
 import { Ocean } from "./ornaments/Water";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
@@ -14,6 +12,7 @@ import {
   microsoftModel,
   taasia,
   ai,
+  hexagons,
 } from "./catergories/models/modelContent";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 
@@ -51,8 +50,8 @@ const MODELS_DATA = [
   {
     modelPath: "/assets/medical-model-new/Medical_Statue.fbx",
     processModel: medicalModel,
-    position: [40, 10, 200], // [-40, 12, 140],
-    scale: [30, 30, 30],
+    position: [40, 5, 200], // [-40, 12, 140],
+    scale: [17, 17, 17],
     textures: [
       "/assets/medical-model-new/webp/Doctor_Body_Diffuse copy.webp",
       "/assets/medical-model-new/webp/Doctor_Head_Diffuse.webp",
@@ -68,8 +67,8 @@ const MODELS_DATA = [
   {
     modelPath: "/assets/in3d-soldier-new/Soldier_Statue.fbx",
     processModel: soldierModel,
-    position: [80, -42, 140],
-    scale: [1, 1, 1],
+    position: [80, 5, 140],
+    scale: [0.4, 0.4, 0.4],
     textures: [
       "/assets/in3d-soldier-new/optimized/Circle Opcity.webp",
       "/assets/in3d-soldier-new/optimized/Rifle Opcity.webp",
@@ -80,43 +79,43 @@ const MODELS_DATA = [
       "/assets/in3d-soldier-new/optimized/Soldier Vest.webp",
     ],
   },
-  // {
-  //   modelPath: "/assets/in3d-customize/Costumize_Model.fbx",
-  //   processModel: customizeModel,
-  //   position: [0, -12, 140],
-  //   scale: [0.6, 0.6, 0.6],
-  //   textures: [
-  //     "/assets/in3d-customize/textures/Group_1-2/Hologram_Rays_Opacity.png",
-  //     "/assets/in3d-customize/textures/Group_1-2/Hologram_Rays.png",
-  //     "/assets/in3d-customize/textures/Group_1-2/Untitled-33_Opacity.png",
-  //     "/assets/in3d-customize/textures/Group_1-2/Untitled-33.png",
+  {
+    modelPath: "/assets/in3d-customize/Costumize_Model.fbx",
+    processModel: customizeModel,
+    position: [0, 5, 140],
+    scale: [0.3, 0.3, 0.3],
+    textures: [
+      "/assets/in3d-customize/textures/Group_1-2/Hologram_Rays_Opacity.png",
+      "/assets/in3d-customize/textures/Group_1-2/Hologram_Rays.png",
+      "/assets/in3d-customize/textures/Group_1-2/Untitled-33_Opacity.png",
+      "/assets/in3d-customize/textures/Group_1-2/Untitled-33.png",
 
-  //     "/assets/in3d-customize/textures/Tablet/iPad_Material_AlbedoTransparency.png",
-  //     "/assets/in3d-customize/textures/Tablet/iPad_Material_EmissionMask.png",
-  //     "/assets/in3d-customize/textures/Tablet/iPad_Material_MetallicSmoothness.png",
-  //     "/assets/in3d-customize/textures/Tablet/iPad_Material_Normal.png",
+      "/assets/in3d-customize/textures/Tablet/iPad_Material_AlbedoTransparency.png",
+      "/assets/in3d-customize/textures/Tablet/iPad_Material_EmissionMask.png",
+      "/assets/in3d-customize/textures/Tablet/iPad_Material_MetallicSmoothness.png",
+      "/assets/in3d-customize/textures/Tablet/iPad_Material_Normal.png",
 
-  //     "/assets/in3d-customize/textures/rp-luisia_Rigged/rp_luisa_rigged_003_dif.jpg",
-  //     "/assets/in3d-customize/textures/rp-luisia_Rigged/rp_luisa_rigged_003_gloss.jpg",
-  //     "/assets/in3d-customize/textures/rp-luisia_Rigged/rp_luisa_rigged_003_norm.jpg",
-  //   ],
-  // },
+      "/assets/in3d-customize/textures/rp-luisia_Rigged/rp_luisa_rigged_003_dif.jpg",
+      "/assets/in3d-customize/textures/rp-luisia_Rigged/rp_luisa_rigged_003_gloss.jpg",
+      "/assets/in3d-customize/textures/rp-luisia_Rigged/rp_luisa_rigged_003_norm.jpg",
+    ],
+  },
   // {
   //   modelPath: "/assets/in3d-miscrosoft/Microsoft.fbx",
   //   processModel: microsoftModel,
-  //   position: [40, -20, 80],
-  //   scale: [1, 1, 1],
+  //   position: [40, 5, 80],
+  //   scale: [0.5, 0.5, 0.5],
   // },
   {
     modelPath: "/assets/in3d-ai/Ai_FBX.fbx",
     processModel: ai,
-    position: [141, -70, 50],
+    position: [-80, 5, 170],
     textures: [
       "/assets/in3d-ai/textures/Hologram_HumanTexture.webp",
       "/assets/in3d-ai/textures/Plane&Shape_Emission&Opacity_Texture.webp",
       "/assets/in3d-ai/textures/Real_Man_Texture.webp",
     ],
-    scale: [0.7, 0.7, 0.7],
+    scale: [0.2, 0.2, 0.2],
   },
   // {
   //   modelPath: "/assets/in3d-taasia/Enginer.fbx",
@@ -125,6 +124,12 @@ const MODELS_DATA = [
   //   scale: [0.15, 0.15, 0.15],
   //   rotation: [Math.PI * 1.34, 0, 0],
   // },
+  {
+    modelPath: "/assets/Hexagon Tile long animation.fbx",
+    processModel: hexagons,
+    position: [0, 0, 0],
+    scale: [10, 10, 10],
+  },
 ];
 
 function ModelComponent({
@@ -149,15 +154,6 @@ function ModelComponent({
     }
   }, [fbx, processModel]);
 
-  // const bloomLayer = new THREE.Layers();
-  // bloomLayer.set(1);
-
-  // fbx.traverse((object) => {
-  //   if (object.isMesh && object.name === "Hologram_Humen") {
-  //     object.layers.enable(1);
-  //   }
-  // });
-
   return fbx ? (
     <primitive
       object={fbx}
@@ -176,13 +172,6 @@ export function HomePage({
   selectedIsland,
   tankModel,
 }) {
-  const [animate, setAnimate] = useState(false);
-
-  const cameraRef = useRef();
-  const islandGroupRef = useRef();
-  const tl = useRef();
-  const meshRef = useRef();
-
   return (
     <>
       <Stars
@@ -195,14 +184,12 @@ export function HomePage({
         speed={0.7}
       />
       <Lights />
-      {/* <Camera cameraRef={cameraRef} tl={tl} islandGroupRef={islandGroupRef} /> */}
       <CameraControls
         position={position}
         target={target}
         idx={selectedIsland}
       />
       {/* <Effects /> */}
-      {/* <TestComponent /> */}
       {MODELS_DATA.map((modelData, i) => (
         <ModelComponent
           key={i}
@@ -218,59 +205,3 @@ export function HomePage({
     </>
   );
 }
-
-// const TestComponent = () => {
-//   const vertexShader = `
-//   varying vec2 vUv;
-
-//   void main() {
-//     vUv = uv;
-//     gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
-//   }
-//   `;
-
-//   const fragmentShader = `
-//   uniform sampler2D baseTexture;
-//   uniform sampler2D bloomTexture;
-
-//   varying vec2 vUv;
-
-//   void main() {
-//     gl_FragColor = ( texture2D( baseTexture, vUv ) + vec4( 1.0 ) * texture2D( bloomTexture, vUv ) );
-//   }
-//   `;
-
-//   const { scene, gl, size, camera } = useThree();
-//   const composer = useRef();
-
-//   // create our ShaderPass
-//   const myShaderPass = useMemo(() => {
-//     const pass = new ShaderPass(
-//       new THREE.ShaderMaterial({
-//         uniforms: {
-//           baseTexture: { value: null },
-//           bloomTexture: { value: null },
-//         },
-//         vertexShader: vertexShader,
-//         fragmentShader: fragmentShader,
-//       }),
-//       "baseTexture"
-//     );
-
-//     pass.needsSwap = true;
-//     return pass;
-//   }, []);
-
-//   // apply effects on each frame
-//   useFrame((_, delta) => composer.current.render(delta), 1);
-
-//   // setup
-//   useEffect(() => {
-//     myShaderPass.renderToScreen = true;
-//     composer.current.setSize(size.width, size.height);
-//     composer.current.addPass(new RenderPass(scene, camera));
-//     composer.current.addPass(myShaderPass);
-//   }, [myShaderPass, size, scene, camera]);
-
-//   return null;
-// };
