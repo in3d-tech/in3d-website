@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { Suspense, lazy, useRef, useState } from "react";
 import { Html, useProgress, useGLTF } from "@react-three/drei";
 import { Navbar } from "./components/NavbarOld";
 import { Leva } from "leva";
@@ -8,19 +8,20 @@ import { LandingComponent } from "./components/landingScreen/LandingScreen";
 import { ContentView } from "./components/catergories/ContentView";
 import { HorizontalNav } from "./components/nav/HorizontalNav";
 import AppContext from "./context/context";
-import { Scene } from "./components/Scene";
 
 // import { AnimationMixer } from "three-stdlib";
 
-export const LoaderComponent = () => {
-  const { active, progress, errors } = useProgress();
+const LazyScene = lazy(() => import("./components/Scene"));
 
-  return (
-    <Html center>
-      <span>{`${progress} % loaded`}</span>
-    </Html>
-  );
-};
+// export const LoaderComponent = () => {
+//   const { active, progress, errors } = useProgress();
+
+//   return (
+//     <Html center>
+//       <span>{`${progress} % loaded`}</span>
+//     </Html>
+//   );
+// };
 
 function App() {
   const [isLanding, setIsLanding] = useState(true);
@@ -38,16 +39,18 @@ function App() {
         <AppContext.Provider
           value={{ navState, setNavState, animate, setAnimate }}
         >
-          <Scene isLanding={isLanding} />
-          <HorizontalNav />
+          <Suspense fallback={null}>
+            {isLanding ? null : <LazyScene isLanding={isLanding} />}
+            {isLanding ? null : <HorizontalNav />}
+          </Suspense>
         </AppContext.Provider>
       </div>
-      {isLanding && (
+      {isLanding ? (
         <LandingComponent
           onEnter={() => setIsLanding(false)}
           started={isLanding}
         />
-      )}
+      ) : null}
     </>
   );
 }
