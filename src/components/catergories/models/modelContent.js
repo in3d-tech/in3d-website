@@ -1,7 +1,5 @@
 export const customizeModel = (fbx, textures) => {
   // return;
-  console.log("inside customize model!");
-  //   return;
 
   fbx.traverse((child) => {
     if (child.isMesh) {
@@ -152,5 +150,9 @@ export const medicalModel = (fbx, textures) => {
 };
 
 export const hexagons = (fbx) => {
+  return;
+};
+
+export const logo = (fbx) => {
   return;
 };
