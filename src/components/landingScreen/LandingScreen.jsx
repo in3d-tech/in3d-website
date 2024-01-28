@@ -15,7 +15,7 @@ export function LandingComponent({ setIsLanding, onEnter, started }) {
           ? `${(Math.round(progress * 100) / 100).toFixed(2)} % loaded`
           : "Temporary Enter Button"}
       </div> */}
-      {progress < 100 ? (
+      {progress > 100 ? (
         <div className="loader-wrapper">
           <div className="loader">
             {Array.from({ length: 20 }, (_, i) => (

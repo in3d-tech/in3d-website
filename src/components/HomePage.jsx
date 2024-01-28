@@ -164,14 +164,7 @@ function ModelComponent({
   ) : null;
 }
 
-export function HomePage({
-  position,
-  setPosition,
-  target,
-  setTarget,
-  selectedIsland,
-  tankModel,
-}) {
+export function HomePage({ position, target, selectedIsland }) {
   return (
     <>
       <Stars
