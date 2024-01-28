@@ -1,15 +1,9 @@
-import { Suspense, lazy, useRef, useState } from "react";
-import { Html, useProgress, useGLTF } from "@react-three/drei";
-import { Navbar } from "./components/NavbarOld";
+import { Suspense, lazy, useState } from "react";
+import { useProgress } from "@react-three/drei";
 import { Leva } from "leva";
-// import { useHorizontalScroll } from "./common/useHorizontalScroll";
-import YouTube from "react-youtube";
 import { LandingComponent } from "./components/landingScreen/LandingScreen";
-import { ContentView } from "./components/catergories/ContentView";
 import { HorizontalNav } from "./components/nav/HorizontalNav";
 import AppContext from "./context/context";
-
-// import { AnimationMixer } from "three-stdlib";
 
 const LazyScene = lazy(() => import("./components/Scene"));
 
@@ -39,7 +33,13 @@ function App() {
         <AppContext.Provider
           value={{ navState, setNavState, animate, setAnimate }}
         >
-          <Suspense fallback={null}>
+          <Suspense
+            fallback={
+              <div>
+                <h1>LOADING!!!</h1>
+              </div>
+            }
+          >
             {isLanding ? null : <LazyScene isLanding={isLanding} />}
             {isLanding ? null : <HorizontalNav />}
           </Suspense>
@@ -56,6 +56,3 @@ function App() {
 }
 
 export default App;
-
-// useGLTF.preload("/assets/in3d-ai/Ai_FBX.fbx");
-// useGLTF.preload("/assets/medical-model-new/Medical_Statue.fbx");

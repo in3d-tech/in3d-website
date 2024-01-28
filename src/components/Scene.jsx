@@ -5,6 +5,7 @@ import { HomePage } from "./HomePage";
 import { Navbar } from "./NavbarOld";
 import { ContentView } from "./catergories/ContentView";
 import { useHorizontalScroll } from "../common/useHorizontalScroll";
+import { Loader } from "./Loading";
 
 function Scene({ isLanding }) {
   const [categorySelected, setCategorySelected] = useState(false);
@@ -14,6 +15,8 @@ function Scene({ isLanding }) {
 
   // const tankModel = useGLTF("/assets/new-tank/tanky future new.gltf");
   const scrollRef = useHorizontalScroll();
+  const { progress } = useProgress();
+
   const videoIds = [
     "9vA8qX_p11w",
     "enJ6be4qLMs",
@@ -22,8 +25,6 @@ function Scene({ isLanding }) {
     "mAEM5q5YFtg",
   ];
 
-  const { progress } = useProgress();
-
   return (
     <>
       <div
@@ -31,13 +32,13 @@ function Scene({ isLanding }) {
           position: "absolute",
           width: "300px",
           height: "300px",
-          border: "1px solid red",
-          left: "50%",
+          left: "70%",
           top: "10%",
           zIndex: 50,
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          border: "1px solid yellow",
         }}
       >
         <div className={"landing-screen-nav-btn"}>

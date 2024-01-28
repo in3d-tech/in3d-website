@@ -1,5 +1,5 @@
 import { useMemo, useEffect } from "react";
-import { Stars, useFBX, useTexture } from "@react-three/drei";
+import { Stars, useFBX, useTexture, Environment } from "@react-three/drei";
 import { Lights } from "./ornaments/Lights";
 import { CameraControls } from "../common/CameraControls";
 import { Ocean } from "./ornaments/Water";
@@ -13,6 +13,7 @@ import {
   taasia,
   ai,
   hexagons,
+  logo,
 } from "./catergories/models/modelContent";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 
@@ -111,9 +112,12 @@ const MODELS_DATA = [
     processModel: ai,
     position: [-80, 5, 170],
     textures: [
-      "/assets/in3d-ai/textures/Hologram_HumanTexture.webp",
-      "/assets/in3d-ai/textures/Plane&Shape_Emission&Opacity_Texture.webp",
-      "/assets/in3d-ai/textures/Real_Man_Texture.webp",
+      // "/assets/in3d-ai/textures/Hologram_HumanTexture.webp",
+      // "/assets/in3d-ai/textures/Plane&Shape_Emission&Opacity_Texture.webp",
+      // "/assets/in3d-ai/textures/Real_Man_Texture.webp",
+      "https://res.cloudinary.com/dxminwnb3/image/upload/v1706453782/Hologram_HumanTexture_m1iq0i.webp",
+      "https://res.cloudinary.com/dxminwnb3/image/upload/v1706453783/Plane_Shape_Emission_Opacity_Texture_g0rms5.webp",
+      "https://res.cloudinary.com/dxminwnb3/image/upload/v1706453788/Real_Man_Texture_xz1yxp.webp",
     ],
     scale: [0.2, 0.2, 0.2],
   },
@@ -124,6 +128,12 @@ const MODELS_DATA = [
   //   scale: [0.15, 0.15, 0.15],
   //   rotation: [Math.PI * 1.34, 0, 0],
   // },
+  {
+    modelPath: "/assets/Logo_in3d_v3_2.fbx",
+    processModel: logo,
+    position: [0, 70, 0],
+    scale: [5, 5, 5],
+  },
   {
     modelPath: "/assets/Hexagon Tile long animation.fbx",
     processModel: hexagons,
@@ -156,6 +166,12 @@ function ModelComponent({
 
   return fbx ? (
     <primitive
+      // onPointerOver={(e) => {
+      //   document.body.style.cursor = "pointer";
+      // }}
+      // onPointerOut={() => {
+      //   document.body.style.cursor = "auto";
+      // }}
       object={fbx}
       position={position}
       scale={scale}
@@ -176,6 +192,7 @@ export function HomePage({ position, target, selectedIsland }) {
         fade={true}
         speed={0.7}
       />
+      <Environment preset="forest" background blur={0.3} />
       <Lights />
       <CameraControls
         position={position}
