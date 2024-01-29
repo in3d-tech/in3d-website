@@ -1,4 +1,4 @@
-export const customizeModel = (fbx, textures) => {
+export const customizeModel = (fbx, textures, idx) => {
   // return;
 
   fbx.traverse((child) => {
@@ -46,9 +46,8 @@ export const customizeModel = (fbx, textures) => {
   });
 };
 
-export const soldierModel = (fbx, textures) => {
+export const soldierModel = (fbx, textures, idx) => {
   // return;
-
   fbx.traverse((child) => {
     if (child.isMesh) {
       switch (child.name) {
@@ -79,15 +78,15 @@ export const soldierModel = (fbx, textures) => {
   });
 };
 
-export const taasia = (fbx) => {
+export const taasia = (fbx, textures, idx) => {
   return;
 };
 
-export const microsoftModel = (fbx) => {
+export const microsoftModel = (fbx, textures, idx) => {
   return;
 };
 
-export const ai = (fbx, textures) => {
+export const ai = (fbx, textures, idx) => {
   // return;
   fbx.traverse((child) => {
     if (child.isMesh) {
@@ -117,7 +116,7 @@ export const ai = (fbx, textures) => {
   });
 };
 
-export const medicalModel = (fbx, textures) => {
+export const medicalModel = (fbx, textures, idx) => {
   // return;
 
   fbx.traverse((child) => {
@@ -149,10 +148,10 @@ export const medicalModel = (fbx, textures) => {
   });
 };
 
-export const hexagons = (fbx) => {
+export const hexagons = (fbx, textures, idx) => {
   return;
 };
 
-export const logo = (fbx) => {
+export const logo = (fbx, textures, idx) => {
   return;
 };

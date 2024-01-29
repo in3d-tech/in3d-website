@@ -1,6 +1,6 @@
-import { useState, Suspense } from "react";
-import { Canvas } from "@react-three/fiber";
-import { Preload, Stats, useProgress } from "@react-three/drei";
+import { useState, Suspense, useEffect } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { AdaptiveDpr, Preload, Stats, useProgress } from "@react-three/drei";
 import { HomePage } from "./HomePage";
 import { Navbar } from "./NavbarOld";
 import { ContentView } from "./catergories/ContentView";
@@ -25,9 +25,11 @@ function Scene({ isLanding }) {
     "mAEM5q5YFtg",
   ];
 
+  // useEffect(() => console.log(progress), [progress]);
+
   return (
     <>
-      <div
+      {/* <div
         style={{
           position: "absolute",
           width: "300px",
@@ -41,12 +43,13 @@ function Scene({ isLanding }) {
           border: "1px solid yellow",
         }}
       >
-        <div className={"landing-screen-nav-btn"}>
-          {progress != 100
-            ? `${(Math.round(progress * 100) / 100).toFixed(2)} % loaded`
-            : "Temporary Enter Button"}
-        </div>
-
+        {progress < 100 ? (
+          <div className={"landing-screen-nav-btn"}>
+            {progress != 100
+              ? `${(Math.round(progress * 100) / 100).toFixed(2)} % loaded`
+              : "Temporary Enter Button"}
+          </div>
+        ) : null}
         {progress < 100 ? (
           <div className="loader-wrapper">
             <div className="loader">
@@ -56,19 +59,22 @@ function Scene({ isLanding }) {
             </div>
           </div>
         ) : null}
-      </div>
-      <Canvas>
+      </div> */}
+      <Canvas frameloop="demand">
         <Stats />
-        <Suspense fallback={null}>
+        <Suspense fallback={progress < 100 ? <>Loading scene...</> : null}>
           {!isLanding && (
             <HomePage
               position={position}
               target={target}
               selectedIsland={selectedIsland}
+              setPosition={setPosition}
+              setTarget={setTarget}
             />
           )}
         </Suspense>
-        <Preload />
+        <Preload all />
+        <AdaptiveDpr pixelated />
       </Canvas>
       <Navbar
         setCategorySelected={setCategorySelected}

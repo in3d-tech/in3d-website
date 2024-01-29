@@ -16,6 +16,7 @@ import {
   logo,
 } from "./catergories/models/modelContent";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
+import { getCameraCoords } from "../common/getCameraCoords";
 
 function Effects() {
   return (
@@ -68,7 +69,7 @@ const MODELS_DATA = [
   {
     modelPath: "/assets/in3d-soldier-new/Soldier_Statue.fbx",
     processModel: soldierModel,
-    position: [80, 5, 140],
+    position: [110, 5, 150],
     scale: [0.4, 0.4, 0.4],
     textures: [
       "https://res.cloudinary.com/dxminwnb3/image/upload/v1706520080/assets/soilder/Circle_Opcity_trgrai.webp",
@@ -83,7 +84,7 @@ const MODELS_DATA = [
   {
     modelPath: "/assets/in3d-customize/Costumize_Model.fbx",
     processModel: customizeModel,
-    position: [0, 5, 140],
+    position: [-30, 5, 100],
     scale: [0.3, 0.3, 0.3],
     textures: [
       "https://res.cloudinary.com/dxminwnb3/image/upload/v1706520194/assets/customize/cone_opacity_e6o1kq.png",
@@ -110,7 +111,7 @@ const MODELS_DATA = [
   {
     modelPath: "/assets/in3d-ai/Ai_FBX.fbx",
     processModel: ai,
-    position: [-80, 5, 170],
+    position: [-120, 5, 130],
     textures: [
       // "/assets/in3d-ai/textures/Hologram_HumanTexture.webp",
       // "/assets/in3d-ai/textures/Plane&Shape_Emission&Opacity_Texture.webp",
@@ -131,7 +132,7 @@ const MODELS_DATA = [
   {
     modelPath: "/assets/Logo_in3d_v3_2.fbx",
     processModel: logo,
-    position: [0, 70, 0],
+    position: [100, 70, -100],
     scale: [5, 5, 5],
   },
   {
@@ -149,6 +150,9 @@ function ModelComponent({
   scale,
   rotation,
   textures,
+  idx,
+  setPosition,
+  setTarget,
 }) {
   let texturesMap;
   if (textures) {
@@ -160,18 +164,25 @@ function ModelComponent({
 
   useEffect(() => {
     if (fbx) {
-      processModel(fbx, texturesMap);
+      processModel(fbx, texturesMap, idx);
     }
   }, [fbx, processModel]);
 
   return fbx ? (
     <primitive
-      // onPointerOver={(e) => {
-      //   document.body.style.cursor = "pointer";
-      // }}
-      // onPointerOut={() => {
-      //   document.body.style.cursor = "auto";
-      // }}
+      onClick={(e) => {
+        e.stopPropagation();
+        if (idx == 5) {
+          return;
+        }
+        if (e.object?.parent?.position) {
+          MODELS_DATA.map((model) => {
+            if (model.position == position) {
+              getCameraCoords({ setPosition, setTarget, idx });
+            }
+          });
+        }
+      }}
       object={fbx}
       position={position}
       scale={scale}
@@ -180,7 +191,13 @@ function ModelComponent({
   ) : null;
 }
 
-export function HomePage({ position, target, selectedIsland }) {
+export function HomePage({
+  position,
+  target,
+  selectedIsland,
+  setPosition,
+  setTarget,
+}) {
   return (
     <>
       <Stars
@@ -209,6 +226,9 @@ export function HomePage({ position, target, selectedIsland }) {
           scale={modelData.scale}
           rotation={modelData.rotation}
           textures={modelData.textures}
+          idx={i}
+          setPosition={setPosition}
+          setTarget={setTarget}
         />
       ))}
       {/* <Ocean position={[0, -10, 0]} /> */}

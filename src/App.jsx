@@ -1,5 +1,5 @@
 import { Suspense, lazy, useState } from "react";
-import { useProgress } from "@react-three/drei";
+// import { useProgress } from "@react-three/drei";
 import { Leva } from "leva";
 import { LandingComponent } from "./components/landingScreen/LandingScreen";
 import { HorizontalNav } from "./components/nav/HorizontalNav";

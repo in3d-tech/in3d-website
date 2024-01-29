@@ -1,5 +1,4 @@
 export function getCameraCoords({ setPosition, setTarget, idx = 0 }) {
-  console.log({ idx });
   let position = { x: 24.6, y: 25.4, z: -222 };
   let target = { x: 0, y: 0, z: 0 };
   if (idx === 1) {
