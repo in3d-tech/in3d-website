@@ -22,7 +22,6 @@ const CameraControls = ({ position, target, idx }) => {
     );
   }
 
-  //Initialize camera controls
   const {
     camera,
     gl: { domElement },

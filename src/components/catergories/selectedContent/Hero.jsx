@@ -157,7 +157,7 @@ function Hero({ setSelectedContent, title }) {
         // className="falling-title"
         ref={vidRef}
       >
-        <VideoBG />
+        {/* <VideoBG /> */}
       </div>
       <div
         ref={textLeftRef}
