@@ -6,6 +6,7 @@ import { Navbar } from "./NavbarOld";
 import { ContentView } from "./catergories/ContentView";
 import { useHorizontalScroll } from "../common/useHorizontalScroll";
 import { Loader } from "./Loading";
+import { HorizontalNav } from "./nav/HorizontalNav";
 
 function Scene({ isLanding }) {
   const [categorySelected, setCategorySelected] = useState(false);
@@ -86,6 +87,7 @@ function Scene({ isLanding }) {
       {selectedIsland && (
         <ContentView scrollRef={scrollRef} videoIds={videoIds} />
       )}
+      {isLanding ? null : <HorizontalNav />}
     </>
   );
 }

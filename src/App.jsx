@@ -41,7 +41,7 @@ function App() {
             }
           >
             {isLanding ? null : <LazyScene isLanding={isLanding} />}
-            {isLanding ? null : <HorizontalNav />}
+            {/* {isLanding ? null : <HorizontalNav />} */}
           </Suspense>
         </AppContext.Provider>
       </div>
