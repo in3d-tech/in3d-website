@@ -82,6 +82,7 @@ const MagnifyingGlass = (props) => {
           className={`magnifying-glass__text`}
           style={{ animationDelay: `${props.delay}s` }}
           onClick={() => {
+            return;
             if (props.allowClick) props.setSelectedContent(props.title);
           }}
         >
