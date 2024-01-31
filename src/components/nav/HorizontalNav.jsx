@@ -5,6 +5,7 @@ import MagnifyingGlass from "../ornaments/MagnifyingGlass";
 import AppContext from "../../context/context";
 import { HorizontalSelectedContent } from "./HorizontalSelectedContent";
 import { SelectedContextNew } from "../catergories/SelectedContentNew";
+import { useTranslation } from "react-i18next";
 
 export function HorizontalNav() {
   const [ar, setAr] = useState(false);
@@ -74,7 +75,7 @@ function HorizontalNavOpen({ appContext }) {
   const [selectedContent, setSelectedContent] = useState(null);
   const [allowClick, setAllowClick] = useState(false);
   const [hovered, setIsHovered] = useState(false);
-
+  const { t } = useTranslation();
   const contentRef = useRef();
 
   useEffect(() => {
@@ -138,19 +139,19 @@ function HorizontalNavOpen({ appContext }) {
   };
 
   const titles = [
-    "Artifical Intelligence",
-    "Security",
-    "Customization",
-    "Microsoft",
-    "Medicine",
-    "Military",
+    "artificialIntelligence",
+    "security",
+    "customization",
+    "microsoft",
+    "medicine",
+    "military",
   ];
 
   const contentSelections = titles.map((title, idx) => (
     <MagnifyingGlass
       setIsHovered={setIsHovered}
       handleNavClick={handleNavClick}
-      title={title}
+      title={t(`${title}`)}
       hovered={hovered}
       delay={idx == 0 ? 1.3 : idx * 0.5}
       key={idx}

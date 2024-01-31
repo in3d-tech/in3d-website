@@ -3,6 +3,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import { Button } from "./nav/Button";
 import { getCameraCoords } from "../common/getCameraCoords";
 import AppContext from "../context/context";
+import { useTranslation } from "react-i18next";
 
 export function Navbar({
   setCategorySelected,
@@ -12,6 +13,8 @@ export function Navbar({
   selectedIsland,
 }) {
   const appContext = useContext(AppContext);
+
+  const { t } = useTranslation();
 
   const handleNavClick = (ref, label) => {
     setCategorySelected(label);
@@ -62,7 +65,7 @@ export function Navbar({
                       toggleNavbar();
                     }}
                   >
-                    Explore
+                    {t("explore")}
                   </label>
                 </div>
               </div>

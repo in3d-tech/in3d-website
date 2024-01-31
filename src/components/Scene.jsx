@@ -10,7 +10,7 @@ import { HorizontalNav } from "./nav/HorizontalNav";
 
 function Scene({ isLanding }) {
   const [categorySelected, setCategorySelected] = useState(false);
-  const [position, setPosition] = useState({ x: -9.5, y: 68, z: 278 });
+  const [position, setPosition] = useState({ x: -9.5, y: 30, z: 278 });
   const [target, setTarget] = useState({ x: 0, y: 0, z: 0 });
   const [selectedIsland, setSelectedIsland] = useState(null);
 

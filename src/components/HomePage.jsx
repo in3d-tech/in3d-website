@@ -1,8 +1,8 @@
 import { useMemo, useEffect } from "react";
-import { Stars, useFBX, useTexture, Environment } from "@react-three/drei";
+import { useFBX, useTexture } from "@react-three/drei";
 import { Lights } from "./ornaments/Lights";
 import { CameraControls } from "../common/CameraControls";
-import { Ocean } from "./ornaments/Water";
+// import { Ocean } from "./ornaments/Water";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import {
@@ -52,7 +52,7 @@ const MODELS_DATA = [
   {
     modelPath: "/assets/medical-model-new/Medical_Statue.fbx",
     processModel: medicalModel,
-    position: [40, 5, 200], // [-40, 12, 140],
+    position: [40, -45, 200], // [-40, 12, 140],
     scale: [17, 17, 17],
     textures: [
       "https://res.cloudinary.com/dxminwnb3/image/upload/v1706520636/assets/medical/Doctor_Body_Diffuse_copy_onzv4n.webp",
@@ -69,7 +69,7 @@ const MODELS_DATA = [
   {
     modelPath: "/assets/in3d-soldier-new/Soldier_Statue.fbx",
     processModel: soldierModel,
-    position: [110, 5, 150],
+    position: [110, -45, 150],
     scale: [0.4, 0.4, 0.4],
     textures: [
       "https://res.cloudinary.com/dxminwnb3/image/upload/v1706520080/assets/soilder/Circle_Opcity_trgrai.webp",
@@ -84,7 +84,7 @@ const MODELS_DATA = [
   {
     modelPath: "/assets/in3d-customize/Costumize_Model.fbx",
     processModel: customizeModel,
-    position: [-30, 5, 100],
+    position: [-30, -45, 100],
     scale: [0.3, 0.3, 0.3],
     textures: [
       "https://res.cloudinary.com/dxminwnb3/image/upload/v1706520194/assets/customize/cone_opacity_e6o1kq.png",
@@ -111,7 +111,7 @@ const MODELS_DATA = [
   {
     modelPath: "/assets/in3d-ai/Ai_FBX.fbx",
     processModel: ai,
-    position: [-120, 5, 130],
+    position: [-120, -55, 130],
     textures: [
       // "/assets/in3d-ai/textures/Hologram_HumanTexture.webp",
       // "/assets/in3d-ai/textures/Plane&Shape_Emission&Opacity_Texture.webp",
@@ -132,14 +132,15 @@ const MODELS_DATA = [
   {
     modelPath: "/assets/Logo_in3d_v3_2.fbx",
     processModel: logo,
-    position: [100, 70, -100],
+    position: [100, 10, -100],
     scale: [5, 5, 5],
   },
   {
     modelPath: "/assets/Hexagon Tile long animation.fbx",
     processModel: hexagons,
-    position: [0, 0, 0],
-    scale: [10, 10, 10],
+    position: [0, -60, 50],
+    scale: [8, 8, 8],
+    rotation: [Math.PI * 1.92, 0, 0],
   },
 ];
 
@@ -172,7 +173,7 @@ function ModelComponent({
     <primitive
       onClick={(e) => {
         e.stopPropagation();
-        if (idx == 5) {
+        if (idx == 0) {
           return;
         }
         if (e.object?.parent?.position) {
@@ -187,6 +188,7 @@ function ModelComponent({
       position={position}
       scale={scale}
       rotation={rotation}
+      visible={false}
     />
   ) : null;
 }
@@ -198,9 +200,10 @@ export function HomePage({
   setPosition,
   setTarget,
 }) {
+  // useEffect(() => setTimeout(() => console.log("HELLO WORLD!"), 5000), []);
   return (
     <>
-      <Stars
+      {/* <Stars
         count={5000}
         depth={150}
         factor={4}
@@ -208,8 +211,10 @@ export function HomePage({
         radius={50}
         fade={true}
         speed={0.7}
-      />
-      <Environment preset="forest" background blur={0.3} />
+      /> */}
+      {/* <Environment preset="forest" background blur={0.3} /> */}
+      {/* <Environment path="/assets/images/exemple.jpg" background /> */}
+
       <Lights />
       <CameraControls
         position={position}
@@ -217,20 +222,23 @@ export function HomePage({
         idx={selectedIsland}
       />
       {/* <Effects /> */}
-      {MODELS_DATA.map((modelData, i) => (
-        <ModelComponent
-          key={i}
-          modelPath={modelData.modelPath}
-          processModel={modelData.processModel}
-          position={modelData.position}
-          scale={modelData.scale}
-          rotation={modelData.rotation}
-          textures={modelData.textures}
-          idx={i}
-          setPosition={setPosition}
-          setTarget={setTarget}
-        />
-      ))}
+      <group>
+        {MODELS_DATA.map((modelData, i) => (
+          <ModelComponent
+            key={i}
+            modelPath={modelData.modelPath}
+            processModel={modelData.processModel}
+            position={modelData.position}
+            scale={modelData.scale}
+            rotation={modelData.rotation}
+            textures={modelData.textures}
+            idx={i}
+            setPosition={setPosition}
+            setTarget={setTarget}
+          />
+        ))}
+      </group>
+
       {/* <Ocean position={[0, -10, 0]} /> */}
     </>
   );

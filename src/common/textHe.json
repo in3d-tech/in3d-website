@@ -1,9 +1,13 @@
 {
-  "artificialIntelligence": "Artifial Intelligence",
-  "microsoft": "מיקרוסופט",
-  "security": "Security",
-  "medicine": "Medicine",
-  "customization": "Customization",
-  "military": "Military",
-  "contactUs": "Contact Us"
+  "translation": {
+    "artificialIntelligence": "בינה מלאכותית",
+    "microsoft": "מיקרוסופט",
+    "security": "בתחון",
+    "medicine": "תרופה",
+    "customization": "התאמה אישית",
+    "military": "צבאי",
+    "contactUs": "צור קשר",
+    "explore": "לַחקוֹר",
+    "headerTitle": "Meu Titulo do Cabecalho do {{appName}}"
+  }
 }

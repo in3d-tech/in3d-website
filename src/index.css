@@ -69,6 +69,10 @@ h1 {
   line-height: 1.1;
 }
 
+.language-flag:hover {
+  cursor: pointer;
+}
+
 .category-graphics-view {
   position: absolute;
   bottom: 5em;
@@ -326,24 +330,1528 @@ h1 {
 }
 
 .overlay-black {
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
   height: 100vh;
   width: 100vw;
-  z-index: 1;
-  /* background-color: rgb(53, 53, 53); */
-  /* background-color: rgba(78, 72, 72, 0.85); */
+  /* z-index: 1; */
   /* background-image: linear-gradient(rgb(255, 255, 255), rgb(0, 0, 0) 80%); */
-  background-image: linear-gradient(rgb(0, 0, 0) 25%, 75%, rgb(184, 182, 182));
+  /* background-image: linear-gradient(rgb(0, 0, 0) 25%, 75%, rgb(234, 182, 182)); */
+  /* background-image: url("/assets/images/exemple.jpg"); */
 
   /* background-image: radial-gradient(circle, red, yellow, green); */
-  animation-name: fadeIn;
+  /* background-image: url("/assets/images/exemple.jpg"), */
+  /* background-image: url("/assets/background/bg_sky.png"),
+    url("/assets/background/city.png"),
+    url("/assets/background/water_webp/water_00001_00001.webp");
+  background-position: center top, center center, center bottom;
+  background-size: cover;
+  background-repeat: no-repeat; */
+  /* animation-name: fadeIn;
   animation-duration: 4s;
   animation-timing-function: ease;
-  animation-fill-mode: forwards;
+  animation-fill-mode: forwards; */
 
   /* background: lightblue url("/img/background-2.jpg") no-repeat center; */
+
+  /* background: url("/assets/background/city.png") center center no-repeat,
+    url("/assets/background/water_webp/water_00001_00001.webp") bottom center
+      no-repeat,
+    url("/assets/background/bg_sky.png") top center no-repeat; */
+  background: url("/assets/background/water_webp/water_00001_00001.webp") center
+    center no-repeat;
+
+  background-size: cover;
+  animation: bottom-sequence 20s infinite;
+
+  /* z-index: 30; */
+}
+
+.background-top {
+  /* Position the :after pseudo-element to cover the bottom third */
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* height: 33.33%; */
+  /* Set initial background image for the bottom third */
+  background-image: url("/assets/background/bg_sky.png");
+  /* Ensure background image covers the entire pseudo-element */
+  background-size: cover;
+  /* Ensure background image is not repeated */
+  background-repeat: no-repeat;
+  /* Set animation to loop through the sequence */
+  animation: top-sequence 20s infinite;
+  /* z-index: 500000000; */
+}
+@keyframes top-sequence {
+  0% {
+    background-image: url("/assets/background/planet_final/planete_00001.png");
+  }
+  0.4167% {
+    background-image: url("/assets/background/planet_final/planete_00002.png");
+  }
+  0.8333% {
+    background-image: url("/assets/background/planet_final/planete_00003.png");
+  }
+  1.25% {
+    background-image: url("/assets/background/planet_final/planete_00004.png");
+  }
+  1.6667% {
+    background-image: url("/assets/background/planet_final/planete_00005.png");
+  }
+  2.0833% {
+    background-image: url("/assets/background/planet_final/planete_00006.png");
+  }
+  2.5% {
+    background-image: url("/assets/background/planet_final/planete_00007.png");
+  }
+  2.9167% {
+    background-image: url("/assets/background/planet_final/planete_00008.png");
+  }
+  3.3333% {
+    background-image: url("/assets/background/planet_final/planete_00009.png");
+  }
+  3.75% {
+    background-image: url("/assets/background/planet_final/planete_00010.png");
+  }
+  4.1667% {
+    background-image: url("/assets/background/planet_final/planete_00011.png");
+  }
+  4.5833% {
+    background-image: url("/assets/background/planet_final/planete_00012.png");
+  }
+  5% {
+    background-image: url("/assets/background/planet_final/planete_00013.png");
+  }
+  5.4167% {
+    background-image: url("/assets/background/planet_final/planete_00014.png");
+  }
+  5.8333% {
+    background-image: url("/assets/background/planet_final/planete_00015.png");
+  }
+  6.25% {
+    background-image: url("/assets/background/planet_final/planete_00016.png");
+  }
+  6.6667% {
+    background-image: url("/assets/background/planet_final/planete_00017.png");
+  }
+  7.0833% {
+    background-image: url("/assets/background/planet_final/planete_00018.png");
+  }
+  7.5% {
+    background-image: url("/assets/background/planet_final/planete_00019.png");
+  }
+  7.9167% {
+    background-image: url("/assets/background/planet_final/planete_00020.png");
+  }
+  8.3333% {
+    background-image: url("/assets/background/planet_final/planete_00021.png");
+  }
+  8.75% {
+    background-image: url("/assets/background/planet_final/planete_00022.png");
+  }
+  9.1667% {
+    background-image: url("/assets/background/planet_final/planete_00023.png");
+  }
+  9.5833% {
+    background-image: url("/assets/background/planet_final/planete_00024.png");
+  }
+  10% {
+    background-image: url("/assets/background/planet_final/planete_00025.png");
+  }
+  10.4167% {
+    background-image: url("/assets/background/planet_final/planete_00026.png");
+  }
+  10.8333% {
+    background-image: url("/assets/background/planet_final/planete_00027.png");
+  }
+  11.25% {
+    background-image: url("/assets/background/planet_final/planete_00028.png");
+  }
+  11.6667% {
+    background-image: url("/assets/background/planet_final/planete_00029.png");
+  }
+  12.0833% {
+    background-image: url("/assets/background/planet_final/planete_00030.png");
+  }
+  12.5% {
+    background-image: url("/assets/background/planet_final/planete_00031.png");
+  }
+  12.9167% {
+    background-image: url("/assets/background/planet_final/planete_00032.png");
+  }
+  13.3333% {
+    background-image: url("/assets/background/planet_final/planete_00033.png");
+  }
+  13.75% {
+    background-image: url("/assets/background/planet_final/planete_00034.png");
+  }
+  14.1667% {
+    background-image: url("/assets/background/planet_final/planete_00035.png");
+  }
+  14.5833% {
+    background-image: url("/assets/background/planet_final/planete_00036.png");
+  }
+  15% {
+    background-image: url("/assets/background/planet_final/planete_00037.png");
+  }
+  15.4167% {
+    background-image: url("/assets/background/planet_final/planete_00038.png");
+  }
+  15.8333% {
+    background-image: url("/assets/background/planet_final/planete_00039.png");
+  }
+  16.25% {
+    background-image: url("/assets/background/planet_final/planete_00040.png");
+  }
+  16.6667% {
+    background-image: url("/assets/background/planet_final/planete_00041.png");
+  }
+  17.0833% {
+    background-image: url("/assets/background/planet_final/planete_00042.png");
+  }
+  17.5% {
+    background-image: url("/assets/background/planet_final/planete_00043.png");
+  }
+  17.9167% {
+    background-image: url("/assets/background/planet_final/planete_00044.png");
+  }
+  18.3333% {
+    background-image: url("/assets/background/planet_final/planete_00045.png");
+  }
+  18.75% {
+    background-image: url("/assets/background/planet_final/planete_00046.png");
+  }
+  19.1667% {
+    background-image: url("/assets/background/planet_final/planete_00047.png");
+  }
+  19.5833% {
+    background-image: url("/assets/background/planet_final/planete_00048.png");
+  }
+  20% {
+    background-image: url("/assets/background/planet_final/planete_00049.png");
+  }
+  20.4167% {
+    background-image: url("/assets/background/planet_final/planete_00050.png");
+  }
+  20.8333% {
+    background-image: url("/assets/background/planet_final/planete_00051.png");
+  }
+  21.25% {
+    background-image: url("/assets/background/planet_final/planete_00052.png");
+  }
+  21.6667% {
+    background-image: url("/assets/background/planet_final/planete_00053.png");
+  }
+  22.0833% {
+    background-image: url("/assets/background/planet_final/planete_00054.png");
+  }
+  22.5% {
+    background-image: url("/assets/background/planet_final/planete_00055.png");
+  }
+  22.9167% {
+    background-image: url("/assets/background/planet_final/planete_00056.png");
+  }
+  23.3333% {
+    background-image: url("/assets/background/planet_final/planete_00057.png");
+  }
+  23.75% {
+    background-image: url("/assets/background/planet_final/planete_00058.png");
+  }
+  24.1667% {
+    background-image: url("/assets/background/planet_final/planete_00059.png");
+  }
+  24.5833% {
+    background-image: url("/assets/background/planet_final/planete_00060.png");
+  }
+  25% {
+    background-image: url("/assets/background/planet_final/planete_00061.png");
+  }
+  25.4167% {
+    background-image: url("/assets/background/planet_final/planete_00062.png");
+  }
+  25.8333% {
+    background-image: url("/assets/background/planet_final/planete_00063.png");
+  }
+  26.25% {
+    background-image: url("/assets/background/planet_final/planete_00064.png");
+  }
+  26.6667% {
+    background-image: url("/assets/background/planet_final/planete_00065.png");
+  }
+  27.0833% {
+    background-image: url("/assets/background/planet_final/planete_00066.png");
+  }
+  27.5% {
+    background-image: url("/assets/background/planet_final/planete_00067.png");
+  }
+  27.9167% {
+    background-image: url("/assets/background/planet_final/planete_00068.png");
+  }
+  28.3333% {
+    background-image: url("/assets/background/planet_final/planete_00069.png");
+  }
+  28.75% {
+    background-image: url("/assets/background/planet_final/planete_00070.png");
+  }
+  29.1667% {
+    background-image: url("/assets/background/planet_final/planete_00071.png");
+  }
+  29.5833% {
+    background-image: url("/assets/background/planet_final/planete_00072.png");
+  }
+  30% {
+    background-image: url("/assets/background/planet_final/planete_00073.png");
+  }
+  30.4167% {
+    background-image: url("/assets/background/planet_final/planete_00074.png");
+  }
+  30.8333% {
+    background-image: url("/assets/background/planet_final/planete_00075.png");
+  }
+  31.25% {
+    background-image: url("/assets/background/planet_final/planete_00076.png");
+  }
+  31.6667% {
+    background-image: url("/assets/background/planet_final/planete_00077.png");
+  }
+  32.0833% {
+    background-image: url("/assets/background/planet_final/planete_00078.png");
+  }
+  32.5% {
+    background-image: url("/assets/background/planet_final/planete_00079.png");
+  }
+  32.9167% {
+    background-image: url("/assets/background/planet_final/planete_00080.png");
+  }
+  33.3333% {
+    background-image: url("/assets/background/planet_final/planete_00081.png");
+  }
+  33.75% {
+    background-image: url("/assets/background/planet_final/planete_00082.png");
+  }
+  34.1667% {
+    background-image: url("/assets/background/planet_final/planete_00083.png");
+  }
+  34.5833% {
+    background-image: url("/assets/background/planet_final/planete_00084.png");
+  }
+  35% {
+    background-image: url("/assets/background/planet_final/planete_00085.png");
+  }
+  35.4167% {
+    background-image: url("/assets/background/planet_final/planete_00086.png");
+  }
+  35.8333% {
+    background-image: url("/assets/background/planet_final/planete_00087.png");
+  }
+  36.25% {
+    background-image: url("/assets/background/planet_final/planete_00088.png");
+  }
+  36.6667% {
+    background-image: url("/assets/background/planet_final/planete_00089.png");
+  }
+  37.0833% {
+    background-image: url("/assets/background/planet_final/planete_00090.png");
+  }
+  37.5% {
+    background-image: url("/assets/background/planet_final/planete_00091.png");
+  }
+  37.9167% {
+    background-image: url("/assets/background/planet_final/planete_00092.png");
+  }
+  38.3333% {
+    background-image: url("/assets/background/planet_final/planete_00093.png");
+  }
+  38.75% {
+    background-image: url("/assets/background/planet_final/planete_00094.png");
+  }
+  39.1667% {
+    background-image: url("/assets/background/planet_final/planete_00095.png");
+  }
+  39.5833% {
+    background-image: url("/assets/background/planet_final/planete_00096.png");
+  }
+  40% {
+    background-image: url("/assets/background/planet_final/planete_00097.png");
+  }
+  40.4167% {
+    background-image: url("/assets/background/planet_final/planete_00098.png");
+  }
+  40.8333% {
+    background-image: url("/assets/background/planet_final/planete_00099.png");
+  }
+  41.25% {
+    background-image: url("/assets/background/planet_final/planete_00100.png");
+  }
+  41.6667% {
+    background-image: url("/assets/background/planet_final/planete_00101.png");
+  }
+  42.0833% {
+    background-image: url("/assets/background/planet_final/planete_00102.png");
+  }
+  42.5% {
+    background-image: url("/assets/background/planet_final/planete_00103.png");
+  }
+  42.9167% {
+    background-image: url("/assets/background/planet_final/planete_00104.png");
+  }
+  43.3333% {
+    background-image: url("/assets/background/planet_final/planete_00105.png");
+  }
+  43.75% {
+    background-image: url("/assets/background/planet_final/planete_00106.png");
+  }
+  44.1667% {
+    background-image: url("/assets/background/planet_final/planete_00107.png");
+  }
+  44.5833% {
+    background-image: url("/assets/background/planet_final/planete_00108.png");
+  }
+  45% {
+    background-image: url("/assets/background/planet_final/planete_00109.png");
+  }
+  45.4167% {
+    background-image: url("/assets/background/planet_final/planete_00110.png");
+  }
+  45.8333% {
+    background-image: url("/assets/background/planet_final/planete_00111.png");
+  }
+  46.25% {
+    background-image: url("/assets/background/planet_final/planete_00112.png");
+  }
+  46.6667% {
+    background-image: url("/assets/background/planet_final/planete_00113.png");
+  }
+  47.0833% {
+    background-image: url("/assets/background/planet_final/planete_00114.png");
+  }
+  47.5% {
+    background-image: url("/assets/background/planet_final/planete_00115.png");
+  }
+  47.9167% {
+    background-image: url("/assets/background/planet_final/planete_00116.png");
+  }
+  48.3333% {
+    background-image: url("/assets/background/planet_final/planete_00117.png");
+  }
+  48.75% {
+    background-image: url("/assets/background/planet_final/planete_00118.png");
+  }
+  49.1667% {
+    background-image: url("/assets/background/planet_final/planete_00119.png");
+  }
+  49.5833% {
+    background-image: url("/assets/background/planet_final/planete_00120.png");
+  }
+  50% {
+    background-image: url("/assets/background/planet_final/planete_00121.png");
+  }
+  50.4167% {
+    background-image: url("/assets/background/planet_final/planete_00122.png");
+  }
+  50.8333% {
+    background-image: url("/assets/background/planet_final/planete_00123.png");
+  }
+  51.25% {
+    background-image: url("/assets/background/planet_final/planete_00124.png");
+  }
+  51.6667% {
+    background-image: url("/assets/background/planet_final/planete_00125.png");
+  }
+  52.0833% {
+    background-image: url("/assets/background/planet_final/planete_00126.png");
+  }
+  52.5% {
+    background-image: url("/assets/background/planet_final/planete_00127.png");
+  }
+  52.9167% {
+    background-image: url("/assets/background/planet_final/planete_00128.png");
+  }
+  53.3333% {
+    background-image: url("/assets/background/planet_final/planete_00129.png");
+  }
+  53.75% {
+    background-image: url("/assets/background/planet_final/planete_00130.png");
+  }
+  54.1667% {
+    background-image: url("/assets/background/planet_final/planete_00131.png");
+  }
+  54.5833% {
+    background-image: url("/assets/background/planet_final/planete_00132.png");
+  }
+  55% {
+    background-image: url("/assets/background/planet_final/planete_00133.png");
+  }
+  55.4167% {
+    background-image: url("/assets/background/planet_final/planete_00134.png");
+  }
+  55.8333% {
+    background-image: url("/assets/background/planet_final/planete_00135.png");
+  }
+  56.25% {
+    background-image: url("/assets/background/planet_final/planete_00136.png");
+  }
+  56.6667% {
+    background-image: url("/assets/background/planet_final/planete_00137.png");
+  }
+  57.0833% {
+    background-image: url("/assets/background/planet_final/planete_00138.png");
+  }
+  57.5% {
+    background-image: url("/assets/background/planet_final/planete_00139.png");
+  }
+  57.9167% {
+    background-image: url("/assets/background/planet_final/planete_00140.png");
+  }
+  58.3333% {
+    background-image: url("/assets/background/planet_final/planete_00141.png");
+  }
+  58.75% {
+    background-image: url("/assets/background/planet_final/planete_00142.png");
+  }
+  59.1667% {
+    background-image: url("/assets/background/planet_final/planete_00143.png");
+  }
+  59.5833% {
+    background-image: url("/assets/background/planet_final/planete_00144.png");
+  }
+  60% {
+    background-image: url("/assets/background/planet_final/planete_00145.png");
+  }
+  60.4167% {
+    background-image: url("/assets/background/planet_final/planete_00146.png");
+  }
+  60.8333% {
+    background-image: url("/assets/background/planet_final/planete_00147.png");
+  }
+  61.25% {
+    background-image: url("/assets/background/planet_final/planete_00148.png");
+  }
+  61.6667% {
+    background-image: url("/assets/background/planet_final/planete_00149.png");
+  }
+  62.0833% {
+    background-image: url("/assets/background/planet_final/planete_00150.png");
+  }
+  62.5% {
+    background-image: url("/assets/background/planet_final/planete_00151.png");
+  }
+  62.9167% {
+    background-image: url("/assets/background/planet_final/planete_00152.png");
+  }
+  63.3333% {
+    background-image: url("/assets/background/planet_final/planete_00153.png");
+  }
+  63.75% {
+    background-image: url("/assets/background/planet_final/planete_00154.png");
+  }
+  64.1667% {
+    background-image: url("/assets/background/planet_final/planete_00155.png");
+  }
+  64.5833% {
+    background-image: url("/assets/background/planet_final/planete_00156.png");
+  }
+  65% {
+    background-image: url("/assets/background/planet_final/planete_00157.png");
+  }
+  65.4167% {
+    background-image: url("/assets/background/planet_final/planete_00158.png");
+  }
+  65.8333% {
+    background-image: url("/assets/background/planet_final/planete_00159.png");
+  }
+  66.25% {
+    background-image: url("/assets/background/planet_final/planete_00160.png");
+  }
+  66.6667% {
+    background-image: url("/assets/background/planet_final/planete_00161.png");
+  }
+  67.0833% {
+    background-image: url("/assets/background/planet_final/planete_00162.png");
+  }
+  67.5% {
+    background-image: url("/assets/background/planet_final/planete_00163.png");
+  }
+  67.9167% {
+    background-image: url("/assets/background/planet_final/planete_00164.png");
+  }
+  68.3333% {
+    background-image: url("/assets/background/planet_final/planete_00165.png");
+  }
+  68.75% {
+    background-image: url("/assets/background/planet_final/planete_00166.png");
+  }
+  69.1667% {
+    background-image: url("/assets/background/planet_final/planete_00167.png");
+  }
+  69.5833% {
+    background-image: url("/assets/background/planet_final/planete_00168.png");
+  }
+  70% {
+    background-image: url("/assets/background/planet_final/planete_00169.png");
+  }
+  70.4167% {
+    background-image: url("/assets/background/planet_final/planete_00170.png");
+  }
+  70.8333% {
+    background-image: url("/assets/background/planet_final/planete_00171.png");
+  }
+  71.25% {
+    background-image: url("/assets/background/planet_final/planete_00172.png");
+  }
+  71.6667% {
+    background-image: url("/assets/background/planet_final/planete_00173.png");
+  }
+  72.0833% {
+    background-image: url("/assets/background/planet_final/planete_00174.png");
+  }
+  72.5% {
+    background-image: url("/assets/background/planet_final/planete_00175.png");
+  }
+  72.9167% {
+    background-image: url("/assets/background/planet_final/planete_00176.png");
+  }
+  73.3333% {
+    background-image: url("/assets/background/planet_final/planete_00177.png");
+  }
+  73.75% {
+    background-image: url("/assets/background/planet_final/planete_00178.png");
+  }
+  74.1667% {
+    background-image: url("/assets/background/planet_final/planete_00179.png");
+  }
+  74.5833% {
+    background-image: url("/assets/background/planet_final/planete_00180.png");
+  }
+  75% {
+    background-image: url("/assets/background/planet_final/planete_00181.png");
+  }
+  75.4167% {
+    background-image: url("/assets/background/planet_final/planete_00182.png");
+  }
+  75.8333% {
+    background-image: url("/assets/background/planet_final/planete_00183.png");
+  }
+  76.25% {
+    background-image: url("/assets/background/planet_final/planete_00184.png");
+  }
+  76.6667% {
+    background-image: url("/assets/background/planet_final/planete_00185.png");
+  }
+  77.0833% {
+    background-image: url("/assets/background/planet_final/planete_00186.png");
+  }
+  77.5% {
+    background-image: url("/assets/background/planet_final/planete_00187.png");
+  }
+  77.9167% {
+    background-image: url("/assets/background/planet_final/planete_00188.png");
+  }
+  78.3333% {
+    background-image: url("/assets/background/planet_final/planete_00189.png");
+  }
+  78.75% {
+    background-image: url("/assets/background/planet_final/planete_00190.png");
+  }
+  79.1667% {
+    background-image: url("/assets/background/planet_final/planete_00191.png");
+  }
+  79.5833% {
+    background-image: url("/assets/background/planet_final/planete_00192.png");
+  }
+  80% {
+    background-image: url("/assets/background/planet_final/planete_00193.png");
+  }
+  80.4167% {
+    background-image: url("/assets/background/planet_final/planete_00194.png");
+  }
+  80.8333% {
+    background-image: url("/assets/background/planet_final/planete_00195.png");
+  }
+  81.25% {
+    background-image: url("/assets/background/planet_final/planete_00196.png");
+  }
+  81.6667% {
+    background-image: url("/assets/background/planet_final/planete_00197.png");
+  }
+  82.0833% {
+    background-image: url("/assets/background/planet_final/planete_00198.png");
+  }
+  82.5% {
+    background-image: url("/assets/background/planet_final/planete_00199.png");
+  }
+  82.9167% {
+    background-image: url("/assets/background/planet_final/planete_00200.png");
+  }
+  83.3333% {
+    background-image: url("/assets/background/planet_final/planete_00201.png");
+  }
+  83.75% {
+    background-image: url("/assets/background/planet_final/planete_00202.png");
+  }
+  84.1667% {
+    background-image: url("/assets/background/planet_final/planete_00203.png");
+  }
+  84.5833% {
+    background-image: url("/assets/background/planet_final/planete_00204.png");
+  }
+  85% {
+    background-image: url("/assets/background/planet_final/planete_00205.png");
+  }
+  85.4167% {
+    background-image: url("/assets/background/planet_final/planete_00206.png");
+  }
+  85.8333% {
+    background-image: url("/assets/background/planet_final/planete_00207.png");
+  }
+  86.25% {
+    background-image: url("/assets/background/planet_final/planete_00208.png");
+  }
+  86.6667% {
+    background-image: url("/assets/background/planet_final/planete_00209.png");
+  }
+  87.0833% {
+    background-image: url("/assets/background/planet_final/planete_00210.png");
+  }
+  87.5% {
+    background-image: url("/assets/background/planet_final/planete_00211.png");
+  }
+  87.9167% {
+    background-image: url("/assets/background/planet_final/planete_00212.png");
+  }
+  88.3333% {
+    background-image: url("/assets/background/planet_final/planete_00213.png");
+  }
+  88.75% {
+    background-image: url("/assets/background/planet_final/planete_00214.png");
+  }
+  89.1667% {
+    background-image: url("/assets/background/planet_final/planete_00215.png");
+  }
+  89.5833% {
+    background-image: url("/assets/background/planet_final/planete_00216.png");
+  }
+  90% {
+    background-image: url("/assets/background/planet_final/planete_00217.png");
+  }
+  90.4167% {
+    background-image: url("/assets/background/planet_final/planete_00218.png");
+  }
+  90.8333% {
+    background-image: url("/assets/background/planet_final/planete_00219.png");
+  }
+  91.25% {
+    background-image: url("/assets/background/planet_final/planete_00220.png");
+  }
+  91.6667% {
+    background-image: url("/assets/background/planet_final/planete_00221.png");
+  }
+  92.0833% {
+    background-image: url("/assets/background/planet_final/planete_00222.png");
+  }
+  92.5% {
+    background-image: url("/assets/background/planet_final/planete_00223.png");
+  }
+  92.9167% {
+    background-image: url("/assets/background/planet_final/planete_00224.png");
+  }
+  93.3333% {
+    background-image: url("/assets/background/planet_final/planete_00225.png");
+  }
+  93.75% {
+    background-image: url("/assets/background/planet_final/planete_00226.png");
+  }
+  94.1667% {
+    background-image: url("/assets/background/planet_final/planete_00227.png");
+  }
+  94.5833% {
+    background-image: url("/assets/background/planet_final/planete_00228.png");
+  }
+  95% {
+    background-image: url("/assets/background/planet_final/planete_00229.png");
+  }
+  95.4167% {
+    background-image: url("/assets/background/planet_final/planete_00230.png");
+  }
+  95.8333% {
+    background-image: url("/assets/background/planet_final/planete_00231.png");
+  }
+  96.25% {
+    background-image: url("/assets/background/planet_final/planete_00232.png");
+  }
+  96.6667% {
+    background-image: url("/assets/background/planet_final/planete_00233.png");
+  }
+  97.0833% {
+    background-image: url("/assets/background/planet_final/planete_00234.png");
+  }
+  97.5% {
+    background-image: url("/assets/background/planet_final/planete_00235.png");
+  }
+  97.9167% {
+    background-image: url("/assets/background/planet_final/planete_00236.png");
+  }
+  98.3333% {
+    background-image: url("/assets/background/planet_final/planete_00237.png");
+  }
+  98.75% {
+    background-image: url("/assets/background/planet_final/planete_00238.png");
+  }
+  99.1667% {
+    background-image: url("/assets/background/planet_final/planete_00239.png");
+  }
+  100% {
+    background-image: url("/assets/background/planet_final/planete_00240.png");
+  }
+}
+/* background-image:  url("/assets/background/planet_final/planete_00001.png"); */
+
+.overlay-black:after {
+  /* Position the :after pseudo-element to cover the bottom third */
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* height: 33.33%; */
+  /* Set initial background image for the bottom third */
+  background-image: url("/assets/background/city.png");
+  /* Ensure background image covers the entire pseudo-element */
+  background-size: cover;
+  /* Ensure background image is not repeated */
+  background-repeat: no-repeat;
+  /* Set animation to loop through the sequence */
+  /* animation: bottom-sequence 4s infinite; */
+  /* z-index: 500000000; */
+}
+
+@keyframes bottom-sequence {
+  0% {
+    background-image: url("/assets/background/water_webp/water_00001_00001.webp");
+  }
+  0.4167% {
+    background-image: url("/assets/background/water_webp/water_00001_00002.webp");
+  }
+  0.8333% {
+    background-image: url("/assets/background/water_webp/water_00001_00003.webp");
+  }
+  1.25% {
+    background-image: url("/assets/background/water_webp/water_00001_00004.webp");
+  }
+  1.6667% {
+    background-image: url("/assets/background/water_webp/water_00001_00005.webp");
+  }
+  2.0833% {
+    background-image: url("/assets/background/water_webp/water_00001_00006.webp");
+  }
+  2.5% {
+    background-image: url("/assets/background/water_webp/water_00001_00007.webp");
+  }
+  2.9167% {
+    background-image: url("/assets/background/water_webp/water_00001_00008.webp");
+  }
+  3.3333% {
+    background-image: url("/assets/background/water_webp/water_00001_00009.webp");
+  }
+  3.75% {
+    background-image: url("/assets/background/water_webp/water_00001_00010.webp");
+  }
+  4.1667% {
+    background-image: url("/assets/background/water_webp/water_00001_00011.webp");
+  }
+  4.5833% {
+    background-image: url("/assets/background/water_webp/water_00001_00012.webp");
+  }
+  5% {
+    background-image: url("/assets/background/water_webp/water_00001_00013.webp");
+  }
+  5.4167% {
+    background-image: url("/assets/background/water_webp/water_00001_00014.webp");
+  }
+  5.8333% {
+    background-image: url("/assets/background/water_webp/water_00001_00015.webp");
+  }
+  6.25% {
+    background-image: url("/assets/background/water_webp/water_00001_00016.webp");
+  }
+  6.6667% {
+    background-image: url("/assets/background/water_webp/water_00001_00017.webp");
+  }
+  7.0833% {
+    background-image: url("/assets/background/water_webp/water_00001_00018.webp");
+  }
+  7.5% {
+    background-image: url("/assets/background/water_webp/water_00001_00019.webp");
+  }
+  7.9167% {
+    background-image: url("/assets/background/water_webp/water_00001_00020.webp");
+  }
+  8.3333% {
+    background-image: url("/assets/background/water_webp/water_00001_00021.webp");
+  }
+  8.75% {
+    background-image: url("/assets/background/water_webp/water_00001_00022.webp");
+  }
+  9.1667% {
+    background-image: url("/assets/background/water_webp/water_00001_00023.webp");
+  }
+  9.5833% {
+    background-image: url("/assets/background/water_webp/water_00001_00024.webp");
+  }
+  10% {
+    background-image: url("/assets/background/water_webp/water_00001_00025.webp");
+  }
+  10.4167% {
+    background-image: url("/assets/background/water_webp/water_00001_00026.webp");
+  }
+  10.8333% {
+    background-image: url("/assets/background/water_webp/water_00001_00027.webp");
+  }
+  11.25% {
+    background-image: url("/assets/background/water_webp/water_00001_00028.webp");
+  }
+  11.6667% {
+    background-image: url("/assets/background/water_webp/water_00001_00029.webp");
+  }
+  12.0833% {
+    background-image: url("/assets/background/water_webp/water_00001_00030.webp");
+  }
+  12.5% {
+    background-image: url("/assets/background/water_webp/water_00001_00031.webp");
+  }
+  12.9167% {
+    background-image: url("/assets/background/water_webp/water_00001_00032.webp");
+  }
+  13.3333% {
+    background-image: url("/assets/background/water_webp/water_00001_00033.webp");
+  }
+  13.75% {
+    background-image: url("/assets/background/water_webp/water_00001_00034.webp");
+  }
+  14.1667% {
+    background-image: url("/assets/background/water_webp/water_00001_00035.webp");
+  }
+  14.5833% {
+    background-image: url("/assets/background/water_webp/water_00001_00036.webp");
+  }
+  15% {
+    background-image: url("/assets/background/water_webp/water_00001_00037.webp");
+  }
+  15.4167% {
+    background-image: url("/assets/background/water_webp/water_00001_00038.webp");
+  }
+  15.8333% {
+    background-image: url("/assets/background/water_webp/water_00001_00039.webp");
+  }
+  16.25% {
+    background-image: url("/assets/background/water_webp/water_00001_00040.webp");
+  }
+  16.6667% {
+    background-image: url("/assets/background/water_webp/water_00001_00041.webp");
+  }
+  17.0833% {
+    background-image: url("/assets/background/water_webp/water_00001_00042.webp");
+  }
+  17.5% {
+    background-image: url("/assets/background/water_webp/water_00001_00043.webp");
+  }
+  17.9167% {
+    background-image: url("/assets/background/water_webp/water_00001_00044.webp");
+  }
+  18.3333% {
+    background-image: url("/assets/background/water_webp/water_00001_00045.webp");
+  }
+  18.75% {
+    background-image: url("/assets/background/water_webp/water_00001_00046.webp");
+  }
+  19.1667% {
+    background-image: url("/assets/background/water_webp/water_00001_00047.webp");
+  }
+  19.5833% {
+    background-image: url("/assets/background/water_webp/water_00001_00048.webp");
+  }
+  20% {
+    background-image: url("/assets/background/water_webp/water_00001_00049.webp");
+  }
+  20.4167% {
+    background-image: url("/assets/background/water_webp/water_00001_00050.webp");
+  }
+  20.8333% {
+    background-image: url("/assets/background/water_webp/water_00001_00051.webp");
+  }
+  21.25% {
+    background-image: url("/assets/background/water_webp/water_00001_00052.webp");
+  }
+  21.6667% {
+    background-image: url("/assets/background/water_webp/water_00001_00053.webp");
+  }
+  22.0833% {
+    background-image: url("/assets/background/water_webp/water_00001_00054.webp");
+  }
+  22.5% {
+    background-image: url("/assets/background/water_webp/water_00001_00055.webp");
+  }
+  22.9167% {
+    background-image: url("/assets/background/water_webp/water_00001_00056.webp");
+  }
+  23.3333% {
+    background-image: url("/assets/background/water_webp/water_00001_00057.webp");
+  }
+  23.75% {
+    background-image: url("/assets/background/water_webp/water_00001_00058.webp");
+  }
+  24.1667% {
+    background-image: url("/assets/background/water_webp/water_00001_00059.webp");
+  }
+  24.5833% {
+    background-image: url("/assets/background/water_webp/water_00001_00060.webp");
+  }
+  25% {
+    background-image: url("/assets/background/water_webp/water_00001_00061.webp");
+  }
+  25.4167% {
+    background-image: url("/assets/background/water_webp/water_00001_00062.webp");
+  }
+  25.8333% {
+    background-image: url("/assets/background/water_webp/water_00001_00063.webp");
+  }
+  26.25% {
+    background-image: url("/assets/background/water_webp/water_00001_00064.webp");
+  }
+  26.6667% {
+    background-image: url("/assets/background/water_webp/water_00001_00065.webp");
+  }
+  27.0833% {
+    background-image: url("/assets/background/water_webp/water_00001_00066.webp");
+  }
+  27.5% {
+    background-image: url("/assets/background/water_webp/water_00001_00067.webp");
+  }
+  27.9167% {
+    background-image: url("/assets/background/water_webp/water_00001_00068.webp");
+  }
+  28.3333% {
+    background-image: url("/assets/background/water_webp/water_00001_00069.webp");
+  }
+  28.75% {
+    background-image: url("/assets/background/water_webp/water_00001_00070.webp");
+  }
+  29.1667% {
+    background-image: url("/assets/background/water_webp/water_00001_00071.webp");
+  }
+  29.5833% {
+    background-image: url("/assets/background/water_webp/water_00001_00072.webp");
+  }
+  30% {
+    background-image: url("/assets/background/water_webp/water_00001_00073.webp");
+  }
+  30.4167% {
+    background-image: url("/assets/background/water_webp/water_00001_00074.webp");
+  }
+  30.8333% {
+    background-image: url("/assets/background/water_webp/water_00001_00075.webp");
+  }
+  31.25% {
+    background-image: url("/assets/background/water_webp/water_00001_00076.webp");
+  }
+  31.6667% {
+    background-image: url("/assets/background/water_webp/water_00001_00077.webp");
+  }
+  32.0833% {
+    background-image: url("/assets/background/water_webp/water_00001_00078.webp");
+  }
+  32.5% {
+    background-image: url("/assets/background/water_webp/water_00001_00079.webp");
+  }
+  32.9167% {
+    background-image: url("/assets/background/water_webp/water_00001_00080.webp");
+  }
+  33.3333% {
+    background-image: url("/assets/background/water_webp/water_00001_00081.webp");
+  }
+  33.75% {
+    background-image: url("/assets/background/water_webp/water_00001_00082.webp");
+  }
+  34.1667% {
+    background-image: url("/assets/background/water_webp/water_00001_00083.webp");
+  }
+  34.5833% {
+    background-image: url("/assets/background/water_webp/water_00001_00084.webp");
+  }
+  35% {
+    background-image: url("/assets/background/water_webp/water_00001_00085.webp");
+  }
+  35.4167% {
+    background-image: url("/assets/background/water_webp/water_00001_00086.webp");
+  }
+  35.8333% {
+    background-image: url("/assets/background/water_webp/water_00001_00087.webp");
+  }
+  36.25% {
+    background-image: url("/assets/background/water_webp/water_00001_00088.webp");
+  }
+  36.6667% {
+    background-image: url("/assets/background/water_webp/water_00001_00089.webp");
+  }
+  37.0833% {
+    background-image: url("/assets/background/water_webp/water_00001_00090.webp");
+  }
+  37.5% {
+    background-image: url("/assets/background/water_webp/water_00001_00091.webp");
+  }
+  37.9167% {
+    background-image: url("/assets/background/water_webp/water_00001_00092.webp");
+  }
+  38.3333% {
+    background-image: url("/assets/background/water_webp/water_00001_00093.webp");
+  }
+  38.75% {
+    background-image: url("/assets/background/water_webp/water_00001_00094.webp");
+  }
+  39.1667% {
+    background-image: url("/assets/background/water_webp/water_00001_00095.webp");
+  }
+  39.5833% {
+    background-image: url("/assets/background/water_webp/water_00001_00096.webp");
+  }
+  40% {
+    background-image: url("/assets/background/water_webp/water_00001_00097.webp");
+  }
+  40.4167% {
+    background-image: url("/assets/background/water_webp/water_00001_00098.webp");
+  }
+  40.8333% {
+    background-image: url("/assets/background/water_webp/water_00001_00099.webp");
+  }
+  41.25% {
+    background-image: url("/assets/background/water_webp/water_00001_00100.webp");
+  }
+  41.6667% {
+    background-image: url("/assets/background/water_webp/water_00001_00101.webp");
+  }
+  42.0833% {
+    background-image: url("/assets/background/water_webp/water_00001_00102.webp");
+  }
+  42.5% {
+    background-image: url("/assets/background/water_webp/water_00001_00103.webp");
+  }
+  42.9167% {
+    background-image: url("/assets/background/water_webp/water_00001_00104.webp");
+  }
+  43.3333% {
+    background-image: url("/assets/background/water_webp/water_00001_00105.webp");
+  }
+  43.75% {
+    background-image: url("/assets/background/water_webp/water_00001_00106.webp");
+  }
+  44.1667% {
+    background-image: url("/assets/background/water_webp/water_00001_00107.webp");
+  }
+  44.5833% {
+    background-image: url("/assets/background/water_webp/water_00001_00108.webp");
+  }
+  45% {
+    background-image: url("/assets/background/water_webp/water_00001_00109.webp");
+  }
+  45.4167% {
+    background-image: url("/assets/background/water_webp/water_00001_00110.webp");
+  }
+  45.8333% {
+    background-image: url("/assets/background/water_webp/water_00001_00111.webp");
+  }
+  46.25% {
+    background-image: url("/assets/background/water_webp/water_00001_00112.webp");
+  }
+  46.6667% {
+    background-image: url("/assets/background/water_webp/water_00001_00113.webp");
+  }
+  47.0833% {
+    background-image: url("/assets/background/water_webp/water_00001_00114.webp");
+  }
+  47.5% {
+    background-image: url("/assets/background/water_webp/water_00001_00115.webp");
+  }
+  47.9167% {
+    background-image: url("/assets/background/water_webp/water_00001_00116.webp");
+  }
+  48.3333% {
+    background-image: url("/assets/background/water_webp/water_00001_00117.webp");
+  }
+  48.75% {
+    background-image: url("/assets/background/water_webp/water_00001_00118.webp");
+  }
+  49.1667% {
+    background-image: url("/assets/background/water_webp/water_00001_00119.webp");
+  }
+  49.5833% {
+    background-image: url("/assets/background/water_webp/water_00001_00120.webp");
+  }
+  50% {
+    background-image: url("/assets/background/water_webp/water_00001_00121.webp");
+  }
+  50.4167% {
+    background-image: url("/assets/background/water_webp/water_00001_00122.webp");
+  }
+  50.8333% {
+    background-image: url("/assets/background/water_webp/water_00001_00123.webp");
+  }
+  51.25% {
+    background-image: url("/assets/background/water_webp/water_00001_00124.webp");
+  }
+  51.6667% {
+    background-image: url("/assets/background/water_webp/water_00001_00125.webp");
+  }
+  52.0833% {
+    background-image: url("/assets/background/water_webp/water_00001_00126.webp");
+  }
+  52.5% {
+    background-image: url("/assets/background/water_webp/water_00001_00127.webp");
+  }
+  52.9167% {
+    background-image: url("/assets/background/water_webp/water_00001_00128.webp");
+  }
+  53.3333% {
+    background-image: url("/assets/background/water_webp/water_00001_00129.webp");
+  }
+  53.75% {
+    background-image: url("/assets/background/water_webp/water_00001_00130.webp");
+  }
+  54.1667% {
+    background-image: url("/assets/background/water_webp/water_00001_00131.webp");
+  }
+  54.5833% {
+    background-image: url("/assets/background/water_webp/water_00001_00132.webp");
+  }
+  55% {
+    background-image: url("/assets/background/water_webp/water_00001_00133.webp");
+  }
+  55.4167% {
+    background-image: url("/assets/background/water_webp/water_00001_00134.webp");
+  }
+  55.8333% {
+    background-image: url("/assets/background/water_webp/water_00001_00135.webp");
+  }
+  56.25% {
+    background-image: url("/assets/background/water_webp/water_00001_00136.webp");
+  }
+  56.6667% {
+    background-image: url("/assets/background/water_webp/water_00001_00137.webp");
+  }
+  57.0833% {
+    background-image: url("/assets/background/water_webp/water_00001_00138.webp");
+  }
+  57.5% {
+    background-image: url("/assets/background/water_webp/water_00001_00139.webp");
+  }
+  57.9167% {
+    background-image: url("/assets/background/water_webp/water_00001_00140.webp");
+  }
+  58.3333% {
+    background-image: url("/assets/background/water_webp/water_00001_00141.webp");
+  }
+  58.75% {
+    background-image: url("/assets/background/water_webp/water_00001_00142.webp");
+  }
+  59.1667% {
+    background-image: url("/assets/background/water_webp/water_00001_00143.webp");
+  }
+  59.5833% {
+    background-image: url("/assets/background/water_webp/water_00001_00144.webp");
+  }
+  60% {
+    background-image: url("/assets/background/water_webp/water_00001_00145.webp");
+  }
+  60.4167% {
+    background-image: url("/assets/background/water_webp/water_00001_00146.webp");
+  }
+  60.8333% {
+    background-image: url("/assets/background/water_webp/water_00001_00147.webp");
+  }
+  61.25% {
+    background-image: url("/assets/background/water_webp/water_00001_00148.webp");
+  }
+  61.6667% {
+    background-image: url("/assets/background/water_webp/water_00001_00149.webp");
+  }
+  62.0833% {
+    background-image: url("/assets/background/water_webp/water_00001_00150.webp");
+  }
+  62.5% {
+    background-image: url("/assets/background/water_webp/water_00001_00151.webp");
+  }
+  62.9167% {
+    background-image: url("/assets/background/water_webp/water_00001_00152.webp");
+  }
+  63.3333% {
+    background-image: url("/assets/background/water_webp/water_00001_00153.webp");
+  }
+  63.75% {
+    background-image: url("/assets/background/water_webp/water_00001_00154.webp");
+  }
+  64.1667% {
+    background-image: url("/assets/background/water_webp/water_00001_00155.webp");
+  }
+  64.5833% {
+    background-image: url("/assets/background/water_webp/water_00001_00156.webp");
+  }
+  65% {
+    background-image: url("/assets/background/water_webp/water_00001_00157.webp");
+  }
+  65.4167% {
+    background-image: url("/assets/background/water_webp/water_00001_00158.webp");
+  }
+  65.8333% {
+    background-image: url("/assets/background/water_webp/water_00001_00159.webp");
+  }
+  66.25% {
+    background-image: url("/assets/background/water_webp/water_00001_00160.webp");
+  }
+  66.6667% {
+    background-image: url("/assets/background/water_webp/water_00001_00161.webp");
+  }
+  67.0833% {
+    background-image: url("/assets/background/water_webp/water_00001_00162.webp");
+  }
+  67.5% {
+    background-image: url("/assets/background/water_webp/water_00001_00163.webp");
+  }
+  67.9167% {
+    background-image: url("/assets/background/water_webp/water_00001_00164.webp");
+  }
+  68.3333% {
+    background-image: url("/assets/background/water_webp/water_00001_00165.webp");
+  }
+  68.75% {
+    background-image: url("/assets/background/water_webp/water_00001_00166.webp");
+  }
+  69.1667% {
+    background-image: url("/assets/background/water_webp/water_00001_00167.webp");
+  }
+  69.5833% {
+    background-image: url("/assets/background/water_webp/water_00001_00168.webp");
+  }
+  70% {
+    background-image: url("/assets/background/water_webp/water_00001_00169.webp");
+  }
+  70.4167% {
+    background-image: url("/assets/background/water_webp/water_00001_00170.webp");
+  }
+  70.8333% {
+    background-image: url("/assets/background/water_webp/water_00001_00171.webp");
+  }
+  71.25% {
+    background-image: url("/assets/background/water_webp/water_00001_00172.webp");
+  }
+  71.6667% {
+    background-image: url("/assets/background/water_webp/water_00001_00173.webp");
+  }
+  72.0833% {
+    background-image: url("/assets/background/water_webp/water_00001_00174.webp");
+  }
+  72.5% {
+    background-image: url("/assets/background/water_webp/water_00001_00175.webp");
+  }
+  72.9167% {
+    background-image: url("/assets/background/water_webp/water_00001_00176.webp");
+  }
+  73.3333% {
+    background-image: url("/assets/background/water_webp/water_00001_00177.webp");
+  }
+  73.75% {
+    background-image: url("/assets/background/water_webp/water_00001_00178.webp");
+  }
+  74.1667% {
+    background-image: url("/assets/background/water_webp/water_00001_00179.webp");
+  }
+  74.5833% {
+    background-image: url("/assets/background/water_webp/water_00001_00180.webp");
+  }
+  75% {
+    background-image: url("/assets/background/water_webp/water_00001_00181.webp");
+  }
+  75.4167% {
+    background-image: url("/assets/background/water_webp/water_00001_00182.webp");
+  }
+  75.8333% {
+    background-image: url("/assets/background/water_webp/water_00001_00183.webp");
+  }
+  76.25% {
+    background-image: url("/assets/background/water_webp/water_00001_00184.webp");
+  }
+  76.6667% {
+    background-image: url("/assets/background/water_webp/water_00001_00185.webp");
+  }
+  77.0833% {
+    background-image: url("/assets/background/water_webp/water_00001_00186.webp");
+  }
+  77.5% {
+    background-image: url("/assets/background/water_webp/water_00001_00187.webp");
+  }
+  77.9167% {
+    background-image: url("/assets/background/water_webp/water_00001_00188.webp");
+  }
+  78.3333% {
+    background-image: url("/assets/background/water_webp/water_00001_00189.webp");
+  }
+  78.75% {
+    background-image: url("/assets/background/water_webp/water_00001_00190.webp");
+  }
+  79.1667% {
+    background-image: url("/assets/background/water_webp/water_00001_00191.webp");
+  }
+  79.5833% {
+    background-image: url("/assets/background/water_webp/water_00001_00192.webp");
+  }
+  80% {
+    background-image: url("/assets/background/water_webp/water_00001_00193.webp");
+  }
+  80.4167% {
+    background-image: url("/assets/background/water_webp/water_00001_00194.webp");
+  }
+  80.8333% {
+    background-image: url("/assets/background/water_webp/water_00001_00195.webp");
+  }
+  81.25% {
+    background-image: url("/assets/background/water_webp/water_00001_00196.webp");
+  }
+  81.6667% {
+    background-image: url("/assets/background/water_webp/water_00001_00197.webp");
+  }
+  82.0833% {
+    background-image: url("/assets/background/water_webp/water_00001_00198.webp");
+  }
+  82.5% {
+    background-image: url("/assets/background/water_webp/water_00001_00199.webp");
+  }
+  82.9167% {
+    background-image: url("/assets/background/water_webp/water_00001_00200.webp");
+  }
+  83.3333% {
+    background-image: url("/assets/background/water_webp/water_00001_00201.webp");
+  }
+  83.75% {
+    background-image: url("/assets/background/water_webp/water_00001_00202.webp");
+  }
+  84.1667% {
+    background-image: url("/assets/background/water_webp/water_00001_00203.webp");
+  }
+  84.5833% {
+    background-image: url("/assets/background/water_webp/water_00001_00204.webp");
+  }
+  85% {
+    background-image: url("/assets/background/water_webp/water_00001_00205.webp");
+  }
+  85.4167% {
+    background-image: url("/assets/background/water_webp/water_00001_00206.webp");
+  }
+  85.8333% {
+    background-image: url("/assets/background/water_webp/water_00001_00207.webp");
+  }
+  86.25% {
+    background-image: url("/assets/background/water_webp/water_00001_00208.webp");
+  }
+  86.6667% {
+    background-image: url("/assets/background/water_webp/water_00001_00209.webp");
+  }
+  87.0833% {
+    background-image: url("/assets/background/water_webp/water_00001_00210.webp");
+  }
+  87.5% {
+    background-image: url("/assets/background/water_webp/water_00001_00211.webp");
+  }
+  87.9167% {
+    background-image: url("/assets/background/water_webp/water_00001_00212.webp");
+  }
+  88.3333% {
+    background-image: url("/assets/background/water_webp/water_00001_00213.webp");
+  }
+  88.75% {
+    background-image: url("/assets/background/water_webp/water_00001_00214.webp");
+  }
+  89.1667% {
+    background-image: url("/assets/background/water_webp/water_00001_00215.webp");
+  }
+  89.5833% {
+    background-image: url("/assets/background/water_webp/water_00001_00216.webp");
+  }
+  90% {
+    background-image: url("/assets/background/water_webp/water_00001_00217.webp");
+  }
+  90.4167% {
+    background-image: url("/assets/background/water_webp/water_00001_00218.webp");
+  }
+  90.8333% {
+    background-image: url("/assets/background/water_webp/water_00001_00219.webp");
+  }
+  91.25% {
+    background-image: url("/assets/background/water_webp/water_00001_00220.webp");
+  }
+  91.6667% {
+    background-image: url("/assets/background/water_webp/water_00001_00221.webp");
+  }
+  92.0833% {
+    background-image: url("/assets/background/water_webp/water_00001_00222.webp");
+  }
+  92.5% {
+    background-image: url("/assets/background/water_webp/water_00001_00223.webp");
+  }
+  92.9167% {
+    background-image: url("/assets/background/water_webp/water_00001_00224.webp");
+  }
+  93.3333% {
+    background-image: url("/assets/background/water_webp/water_00001_00225.webp");
+  }
+  93.75% {
+    background-image: url("/assets/background/water_webp/water_00001_00226.webp");
+  }
+  94.1667% {
+    background-image: url("/assets/background/water_webp/water_00001_00227.webp");
+  }
+  94.5833% {
+    background-image: url("/assets/background/water_webp/water_00001_00228.webp");
+  }
+  95% {
+    background-image: url("/assets/background/water_webp/water_00001_00229.webp");
+  }
+  95.4167% {
+    background-image: url("/assets/background/water_webp/water_00001_00230.webp");
+  }
+  95.8333% {
+    background-image: url("/assets/background/water_webp/water_00001_00231.webp");
+  }
+  96.25% {
+    background-image: url("/assets/background/water_webp/water_00001_00232.webp");
+  }
+  96.6667% {
+    background-image: url("/assets/background/water_webp/water_00001_00233.webp");
+  }
+  97.0833% {
+    background-image: url("/assets/background/water_webp/water_00001_00234.webp");
+  }
+  97.5% {
+    background-image: url("/assets/background/water_webp/water_00001_00235.webp");
+  }
+  97.9167% {
+    background-image: url("/assets/background/water_webp/water_00001_00236.webp");
+  }
+  98.3333% {
+    background-image: url("/assets/background/water_webp/water_00001_00237.webp");
+  }
+  98.75% {
+    background-image: url("/assets/background/water_webp/water_00001_00238.webp");
+  }
+  99.1667% {
+    background-image: url("/assets/background/water_webp/water_00001_00239.webp");
+  }
+  100% {
+    background-image: url("/assets/background/water_webp/water_00001_00240.webp");
+  }
 }
 
 .scene-bg-image {
@@ -406,7 +1914,7 @@ input#menu {
 
 label.icon {
   position: fixed;
-  z-index: 200;
+  /* z-index: 200; */
 }
 
 .icon .menu,
@@ -1569,7 +3077,7 @@ h1 {
   background-color: white;
   transition: transform 0.5s ease;
   transform: translateX(0%);
-  z-index: 300;
+  /* z-index: 300; */
   border: 1px;
 }
 
@@ -1585,7 +3093,7 @@ h1 {
   height: 24px;
   border-radius: 50%;
   overflow: hidden;
-  z-index: 1000;
+  /* z-index: 1000; */
 }
 
 .quarter {
