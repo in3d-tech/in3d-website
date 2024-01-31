@@ -1,9 +1,9 @@
 import { Suspense, lazy, useState } from "react";
-// import { useProgress } from "@react-three/drei";
 import { Leva } from "leva";
 import { LandingComponent } from "./components/landingScreen/LandingScreen";
 import AppContext from "./context/context";
 import { useTranslation } from "react-i18next";
+import { ChangeLanguage } from "./components/ChangeLanguage";
 
 const LazyScene = lazy(() => import("./components/Scene"));
 
@@ -46,7 +46,6 @@ const LazyScene = lazy(() => import("./components/Scene"));
 
 function App() {
   const {
-    t,
     i18n: { changeLanguage, language },
   } = useTranslation();
 
@@ -54,17 +53,6 @@ function App() {
   const [isLanding, setIsLanding] = useState(true);
   const [navState, setNavState] = useState(0);
   const [animate, setAnimate] = useState(false);
-
-  const handleChangeLanguage = () => {
-    console.log("inside handle-change");
-    const newLanguage = currentLanguage === "en" ? "he" : "en";
-    setCurrentLanguage(newLanguage);
-    changeLanguage(newLanguage);
-    setTimeout(
-      () => console.log("OUR CURRENT LANFGUAGE: ", currentLanguage),
-      5000
-    );
-  };
 
   return (
     <>
@@ -74,52 +62,17 @@ function App() {
         }`}
       >
         <div className="background-top"></div>
-        <div
-          style={{
-            // width: "300px",
-            height: "200px",
-            position: "absolute",
-            bottom: 0,
-            zIndex: 500,
-          }}
-        >
-          <img
-            className="language-flag"
-            alt="can"
-            onClick={handleChangeLanguage}
-            src="/assets/images/flag-canada.webp"
-            style={{
-              width: "40px",
-              height: "40px",
-              opacity: currentLanguage == "en" ? 1 : 0.4,
-            }}
-          />
-          <img
-            className="language-flag"
-            alt="he"
-            onClick={handleChangeLanguage}
-            src="/assets/images/israel-flag.webp"
-            style={{
-              width: "40px",
-              height: "40px",
-              marginLeft: "10px",
-              opacity: currentLanguage == "he" ? 1 : 0.4,
-            }}
-          />
-        </div>
+        <ChangeLanguage
+          setCurrentLanguage={setCurrentLanguage}
+          changeLanguage={changeLanguage}
+          currentLanguage={currentLanguage}
+        />
         <Leva collapsed />
         <AppContext.Provider
           value={{ navState, setNavState, animate, setAnimate }}
         >
-          <Suspense
-            fallback={
-              <div>
-                <h1>LOADING!!!</h1>
-              </div>
-            }
-          >
+          <Suspense fallback={<div>Loading...</div>}>
             {isLanding ? null : <LazyScene isLanding={isLanding} />}
-            {/* {isLanding ? null : <HorizontalNav />} */}
           </Suspense>
         </AppContext.Provider>
       </div>

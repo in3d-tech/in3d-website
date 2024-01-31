@@ -52,8 +52,9 @@ const MODELS_DATA = [
   {
     modelPath: "/assets/medical-model-new/Medical_Statue.fbx",
     processModel: medicalModel,
-    position: [40, -45, 200], // [-40, 12, 140],
+    position: [40, -20, 180], // [-40, 12, 140],
     scale: [17, 17, 17],
+    rotation: [Math.PI * 1.95, 0, 0],
     textures: [
       "https://res.cloudinary.com/dxminwnb3/image/upload/v1706520636/assets/medical/Doctor_Body_Diffuse_copy_onzv4n.webp",
       "https://res.cloudinary.com/dxminwnb3/image/upload/v1706520634/assets/medical/Doctor_Head_Diffuse_mhyyha.webp",
@@ -69,7 +70,7 @@ const MODELS_DATA = [
   {
     modelPath: "/assets/in3d-soldier-new/Soldier_Statue.fbx",
     processModel: soldierModel,
-    position: [110, -45, 150],
+    position: [92, -32, 150],
     scale: [0.4, 0.4, 0.4],
     textures: [
       "https://res.cloudinary.com/dxminwnb3/image/upload/v1706520080/assets/soilder/Circle_Opcity_trgrai.webp",
@@ -111,7 +112,7 @@ const MODELS_DATA = [
   {
     modelPath: "/assets/in3d-ai/Ai_FBX.fbx",
     processModel: ai,
-    position: [-120, -55, 130],
+    position: [-110, -35, 125],
     textures: [
       // "/assets/in3d-ai/textures/Hologram_HumanTexture.webp",
       // "/assets/in3d-ai/textures/Plane&Shape_Emission&Opacity_Texture.webp",
@@ -132,15 +133,15 @@ const MODELS_DATA = [
   {
     modelPath: "/assets/Logo_in3d_v3_2.fbx",
     processModel: logo,
-    position: [100, 10, -100],
+    position: [100, 10, -160],
     scale: [5, 5, 5],
   },
   {
     modelPath: "/assets/Hexagon Tile long animation.fbx",
     processModel: hexagons,
-    position: [0, -60, 50],
+    position: [0, -80, 30],
     scale: [8, 8, 8],
-    rotation: [Math.PI * 1.92, 0, 0],
+    rotation: [Math.PI * 1.89, 0, 0],
   },
 ];
 
@@ -188,7 +189,6 @@ function ModelComponent({
       position={position}
       scale={scale}
       rotation={rotation}
-      visible={false}
     />
   ) : null;
 }
@@ -200,7 +200,6 @@ export function HomePage({
   setPosition,
   setTarget,
 }) {
-  // useEffect(() => setTimeout(() => console.log("HELLO WORLD!"), 5000), []);
   return (
     <>
       {/* <Stars
@@ -212,9 +211,6 @@ export function HomePage({
         fade={true}
         speed={0.7}
       /> */}
-      {/* <Environment preset="forest" background blur={0.3} /> */}
-      {/* <Environment path="/assets/images/exemple.jpg" background /> */}
-
       <Lights />
       <CameraControls
         position={position}

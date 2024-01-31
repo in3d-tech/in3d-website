@@ -55,6 +55,11 @@ body {
   overflow-x: hidden;
 }
 
+canvas {
+  position: absolute;
+  z-index: 2;
+}
+
 body::-webkit-scrollbar {
   width: 0.5em; /* Set the width of the scrollbar */
 }
@@ -364,8 +369,6 @@ h1 {
 
   background-size: cover;
   animation: bottom-sequence 20s infinite;
-
-  /* z-index: 30; */
 }
 
 .background-top {
@@ -385,8 +388,8 @@ h1 {
   background-repeat: no-repeat;
   /* Set animation to loop through the sequence */
   animation: top-sequence 20s infinite;
-  /* z-index: 500000000; */
 }
+
 @keyframes top-sequence {
   0% {
     background-image: url("/assets/background/planet_final/planete_00001.png");

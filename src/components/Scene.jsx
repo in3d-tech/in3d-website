@@ -1,11 +1,11 @@
-import { useState, Suspense, useEffect } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { useState, Suspense } from "react";
+import { Canvas } from "@react-three/fiber";
 import { AdaptiveDpr, Preload, Stats, useProgress } from "@react-three/drei";
 import { HomePage } from "./HomePage";
 import { Navbar } from "./NavbarOld";
 import { ContentView } from "./catergories/ContentView";
 import { useHorizontalScroll } from "../common/useHorizontalScroll";
-import { Loader } from "./Loading";
+// import { Loader } from "./Loading";
 import { HorizontalNav } from "./nav/HorizontalNav";
 
 function Scene({ isLanding }) {
@@ -25,8 +25,6 @@ function Scene({ isLanding }) {
     "rVzJDgDnKLI",
     "mAEM5q5YFtg",
   ];
-
-  // useEffect(() => console.log(progress), [progress]);
 
   return (
     <>
