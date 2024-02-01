@@ -5,7 +5,7 @@ import MagnifyingGlass from "../ornaments/MagnifyingGlass";
 import AppContext from "../../context/context";
 import { HorizontalSelectedContent } from "./HorizontalSelectedContent";
 import { SelectedContextNew } from "../catergories/SelectedContentNew";
-import { useTranslation } from "react-i18next";
+import { t } from "../../common/t";
 
 export function HorizontalNav() {
   const [ar, setAr] = useState(false);
@@ -75,7 +75,6 @@ function HorizontalNavOpen({ appContext }) {
   const [selectedContent, setSelectedContent] = useState(null);
   const [allowClick, setAllowClick] = useState(false);
   const [hovered, setIsHovered] = useState(false);
-  const { t } = useTranslation();
   const contentRef = useRef();
 
   useEffect(() => {

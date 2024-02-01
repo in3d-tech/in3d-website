@@ -1,6 +1,6 @@
 {
   "translation": {
-    "artificialIntelligence": "Artifial Intelligence",
+    "artificialIntelligence": "Artifical Intelligence",
     "microsoft": "Microsoft",
     "security": "Security",
     "medicine": "Medicine",
@@ -8,6 +8,7 @@
     "military": "Military",
     "contactUs": "Contact Us",
     "explore": "Explore",
-    "headerTitle": "My {{appName}} Header Title"
+    "headerTitle": "My {{appName}} Header Title",
+    "enter": "Enter"
   }
 }

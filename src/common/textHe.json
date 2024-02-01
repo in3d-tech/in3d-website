@@ -8,6 +8,7 @@
     "military": "צבאי",
     "contactUs": "צור קשר",
     "explore": "לַחקוֹר",
-    "headerTitle": "Meu Titulo do Cabecalho do {{appName}}"
+    "headerTitle": "Meu Titulo do Cabecalho do {{appName}}",
+    "enter": "להיכנס"
   }
 }

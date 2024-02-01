@@ -1,9 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { Button } from "./nav/Button";
 import { getCameraCoords } from "../common/getCameraCoords";
 import AppContext from "../context/context";
-import { useTranslation } from "react-i18next";
+import { t } from "../common/t";
 
 export function Navbar({
   setCategorySelected,
@@ -13,8 +13,6 @@ export function Navbar({
   selectedIsland,
 }) {
   const appContext = useContext(AppContext);
-
-  const { t } = useTranslation();
 
   const handleNavClick = (ref, label) => {
     setCategorySelected(label);
@@ -44,6 +42,7 @@ export function Navbar({
               position: "fixed",
               top: "3em",
               right: "3em",
+              zIndex: 10,
             }
       }
     >
@@ -82,7 +81,7 @@ export function Navbar({
                   getCameraCoords({ idx: 5, setTarget, setPosition });
                 }}
               >
-                Zoom Out
+                {t("Zoom out")}
               </div>
             </>
           )}
@@ -92,6 +91,31 @@ export function Navbar({
   );
 
   function NavExplorer({ toggleNavbar }) {
+    const titles = [
+      "artificialIntelligence",
+      "security",
+      "customization",
+      "microsoft",
+      "medicine",
+      "military",
+    ];
+
+    const buttons = titles.map((name, idx) => {
+      return (
+        <Button
+          idx={idx}
+          name={t(name)}
+          setPosition={setPosition}
+          setTarget={setTarget}
+          style={
+            name == "artificialIntelligence" ? { textAlign: "center" } : null
+          }
+          setSelectedIsland={setSelectedIsland}
+          selectedIsland={selectedIsland}
+        />
+      );
+    });
+
     return (
       <div
         className="nav-open-container"
@@ -108,10 +132,9 @@ export function Navbar({
         <div className="nav-open-lines-bg"></div>
 
         <div className="nav-explorer-btn-container">
-          <Button
+          {/* <Button
             idx={4}
             name={"Artifical Intelligence"}
-            color={"nav-expl-btn-green"}
             setPosition={setPosition}
             setTarget={setTarget}
             style={{ textAlign: "center" }}
@@ -121,7 +144,6 @@ export function Navbar({
           <Button
             idx={3}
             name={"Security"}
-            color={"nav-expl-btn-red"}
             setPosition={setPosition}
             setTarget={setTarget}
             setSelectedIsland={setSelectedIsland}
@@ -130,7 +152,6 @@ export function Navbar({
           <Button
             idx={3}
             name={"Customization"}
-            color={"nav-expl-btn-yellow"}
             setPosition={setPosition}
             setTarget={setTarget}
             setSelectedIsland={setSelectedIsland}
@@ -140,7 +161,6 @@ export function Navbar({
           <Button
             idx={4}
             name={"Microsoft"}
-            color={"nav-expl-btn-green"}
             setPosition={setPosition}
             setTarget={setTarget}
             setSelectedIsland={setSelectedIsland}
@@ -149,7 +169,6 @@ export function Navbar({
           <Button
             idx={1}
             name={"Medicine"}
-            color={"nav-expl-btn-red"}
             setPosition={setPosition}
             setTarget={setTarget}
             setSelectedIsland={setSelectedIsland}
@@ -158,19 +177,18 @@ export function Navbar({
           <Button
             idx={2}
             name={"Military"}
-            color={"nav-expl-btn-yellow"}
             setPosition={setPosition}
             setTarget={setTarget}
             setSelectedIsland={setSelectedIsland}
             selectedIsland={selectedIsland}
-          />
+          /> */}
+          {buttons}
         </div>
 
         <Button
           idx={5}
           name={"Back to full view"}
           style={{ marginTop: "1em", width: "70%" }}
-          color={"nav-expl-btn-orange"}
           setSelectedIsland={setSelectedIsland}
           selectedIsland={selectedIsland}
           setPosition={setPosition}

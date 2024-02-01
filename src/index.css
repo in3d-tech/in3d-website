@@ -387,7 +387,27 @@ h1 {
   /* Ensure background image is not repeated */
   background-repeat: no-repeat;
   /* Set animation to loop through the sequence */
+  /* animation: top-sequence 20s infinite; */
+}
+
+.bg-top-static {
+  /* Position the :after pseudo-element to cover the bottom third */
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* height: 33.33%; */
+  /* Set initial background image for the bottom third */
+  background-image: url("/assets/background/bg_sky.png");
+  /* Ensure background image covers the entire pseudo-element */
+  background-size: cover;
+  /* Ensure background image is not repeated */
+  background-repeat: no-repeat;
+  /* Set animation to loop through the sequence */
   animation: top-sequence 20s infinite;
+  z-index: 1;
 }
 
 @keyframes top-sequence {
@@ -2285,6 +2305,7 @@ a {
   align-items: center;
   transition: width 1.2s;
   border-right: 1px solid rgba(255, 255, 255, 0.4);
+  z-index: 2;
 }
 
 .h-nav-selected-wrapper {

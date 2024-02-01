@@ -1,4 +1,4 @@
-import { useState, Suspense } from "react";
+import { useState, Suspense, lazy } from "react";
 import { Canvas } from "@react-three/fiber";
 import { AdaptiveDpr, Preload, Stats, useProgress } from "@react-three/drei";
 import { HomePage } from "./HomePage";
@@ -7,6 +7,8 @@ import { ContentView } from "./catergories/ContentView";
 import { useHorizontalScroll } from "../common/useHorizontalScroll";
 // import { Loader } from "./Loading";
 import { HorizontalNav } from "./nav/HorizontalNav";
+
+// const LazyHomepage = lazy(() => import("./HomePage"));
 
 function Scene({ isLanding }) {
   const [categorySelected, setCategorySelected] = useState(false);
@@ -62,15 +64,13 @@ function Scene({ isLanding }) {
       <Canvas frameloop="demand">
         <Stats />
         <Suspense fallback={progress < 100 ? <>Loading scene...</> : null}>
-          {!isLanding && (
-            <HomePage
-              position={position}
-              target={target}
-              selectedIsland={selectedIsland}
-              setPosition={setPosition}
-              setTarget={setTarget}
-            />
-          )}
+          <HomePage
+            position={position}
+            target={target}
+            selectedIsland={selectedIsland}
+            setPosition={setPosition}
+            setTarget={setTarget}
+          />
         </Suspense>
         <Preload all />
         <AdaptiveDpr pixelated />

@@ -1,6 +1,6 @@
 import { useProgress } from "@react-three/drei";
-import { useRef, useState } from "react";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { t } from "../../common/t";
 
 export function LandingComponent({ setIsLanding, onEnter, started }) {
   const { progress } = useProgress();
@@ -26,7 +26,7 @@ export function LandingComponent({ setIsLanding, onEnter, started }) {
       ) : (
         <div className="btn-container">
           <button className="landing-button" onClick={onEnter}>
-            <span className="text">Enter</span>
+            <span className="text">{t("enter")}</span>
             <div className="icon-container">
               <div className="icon icon--left">
                 <ArrowForwardIcon
@@ -64,13 +64,6 @@ export function LandingComponent({ setIsLanding, onEnter, started }) {
       <button onClick={onEnter} className={`enter-btn`}>
         <img src="/in3dlogo.png" alt="3D logo" />
       </button>
-      {/* <div className="animation-container">
-        {["I", "n", "3", "D", "-", "T", "e", "c", "h"].map((letter, idx) => (
-          <span className="animation-letter" key={idx}>
-            {letter}
-          </span>
-        ))}
-      </div> */}
     </div>
   );
 }
