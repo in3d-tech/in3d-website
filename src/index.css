@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
+
 @font-face {
   font-family: Gotham;
   src: url("../src/fonts/GothamLight.ttf");
@@ -51,8 +53,8 @@
 body {
   margin: 0;
   background-color: #e0d2d2;
-  overflow: scroll;
-  overflow-x: hidden;
+  overflow: hidden;
+  /* overflow-x: hidden; */
 }
 
 canvas {
@@ -79,39 +81,113 @@ h1 {
 }
 
 .category-graphics-view {
-  position: absolute;
-  bottom: 5em;
+  /* position: absolute;
+  background: black;
+  bottom: 0;
   right: 0;
-  height: 80%;
+  height: 100vh;
   width: 54%;
-  z-index: 1;
+  z-index: 3;
+  border-radius: 4px;
   opacity: 0;
   animation-name: cssInFade;
   animation-duration: 1.2s;
   animation-delay: 1.2s;
   animation-fill-mode: forwards;
-  display: flex;
+  box-shadow: 1px 0px 15px 6px rgba(255, 255, 255, 0.35);
+  -webkit-box-shadow: 1px 0px 15px 6px rgba(255, 255, 255, 0.35);
+  -moz-box-shadow: 1px 0px 15px 6px rgba(255, 255, 255, 0.35);
+  overflow-y: auto; */
+
+  /* make sure to test this and check browser compatability ---------> */
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 50vh;
+  width: 100vw;
+  z-index: 5;
+  opacity: 0;
+  animation-name: cssInFade;
+  animation-duration: 1.2s;
+  animation-delay: 1.2s;
+  animation-fill-mode: forwards;
+  /* display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
+  background: rgb(255, 255, 255, 0.1);
+  border-radius: 12px;
 }
 
+.content-something {
+  opacity: 0;
+  animation-name: cssInFade;
+  animation-duration: 1.2s;
+  animation-delay: 1.2s;
+  animation-fill-mode: forwards;
+}
+
+.content-left {
+  display: flex;
+  align-items: center;
+}
+
+.content-left:hover {
+  opacity: 1;
+}
+
+.content-right {
+  display: flex;
+  /* flex-direction: row; */
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 100%;
+  /* flex: 1; */
+  overflow: auto;
+  padding: 5px;
+}
+
+.content-right::-webkit-scrollbar {
+  height: 0.5em; /* Set the width of the scrollbar */
+}
+
+.category-graphics-view::-webkit-scrollbar {
+  display: none;
+}
 @keyframes cssInFade {
   from {
     opacity: 0;
   }
   to {
-    opacity: 1;
+    opacity: 0.9;
   }
 }
 
-.selected-content-container {
+.selected-content-header {
+  font-family: "Montserrat Medium";
+  /* max-width: 40ch; */
+  /* text-align: center; */
+  transform: scale(0.94);
+  color: rgba(255, 255, 255, 1);
+  /* border: 1px solid rgb(255, 255, 255, 0.4); */
   width: 100%;
-  height: 80%;
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 50%;
+  padding: 5px;
+}
+
+.animated .selected-content-span {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(4px);
+  animation: fade-in 1s forwards cubic-bezier(0.11, 0, 0.5, 0);
+}
+
+@keyframes fade-in {
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
 }
 
 .selected-content-slider {
@@ -119,14 +195,14 @@ h1 {
   /* border: 1px solid white; */
   border-radius: 5px;
   /* width: 100%; */
-  width: 94%;
-  height: 86%;
+  width: 96%;
+  height: 96%;
   background-color: rgba(255, 255, 255, 0.1);
   opacity: 1;
   overflow: hidden;
-  box-shadow: 1px 0px 20px 6px rgba(255, 255, 255, 0.35);
-  -webkit-box-shadow: 1px 0px 20px 6px rgba(255, 255, 255, 0.35);
-  -moz-box-shadow: 1px 0px 20px 6px rgba(255, 255, 255, 0.35);
+  box-shadow: 1px 0px 15px 6px rgba(255, 255, 255, 0.35);
+  -webkit-box-shadow: 1px 0px 15px 6px rgba(255, 255, 255, 0.35);
+  -moz-box-shadow: 1px 0px 15px 6px rgba(255, 255, 255, 0.35);
 
   /* give bending effect */
   perspective: 1000px;
@@ -138,10 +214,10 @@ h1 {
   display: flex;
   overflow-x: scroll;
   overflow-y: hidden;
-  width: 90%;
-  padding: 1em;
-  height: 28%;
+  padding: 0.5em;
+  /* height: 28%; */
   gap: 0.8em;
+  align-items: center;
   justify-content: center;
   /* box-shadow: 1px 0px 20px 6px rgba(151, 27, 27, 0.75);
   -webkit-box-shadow: 1px 0px 20px 6px rgba(151, 27, 27, 0.75);
@@ -159,14 +235,18 @@ h1 {
 
 .cardz {
   flex-shrink: 0;
-  width: 340px;
-  height: 94%;
+  width: 40%;
+  height: 20%;
   border-radius: 10px;
-  margin-left: 10px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
   background: rgba(255, 255, 255, 0.1);
+  margin-left: 5%;
+  margin-top: 15px;
+  box-shadow: 0px 0px 7px 6px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: 0px 0px 7px 6px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 0px 7px 6px rgba(0, 0, 0, 0.6);
 }
 
 .slide {
@@ -340,35 +420,25 @@ h1 {
   left: 0;
   height: 100vh;
   width: 100vw;
-  /* z-index: 1; */
-  /* background-image: linear-gradient(rgb(255, 255, 255), rgb(0, 0, 0) 80%); */
-  /* background-image: linear-gradient(rgb(0, 0, 0) 25%, 75%, rgb(234, 182, 182)); */
-  /* background-image: url("/assets/images/exemple.jpg"); */
 
-  /* background-image: radial-gradient(circle, red, yellow, green); */
-  /* background-image: url("/assets/images/exemple.jpg"), */
-  /* background-image: url("/assets/background/bg_sky.png"),
-    url("/assets/background/city.png"),
-    url("/assets/background/water_webp/water_00001_00001.webp");
-  background-position: center top, center center, center bottom;
-  background-size: cover;
-  background-repeat: no-repeat; */
-  /* animation-name: fadeIn;
-  animation-duration: 4s;
-  animation-timing-function: ease;
-  animation-fill-mode: forwards; */
-
-  /* background: lightblue url("/img/background-2.jpg") no-repeat center; */
-
-  /* background: url("/assets/background/city.png") center center no-repeat,
-    url("/assets/background/water_webp/water_00001_00001.webp") bottom center
-      no-repeat,
-    url("/assets/background/bg_sky.png") top center no-repeat; */
   background: url("/assets/background/water_webp/water_00001_00001.webp") center
     center no-repeat;
 
   background-size: cover;
   animation: bottom-sequence 20s infinite;
+}
+
+.haha {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-image: url("/assets/background/bg_sky.png"),
+    url("/assets/background/city.png"),
+    url("/assets/background/water_webp/water_00001_00001.webp");
+  background-position: center top, center center, center bottom;
+  background-size: cover;
 }
 
 .background-top {
@@ -390,24 +460,44 @@ h1 {
   /* animation: top-sequence 20s infinite; */
 }
 
+/* -------------------------------------------------------- */
+
+/* // this was differENT CHECK HERE! */
+
+/* ------------------------------------------------------------- */
+
 .bg-top-static {
-  /* Position the :after pseudo-element to cover the bottom third */
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  /* height: 33.33%; */
-  /* Set initial background image for the bottom third */
+
   background-image: url("/assets/background/bg_sky.png");
-  /* Ensure background image covers the entire pseudo-element */
   background-size: cover;
-  /* Ensure background image is not repeated */
   background-repeat: no-repeat;
-  /* Set animation to loop through the sequence */
-  animation: top-sequence 20s infinite;
+  animation: top-static-sequence 3s linear forwards,
+    top-sequence 20s 15s infinite;
   z-index: 1;
+}
+
+@keyframes top-static-sequence {
+  0% {
+    background-image: url("/assets/background/bg_sky.png");
+  }
+  100% {
+    background-image: url("/assets/background/bg_sky.png");
+  }
+}
+
+@keyframes bottom-static-sequence {
+  0% {
+    background-image: url("/assets/background/water_webp/water_00001_00001.webp");
+  }
+  100% {
+    background-image: url("/assets/background/water_webp/water_00001_00001.webp");
+  }
 }
 
 @keyframes top-sequence {
@@ -3623,13 +3713,12 @@ h1 {
 .grid-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Create 3 equal-width columns */
-  grid-gap: 200px; /* Adjust the gap between grid items as needed */
-  justify-content: center;
+  grid-gap: 2%; /* Adjust the gap between grid items as needed */
+  /* justify-content: center; */
 }
 
 .grid-item {
   /* Define styling for your grid items, e.g., set width, height, and other properties */
-  width: 100%;
   height: 40%;
   background-color: #f0f0f0;
   border: 1px solid #000000;

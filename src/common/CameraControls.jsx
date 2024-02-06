@@ -63,7 +63,7 @@ const CameraControls = ({ position, target, idx }) => {
         args={[camera, domElement]}
         panSpeed={1}
         maxPolarAngle={Math.PI / 2}
-        enabled={false}
+        // enabled={false}
         // enablePan={false} // Disable panning
         // enableRotate={false} // Disable rotatinge
         // enableZoom={false} // Disable zooming

@@ -1,5 +1,5 @@
 import { getCameraCoords } from "../../common/getCameraCoords";
-import useTimeout from "../../common/useTimeout";
+// import useTimeout from "../../common/useTimeout";
 
 const test = false;
 
@@ -7,13 +7,12 @@ export function Button({
   idx,
   name,
   style,
-  color,
-  onChange,
-  setSelectedIsland,
+  setSelectedCategory,
   isGoBack,
   setTarget,
   setPosition,
-  selectedIsland,
+  selectedCategory,
+  toggleNavbar,
 }) {
   return (
     // <button
@@ -24,23 +23,25 @@ export function Button({
     //   <span className="nav-expl-span">{name}</span>\
     //   <i className="nav-expl-i"></i>
     // </button>
-    <div
+    <li
+      key={idx}
       className="button"
       id="button-6"
       onClick={() => {
-        setSelectedIsland(null);
+        setSelectedCategory(null);
         getCameraCoords({ idx, setPosition, setTarget });
-        // useTimeout(() => setSelectedIsland(true), 2000);
+        // useTimeout(() => setSelectedCategory(true), 2000);
         if (!isGoBack) {
-          setSelectedIsland(idx);
+          setSelectedCategory(idx);
         }
+        toggleNavbar();
       }}
       style={style ? style : null}
     >
       <div
         id="spin"
         style={
-          selectedIsland == idx
+          selectedCategory == idx
             ? {
                 width: "200%",
                 height: "500%",
@@ -53,9 +54,9 @@ export function Button({
             : null
         }
       ></div>
-      <a style={selectedIsland == idx ? { color: "#2d3142" } : null} href="#">
+      <a style={selectedCategory == idx ? { color: "#2d3142" } : null} href="#">
         {name}
       </a>
-    </div>
+    </li>
   );
 }

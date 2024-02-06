@@ -2,7 +2,6 @@ import { useMemo, useEffect } from "react";
 import { useFBX, useTexture } from "@react-three/drei";
 import { Lights } from "./ornaments/Lights";
 import { CameraControls } from "../common/CameraControls";
-// import { Ocean } from "./ornaments/Water";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import {
@@ -15,16 +14,7 @@ import {
   hexagons,
   logo,
 } from "./catergories/models/modelContent";
-import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import { getCameraCoords } from "../common/getCameraCoords";
-
-function Effects() {
-  return (
-    <EffectComposer>
-      <Bloom luminanceThreshold={0} luminanceSmoothing={0.1} height={300} />
-    </EffectComposer>
-  );
-}
 
 function useAnimations(fbx) {
   const { invalidate } = useThree();
@@ -49,6 +39,23 @@ function useAnimations(fbx) {
 }
 
 const MODELS_DATA = [
+  {
+    modelPath: "/assets/in3d-ai/Ai_FBX.fbx",
+    processModel: ai,
+    position: [-90, -25, 145],
+    // position: [-110, -35, 125],
+
+    textures: [
+      // "/assets/in3d-ai/textures/Hologram_HumanTexture.webp",
+      // "/assets/in3d-ai/textures/Plane&Shape_Emission&Opacity_Texture.webp",
+      // "/assets/in3d-ai/textures/Real_Man_Texture.webp",
+      "https://res.cloudinary.com/dxminwnb3/image/upload/v1706520102/assets/ai/Hologram_HumanTexture_v7js4n.webp",
+      "https://res.cloudinary.com/dxminwnb3/image/upload/v1706520103/assets/ai/Plane_Shape_Emission_Opacity_Texture_spghnm.webp",
+      "https://res.cloudinary.com/dxminwnb3/image/upload/v1706520111/assets/ai/Real_Man_Texture_bpzumz.webp",
+    ],
+    scale: [0.2, 0.2, 0.2],
+    // scale: [0.2, 0.2, 0.2],
+  },
   {
     modelPath: "/assets/medical-model-new/Medical_Statue.fbx",
     processModel: medicalModel,
@@ -109,20 +116,7 @@ const MODELS_DATA = [
   //   position: [40, 5, 80],
   //   scale: [0.5, 0.5, 0.5],
   // },
-  {
-    modelPath: "/assets/in3d-ai/Ai_FBX.fbx",
-    processModel: ai,
-    position: [-110, -35, 125],
-    textures: [
-      // "/assets/in3d-ai/textures/Hologram_HumanTexture.webp",
-      // "/assets/in3d-ai/textures/Plane&Shape_Emission&Opacity_Texture.webp",
-      // "/assets/in3d-ai/textures/Real_Man_Texture.webp",
-      "https://res.cloudinary.com/dxminwnb3/image/upload/v1706520102/assets/ai/Hologram_HumanTexture_v7js4n.webp",
-      "https://res.cloudinary.com/dxminwnb3/image/upload/v1706520103/assets/ai/Plane_Shape_Emission_Opacity_Texture_spghnm.webp",
-      "https://res.cloudinary.com/dxminwnb3/image/upload/v1706520111/assets/ai/Real_Man_Texture_bpzumz.webp",
-    ],
-    scale: [0.2, 0.2, 0.2],
-  },
+
   // {
   //   modelPath: "/assets/in3d-taasia/Enginer.fbx",
   //   processModel: taasia,
@@ -155,6 +149,7 @@ function ModelComponent({
   idx,
   setPosition,
   setTarget,
+  setSelectedCategory,
 }) {
   let texturesMap;
   if (textures) {
@@ -174,21 +169,20 @@ function ModelComponent({
     <primitive
       onClick={(e) => {
         e.stopPropagation();
-        if (idx == 0) {
-          return;
-        }
         if (e.object?.parent?.position) {
           MODELS_DATA.map((model) => {
-            if (model.position == position) {
+            if (model.position == position && idx != 5) {
               getCameraCoords({ setPosition, setTarget, idx });
             }
           });
         }
+        setSelectedCategory(idx);
       }}
       object={fbx}
       position={position}
       scale={scale}
       rotation={rotation}
+      visible={idx == 0 ? true : false}
     />
   ) : null;
 }
@@ -196,9 +190,10 @@ function ModelComponent({
 export function HomePage({
   position,
   target,
-  selectedIsland,
+  selectedCategory,
   setPosition,
   setTarget,
+  setSelectedCategory,
 }) {
   return (
     <>
@@ -215,9 +210,8 @@ export function HomePage({
       <CameraControls
         position={position}
         target={target}
-        idx={selectedIsland}
+        idx={selectedCategory}
       />
-      {/* <Effects /> */}
       <group>
         {MODELS_DATA.map((modelData, i) => (
           <ModelComponent
@@ -231,11 +225,10 @@ export function HomePage({
             idx={i}
             setPosition={setPosition}
             setTarget={setTarget}
+            setSelectedCategory={setSelectedCategory}
           />
         ))}
       </group>
-
-      {/* <Ocean position={[0, -10, 0]} /> */}
     </>
   );
 }

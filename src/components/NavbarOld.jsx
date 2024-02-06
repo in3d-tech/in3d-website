@@ -6,17 +6,12 @@ import AppContext from "../context/context";
 import { t } from "../common/t";
 
 export function Navbar({
-  setCategorySelected,
-  setSelectedIsland,
+  setSelectedCategory,
   setPosition,
   setTarget,
-  selectedIsland,
+  selectedCategory,
 }) {
   const appContext = useContext(AppContext);
-
-  const handleNavClick = (ref, label) => {
-    setCategorySelected(label);
-  };
 
   const navOpened = 1;
   const navClosed = 0;
@@ -48,10 +43,7 @@ export function Navbar({
     >
       {appContext.navState == navOpened ? (
         <div className="nav-wrapper-open">
-          <NavExplorer
-            handleNavClick={handleNavClick}
-            toggleNavbar={toggleNavbar}
-          />
+          <NavExplorer toggleNavbar={toggleNavbar} />
         </div>
       ) : (
         <div>
@@ -77,11 +69,11 @@ export function Navbar({
                   height: "2em",
                 }}
                 onClick={() => {
-                  setSelectedIsland(null);
+                  setSelectedCategory(null);
                   getCameraCoords({ idx: 5, setTarget, setPosition });
                 }}
               >
-                {t("Zoom out")}
+                {t("back")}
               </div>
             </>
           )}
@@ -110,8 +102,9 @@ export function Navbar({
           style={
             name == "artificialIntelligence" ? { textAlign: "center" } : null
           }
-          setSelectedIsland={setSelectedIsland}
-          selectedIsland={selectedIsland}
+          setSelectedCategory={setSelectedCategory}
+          selectedCategory={selectedCategory}
+          toggleNavbar={toggleNavbar}
         />
       );
     });
@@ -124,76 +117,25 @@ export function Navbar({
         <CancelIcon
           className="nav-contact-cancel-icon"
           onClick={() => {
-            setSelectedIsland(null);
+            // setSelectedCategory(null);
             toggleNavbar();
           }}
         />
 
         <div className="nav-open-lines-bg"></div>
 
-        <div className="nav-explorer-btn-container">
-          {/* <Button
-            idx={4}
-            name={"Artifical Intelligence"}
-            setPosition={setPosition}
-            setTarget={setTarget}
-            style={{ textAlign: "center" }}
-            setSelectedIsland={setSelectedIsland}
-            selectedIsland={selectedIsland}
-          />
-          <Button
-            idx={3}
-            name={"Security"}
-            setPosition={setPosition}
-            setTarget={setTarget}
-            setSelectedIsland={setSelectedIsland}
-            selectedIsland={selectedIsland}
-          />
-          <Button
-            idx={3}
-            name={"Customization"}
-            setPosition={setPosition}
-            setTarget={setTarget}
-            setSelectedIsland={setSelectedIsland}
-            selectedIsland={selectedIsland}
-          />
-
-          <Button
-            idx={4}
-            name={"Microsoft"}
-            setPosition={setPosition}
-            setTarget={setTarget}
-            setSelectedIsland={setSelectedIsland}
-            selectedIsland={selectedIsland}
-          />
-          <Button
-            idx={1}
-            name={"Medicine"}
-            setPosition={setPosition}
-            setTarget={setTarget}
-            setSelectedIsland={setSelectedIsland}
-            selectedIsland={selectedIsland}
-          />
-          <Button
-            idx={2}
-            name={"Military"}
-            setPosition={setPosition}
-            setTarget={setTarget}
-            setSelectedIsland={setSelectedIsland}
-            selectedIsland={selectedIsland}
-          /> */}
-          {buttons}
-        </div>
+        <ul className="nav-explorer-btn-container">{buttons}</ul>
 
         <Button
           idx={5}
-          name={"Back to full view"}
+          name={t("backToFullView")}
           style={{ marginTop: "1em", width: "70%" }}
-          setSelectedIsland={setSelectedIsland}
-          selectedIsland={selectedIsland}
+          setSelectedCategory={setSelectedCategory}
+          selectedCategory={selectedCategory}
           setPosition={setPosition}
           setTarget={setTarget}
           isGoBack
+          toggleNavbar={toggleNavbar}
         />
       </div>
     );

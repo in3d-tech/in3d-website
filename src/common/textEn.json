@@ -9,6 +9,8 @@
     "contactUs": "Contact Us",
     "explore": "Explore",
     "headerTitle": "My {{appName}} Header Title",
-    "enter": "Enter"
+    "enter": "Enter",
+    "back": "Zoom out",
+    "backToFullView": "Back to Full View"
   }
 }

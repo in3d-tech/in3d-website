@@ -11,10 +11,9 @@ import { HorizontalNav } from "./nav/HorizontalNav";
 // const LazyHomepage = lazy(() => import("./HomePage"));
 
 function Scene({ isLanding }) {
-  const [categorySelected, setCategorySelected] = useState(false);
   const [position, setPosition] = useState({ x: -9.5, y: 30, z: 278 });
   const [target, setTarget] = useState({ x: 0, y: 0, z: 0 });
-  const [selectedIsland, setSelectedIsland] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   // const tankModel = useGLTF("/assets/new-tank/tanky future new.gltf");
   const scrollRef = useHorizontalScroll();
@@ -67,7 +66,8 @@ function Scene({ isLanding }) {
           <HomePage
             position={position}
             target={target}
-            selectedIsland={selectedIsland}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
             setPosition={setPosition}
             setTarget={setTarget}
           />
@@ -76,16 +76,16 @@ function Scene({ isLanding }) {
         <AdaptiveDpr pixelated />
       </Canvas>
       <Navbar
-        setCategorySelected={setCategorySelected}
         setPosition={setPosition}
         setTarget={setTarget}
-        setSelectedIsland={setSelectedIsland}
-        selectedIsland={selectedIsland}
+        setSelectedCategory={setSelectedCategory}
+        selectedCategory={selectedCategory}
       />
-      {selectedIsland && (
-        <ContentView scrollRef={scrollRef} videoIds={videoIds} />
-      )}
-      {isLanding ? null : <HorizontalNav />}
+      {selectedCategory ||
+        (selectedCategory == 0 && (
+          <ContentView scrollRef={scrollRef} videoIds={videoIds} />
+        ))}
+      {/* {isLanding ? null : <HorizontalNav />} */}
     </>
   );
 }

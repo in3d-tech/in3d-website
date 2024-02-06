@@ -9,6 +9,8 @@
     "contactUs": "צור קשר",
     "explore": "לַחקוֹר",
     "headerTitle": "Meu Titulo do Cabecalho do {{appName}}",
-    "enter": "להיכנס"
+    "enter": "להיכנס",
+    "back": "לחזור",
+    "backToFullView": "לחזור"
   }
 }
