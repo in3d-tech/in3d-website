@@ -1,5 +1,5 @@
-import { useMemo, useEffect } from "react";
-import { useFBX, useTexture } from "@react-three/drei";
+import { useMemo, useEffect, useState } from "react";
+import { Float, Html, useFBX, useTexture } from "@react-three/drei";
 import { Lights } from "./ornaments/Lights";
 import { CameraControls } from "../common/CameraControls";
 import { useFrame, useThree } from "@react-three/fiber";
@@ -54,6 +54,19 @@ const MODELS_DATA = [
       "https://res.cloudinary.com/dxminwnb3/image/upload/v1706520111/assets/ai/Real_Man_Texture_bpzumz.webp",
     ],
     scale: [0.2, 0.2, 0.2],
+    rotation: [-0.07, 0, 0],
+    // rotation: [-0.05, 0, 0], // distance
+  },
+  {
+    modelPath: "/assets/Hexagon Tile (1).fbx",
+    // position: [-90, -35, 150],
+    position: [-90, -35, 150],
+    rotation: [Math.PI * 1.59, Math.PI / 1.97, 1],
+    // rotation: [Math.PI * 1.6, Math.PI / 1.87, 1],//distance
+
+    // position: [-110, -35, 125],
+
+    scale: [50, 50, 50],
     // scale: [0.2, 0.2, 0.2],
   },
   {
@@ -139,6 +152,18 @@ const MODELS_DATA = [
   },
 ];
 
+const TileModel = () => {
+  const tileFbx = useMemo(() => useFBX("/assets/Hexagon Tile (1).fbx"), []);
+
+  return (
+    <primitive
+      object={tileFbx}
+      scale={[5, 5, 5]}
+      // rotation={rotation}
+    />
+  );
+};
+
 function ModelComponent({
   modelPath,
   processModel,
@@ -157,10 +182,10 @@ function ModelComponent({
   }
 
   let fbx = useFBX(modelPath);
-  fbx = useAnimations(fbx);
+  if (processModel) fbx = useAnimations(fbx);
 
   useEffect(() => {
-    if (fbx) {
+    if (fbx && processModel) {
       processModel(fbx, texturesMap, idx);
     }
   }, [fbx, processModel]);
@@ -182,7 +207,7 @@ function ModelComponent({
       position={position}
       scale={scale}
       rotation={rotation}
-      visible={idx == 0 ? true : false}
+      visible={idx == 0 || idx == 1 ? true : false}
     />
   ) : null;
 }
@@ -229,6 +254,137 @@ export function HomePage({
           />
         ))}
       </group>
+      {selectedCategory ? (
+        <Float
+          floatIntensity={10}
+          rotationIntensity={2}
+          position={[80, 50, -70]}
+        >
+          <Html
+            style={{ userSelect: "none" }}
+            castShadow
+            receiveShadow
+            occlude="blending"
+            transform
+          >
+            <iframe
+              title="embed"
+              width={7000}
+              height={5000}
+              src="https://in3d-tech.com//"
+            />
+          </Html>
+        </Float>
+      ) : null}
+      {/* <Float
+        floatIntensity={10}
+        // rotationIntensity={1}
+        position={[-250, 10, -30]}
+        rotation={null}
+      >
+        <Html
+          style={{ userSelect: "none" }}
+          castShadow
+          receiveShadow
+          occlude="blending"
+          transform
+        >
+          <div
+            style={{
+              color: "black",
+              fontSize: "800px",
+              height: "500px",
+              position: "relative",
+              top: "500px",
+              left: "100px",
+              fontFamily: "Gotham",
+            }}
+          >
+            Chat with ChatGPT
+          </div>
+          <iframe
+            title="embed"
+            width={8000}
+            height={6000}
+            src="https://in3d-tech.com//"
+            style={{ background: "white", opacity: 0.6 }}
+          />
+        </Html>
+      </Float> */}
+      {/* <Float
+        floatIntensity={10}
+        rotationIntensity={2}
+        position={[-250, 10, -30]}
+        // rotation={null}
+      >
+        <Html
+          style={{ userSelect: "none" }}
+          castShadow
+          receiveShadow
+          occlude="blending"
+          transform
+        >
+          <iframe
+            title="embed"
+            width={8000}
+            height={6000}
+            style={{
+              backgroundImage: "linear-gradient(145deg, #145da0, #941dc8)",
+              opacity: 0.6,
+              backgroundSize: "cover",
+            }}
+          />
+        </Html>
+      </Float> */}
     </>
   );
 }
+
+const AnimatedText = () => {
+  const text1 = "Artificial Intelligence something";
+  const text2 = "some points";
+  const text3 = "more basic information dsfsdf";
+  const text4 = "Specialties fdsdfsd";
+  const text5 = "This is a sentence about something cool";
+  const text6 = "She sells sea shells by the sea shore";
+  const [animationStarted, setAnimationStarted] = useState(false);
+
+  useEffect(() => {
+    setAnimationStarted(true);
+  }, []);
+
+  const splitText = (text) => {
+    return text.split(/\s+/).map((word, index) => (
+      <>
+        <span
+          className="selected-content-span"
+          key={"word" + index}
+          style={{
+            animationDelay: `${(index + 23) * 0.04}s`,
+            fontSize: "2em",
+            marginInlineStart: "2.9em",
+          }}
+        >
+          {word}
+        </span>
+        <span key={"space" + index}>&nbsp;</span>
+      </>
+    ));
+  };
+
+  return (
+    <div className={animationStarted ? "selected-content-header animated" : ""}>
+      {splitText(text1)}
+      <br />
+      {splitText(text2)}
+      <br />
+      {splitText(text3)}
+      <br />
+      {splitText(text4)}
+      <br />
+      {splitText(text5)}
+      <br />
+      {splitText(text6)}
+    </div>
+  );
+};

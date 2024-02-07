@@ -3,12 +3,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import MagnifyingGlass from "../ornaments/MagnifyingGlass";
 import AppContext from "../../context/context";
-import { HorizontalSelectedContent } from "./HorizontalSelectedContent";
-import { SelectedContextNew } from "../catergories/SelectedContentNew";
 import { t } from "../../common/t";
 
 export function HorizontalNav() {
-  const [ar, setAr] = useState(false);
   const appContext = useContext(AppContext);
 
   const horizonalNavOpened = 2;
@@ -19,8 +16,6 @@ export function HorizontalNav() {
       if (prevState == horizonalNavOpened) return null;
       return newState;
     });
-
-    // setNavbarVisible((prevState) => !prevState);
   };
 
   return (
@@ -159,30 +154,17 @@ function HorizontalNavOpen({ appContext }) {
     />
   ));
 
-  return selectedContent ? (
-    <div>
-      {/* <HorizontalSelectedContent
-        setSelectedContent={setSelectedContent}
-        title={selectedContent}
-      /> */}
-      <SelectedContextNew
-        setSelectedContent={setSelectedContent}
-        title={selectedContent}
-      />
-    </div>
-  ) : (
-    // <div
-    //   className={`h-nav-selected-wrapper ${
-    //     selectedContent //horizonalNavOpened
-    //       ? "h-nav-wrapper-open"
-    //       : ""
-    //   }`}
-    // ></div>
-    // <div className="h-nav-open">
+  return selectedContent ? null : (
+    //  (
+    //   <div>
+    //     <SelectedContextNew
+    //       setSelectedContent={setSelectedContent}
+    //       title={selectedContent}
+    //     />
+    //   </div>
+    // )
     <div className={`horizontal-nav-open-titles-wrapper`}>
       {hovered && <div className="hoverZoom" style={getbgImage()}></div>}
-      {/* <div className="hoverZoom" style={getbgImage()}></div> */}
-
       <div className="h-nav-open-3d-icon h-nav-in3d-icon">
         <img
           style={{
@@ -205,6 +187,5 @@ function HorizontalNavOpen({ appContext }) {
         </button>
       </div>
     </div>
-    // </div>
   );
 }

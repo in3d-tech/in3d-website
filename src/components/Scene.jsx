@@ -3,12 +3,13 @@ import { Canvas } from "@react-three/fiber";
 import { AdaptiveDpr, Preload, Stats, useProgress } from "@react-three/drei";
 import { HomePage } from "./HomePage";
 import { Navbar } from "./NavbarOld";
-import { ContentView } from "./catergories/ContentView";
+// import { ContentView } from "./catergories/ContentView";
 import { useHorizontalScroll } from "../common/useHorizontalScroll";
 // import { Loader } from "./Loading";
-import { HorizontalNav } from "./nav/HorizontalNav";
+// import { HorizontalNav } from "./nav/HorizontalNav";
 
 // const LazyHomepage = lazy(() => import("./HomePage"));
+const LazyContentView = lazy(() => import("./catergories/ContentView"));
 
 function Scene({ isLanding }) {
   const [position, setPosition] = useState({ x: -9.5, y: 30, z: 278 });
@@ -83,7 +84,10 @@ function Scene({ isLanding }) {
       />
       {selectedCategory ||
         (selectedCategory == 0 && (
-          <ContentView scrollRef={scrollRef} videoIds={videoIds} />
+          // <ContentView scrollRef={scrollRef} videoIds={videoIds} />
+          <Suspense fallback={<div>Loading...</div>}>
+            <LazyContentView scrollRef={scrollRef} videoIds={videoIds} />
+          </Suspense>
         ))}
       {/* {isLanding ? null : <HorizontalNav />} */}
     </>

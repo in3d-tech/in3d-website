@@ -56,13 +56,17 @@ function App() {
   const [animate, setAnimate] = useState(false);
   const [test, setTest] = useState(false);
 
+  // setTimeout(() => {
+  //   setTest(false)
+  // }, 20000)
+
   return (
     <>
-      <ChangeLanguage
+      {/* <ChangeLanguage
         setCurrentLanguage={setCurrentLanguage}
         changeLanguage={changeLanguage}
         currentLanguage={currentLanguage}
-      />
+      /> */}
       {test ? (
         <div className="haha"></div>
       ) : (

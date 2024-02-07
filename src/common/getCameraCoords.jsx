@@ -4,9 +4,9 @@ export function getCameraCoords({ setPosition, setTarget, idx = 0 }) {
   let target = { x: 0, y: 0, z: 0 };
   if (idx === 0) {
     // ai
-    position = { x: -120, y: -10, z: 190 };
+    position = { x: -88, y: 0, z: 200 };
     // position: [-110, -35, 125]
-    target = { x: 0, y: 0, z: 60 };
+    target = { x: 0, y: 0, z: 0 };
   } else if (idx === 1) {
     // security
     position = { x: 5, y: 5, z: 205 };

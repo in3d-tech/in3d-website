@@ -11,10 +11,59 @@ const videoz = [
   "mAEM5q5YFtg",
 ];
 
-export function ContentView({ scrollRef, videoIds }) {
+const Text = () => {
+  const letters = [
+    "A",
+    "R",
+    "T",
+    "I",
+    "F",
+    "I",
+    "C",
+    "I",
+    "A",
+    "L",
+    " ",
+    "I",
+    "N",
+    "T",
+    "E",
+    "L",
+    "L",
+    "I",
+    "G",
+    "E",
+    "N",
+    "C",
+    "E",
+  ];
+
+  return (
+    <>
+      <div className="overlay-test"></div>
+
+      <div className="text-test">
+        {letters.map((letter, index) => (
+          <div className="wrapper-test" key={index}>
+            <div className="letter">{letter}</div>
+            <div className="shadow">{letter}</div>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+};
+
+function ContentView({ scrollRef, videoIds }) {
   // return null;
   const [videos, setVideos] = useState([...videoz]);
+  const [selectedTopic, setSelectedTopic] = useState("");
   const graphicSlides = [1, 2];
+  const [isButtonClicked, setButtonClicked] = useState(false);
+
+  const handleClick = () => {
+    setButtonClicked((prevState) => !prevState);
+  };
 
   useEffect(() => {
     if (!videos.length) {
@@ -64,19 +113,63 @@ export function ContentView({ scrollRef, videoIds }) {
         zIndex: 2,
       }}
     >
+      {/* <div
+        style={{
+          width: "50%",
+          height: "5em",
+          position: "absolute",
+          left: 0,
+          right: 0,
+          marginLeft: "auto",
+          marginRight: "auto",
+          background: "white",
+          opacity: "0.8",
+        }}
+      > */}
+      {/* Artifical Intelligence */}
+      <Text />
+      {/* </div> */}
       <div
-        className="content-left"
+        // className="content-left"
+        onClick={handleClick}
+        className={`content-left ${isButtonClicked ? "button-clicked" : ""}`}
         style={{
           // background: "rgb(0, 0, 0, 0.8)",
           flex: 1,
           opacity: 1,
+          display: "flex",
+          flexDirection: "column",
         }}
       >
-        <div
-          style={{ border: "1px solid yellow", width: "100%", height: "60%" }}
-        ></div>
-        {/* <AnimatedText />
-        <AnimatedText /> */}
+        <div className="selected-content-option-container">
+          <div
+            onClick={() => setSelectedTopic(true)}
+            className="selected-content-option"
+          >
+            Chat with ChatGPT
+          </div>
+          <div
+            onClick={() => setSelectedTopic(true)}
+            className="selected-content-option"
+          >
+            Adapting to the new AI world
+          </div>
+          {isButtonClicked ? <AnimatedText /> : null}
+        </div>
+
+        {/* animated text placed under here --------> */}
+
+        {/* <div
+          style={{
+            width: "100%",
+            height: "60%",
+            border: "1px solid pink",
+            // background: "white",
+            // opacity: 0.6,
+          }}
+        >
+          {selectedTopic ? <AnimatedText /> : null}
+        </div> */}
       </div>
       <div style={{ flex: 1 }}></div>
       <div
@@ -85,22 +178,27 @@ export function ContentView({ scrollRef, videoIds }) {
           flex: 1,
         }}
       >
+        {/* <div className="selected-content-option-container">
+          <div
+            onClick={() => setSelectedTopic(true)}
+            className="selected-content-option"
+          >
+            Chat with ChatGPT
+          </div>
+          <div
+            onClick={() => setSelectedTopic(true)}
+            className="selected-content-option"
+          >
+            Adapting to the new AI world
+          </div>
+        </div> */}
         <div
           style={{
-            border: "1px solid rgb(255,255,255, 0.4)",
-            borderRadius: "5px",
-            height: "50%",
             width: "100%",
-          }}
-        >
-          <AnimatedText />
-        </div>
-        <div
-          style={{
-            width: "100%",
-            height: "50%",
+            height: "40%",
             display: "flex",
             flexWrap: "wrap",
+            border: "1px solid rgb(255,255,255, 0.4)",
           }}
         >
           {contentPlaceholder}
@@ -130,7 +228,7 @@ const AnimatedText = () => {
           className="selected-content-span"
           key={"word" + index}
           style={{
-            animationDelay: `${(index + 23) * 0.1}s`,
+            animationDelay: `${(index + 23) * 0.04}s`,
             fontSize: "2em",
             marginInlineStart: "2.9em",
           }}
@@ -208,3 +306,5 @@ const BottomSelection = ({ slide, idx, vidIds, setVideos, onReadyFunct }) => {
     </div>
   );
 };
+
+export default ContentView;
