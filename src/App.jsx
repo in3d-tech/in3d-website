@@ -67,14 +67,16 @@ function App() {
         changeLanguage={changeLanguage}
         currentLanguage={currentLanguage}
       /> */}
-      {test ? (
+      {/* {test ? (
         <div className="haha"></div>
       ) : (
         <>
           <div className="bg-top-static"></div>
           <div className="background-top"></div>
         </>
-      )}
+      )} */}
+      {/* <div className="haha"></d
+      iv> */}
       {isLanding ? (
         <LandingComponent
           onEnter={() => setIsLanding(false)}

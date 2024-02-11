@@ -46,6 +46,19 @@ export const customizeModel = (fbx, textures, idx) => {
   });
 };
 
+export const platformModel = (fbx, textures) => {
+  fbx.traverse((child) => {
+    if (child.isMesh) {
+      child.material.map = textures[1]; // AlbedoTransparency
+      child.material.emissiveMap = textures[2];
+      child.material.metalnessMap = textures[4];
+      child.material.emissiveIntensity = 1;
+      child.material.normalMap = textures[5];
+      child.material.aoMap = textures[0];
+    }
+  });
+};
+
 export const soldierModel = (fbx, textures, idx) => {
   // return;
   fbx.traverse((child) => {

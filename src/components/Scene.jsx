@@ -5,6 +5,7 @@ import { HomePage } from "./HomePage";
 import { Navbar } from "./NavbarOld";
 // import { ContentView } from "./catergories/ContentView";
 import { useHorizontalScroll } from "../common/useHorizontalScroll";
+// import AssetLoader from "./ornaments/AssetLoader";
 // import { Loader } from "./Loading";
 // import { HorizontalNav } from "./nav/HorizontalNav";
 
@@ -12,11 +13,15 @@ import { useHorizontalScroll } from "../common/useHorizontalScroll";
 const LazyContentView = lazy(() => import("./catergories/ContentView"));
 
 function Scene({ isLanding }) {
-  const [position, setPosition] = useState({ x: -9.5, y: 30, z: 278 });
+  const [position, setPosition] = useState({ x: 0, y: 30, z: 278 }); // y: 80, z: 150 });
   const [target, setTarget] = useState({ x: 0, y: 0, z: 0 });
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [animation, setAnimation] = useState("static");
 
   // const tankModel = useGLTF("/assets/new-tank/tanky future new.gltf");
+
+  setTimeout(() => setAnimation("animate"), 10000);
+
   const scrollRef = useHorizontalScroll();
   const { progress } = useProgress();
 
@@ -30,6 +35,7 @@ function Scene({ isLanding }) {
 
   return (
     <>
+      {/* <AssetLoader /> */}
       {/* <div
         style={{
           position: "absolute",
@@ -61,6 +67,14 @@ function Scene({ isLanding }) {
           </div>
         ) : null}
       </div> */}
+      {/* {animation == "static" ? (
+        <> */}
+      {/* <div className={`static-sky`}></div>
+      <div className={`static-water`}></div> */}
+      {/* </> */}
+      {/* ) : null} */}
+      {/* <div className={`animated-sky ${animation}`}></div>
+      <div className={`animated-water ${animation}`}></div> */}
       <Canvas frameloop="demand">
         <Stats />
         <Suspense fallback={progress < 100 ? <>Loading scene...</> : null}>

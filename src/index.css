@@ -387,12 +387,11 @@ h1 {
   left: 0;
   height: 100vh;
   width: 100vw;
-
-  background: url("/assets/background/water_webp/water_00001_00001.webp") center
+  /* background: url("/assets/background/water_webp/water_00001_00001.webp") center
     center no-repeat;
 
   background-size: cover;
-  animation: bottom-sequence 20s infinite;
+  animation: bottom-sequence 20s infinite; */
 }
 
 .haha {
@@ -406,6 +405,91 @@ h1 {
     url("/assets/background/water_webp/water_00001_00001.webp");
   background-position: center top, center center, center bottom;
   background-size: cover;
+}
+
+.haha:after {
+  /* Position the :after pseudo-element to cover the bottom third */
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/assets/background/planet_final/planete_00001.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.static-sky {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background-image: url("/assets/background/bg_sky.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  /* animation: top-sequence 20s 15s infinite; */
+  /* z-index: 12; */
+}
+
+.static-water {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* background: url("/assets/background/water_webp/water_00001_00001.webp") center */
+  /* center no-repeat; */
+  background: url("/landing_screen_bg.jpg") center center no-repeat;
+  background-size: cover;
+  /* z-index: 3333321; */
+}
+
+.animated-sky {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background-image: url("/assets/background/bg_sky.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  /* animation: top-sequence 20s 15s infinite; */
+  /* z-index: 1; */
+}
+
+.animated-sky::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background-image: url("/assets/background/planet_final/planete_00001.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  animation: top-sequence 20s 15s infinite;
+  /* z-index: 1; */
+}
+
+.animated-water {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("/assets/background/water_webp/water_00001_00001.webp") center
+    center no-repeat;
+
+  background-size: cover;
+  animation: bottom-sequence 20s infinite;
+  /* z-index: 6; */
 }
 
 .background-top {
@@ -1199,16 +1283,10 @@ h1 {
   left: 0;
   width: 100%;
   height: 100%;
-  /* height: 33.33%; */
-  /* Set initial background image for the bottom third */
+
   background-image: url("/assets/background/city.png");
-  /* Ensure background image covers the entire pseudo-element */
   background-size: cover;
-  /* Ensure background image is not repeated */
   background-repeat: no-repeat;
-  /* Set animation to loop through the sequence */
-  /* animation: bottom-sequence 4s infinite; */
-  /* z-index: 500000000; */
 }
 
 @keyframes bottom-sequence {

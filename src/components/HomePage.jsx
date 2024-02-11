@@ -13,6 +13,7 @@ import {
   ai,
   hexagons,
   logo,
+  platformModel,
 } from "./catergories/models/modelContent";
 import { getCameraCoords } from "../common/getCameraCoords";
 
@@ -57,17 +58,35 @@ const MODELS_DATA = [
     rotation: [-0.07, 0, 0],
     // rotation: [-0.05, 0, 0], // distance
   },
+  // {
+  //   modelPath: "/assets/Hexagon Tile (1).fbx",
+  //   // position: [-90, -35, 150],
+  //   position: [-90, -35, 150],
+  //   rotation: [Math.PI * 1.59, Math.PI / 1.97, 1],
+  //   // rotation: [Math.PI * 1.6, Math.PI / 1.87, 1],//distance
+
+  //   // position: [-110, -35, 125],
+
+  //   scale: [50, 50, 50],
+  //   // scale: [0.2, 0.2, 0.2],
+  // },
   {
-    modelPath: "/assets/Hexagon Tile (1).fbx",
-    // position: [-90, -35, 150],
-    position: [-90, -35, 150],
-    rotation: [Math.PI * 1.59, Math.PI / 1.97, 1],
-    // rotation: [Math.PI * 1.6, Math.PI / 1.87, 1],//distance
+    modelPath: "/assets/in3d-platform/source/concept_hadash+tex.fbx",
 
-    // position: [-110, -35, 125],
+    rotation: [-0.26, 0, 0],
+    processModel: platformModel,
+    position: [0, -110, -32],
 
-    scale: [50, 50, 50],
-    // scale: [0.2, 0.2, 0.2],
+    scale: [0.9, 0.9, 0.9],
+    textures: [
+      "/assets/in3d-platform/textures/concept_hadash_platforma_AO.jpg",
+      "/assets/in3d-platform/textures/concept_hadash_platforma_BaseColor.jpeg",
+      "/assets/in3d-platform/textures/concept_hadash_platforma_Emissive.jpeg",
+      "/assets/in3d-platform/textures/concept_hadash_platforma_Height.jpeg",
+      "/assets/in3d-platform/textures/concept_hadash_platforma_Metallic.jpeg",
+      "/assets/in3d-platform/textures/concept_hadash_platforma_Normal.jpg",
+      "/assets/in3d-platform/textures/concept_hadash_platforma_Roughness.jpeg",
+    ],
   },
   {
     modelPath: "/assets/medical-model-new/Medical_Statue.fbx",
@@ -207,7 +226,7 @@ function ModelComponent({
       position={position}
       scale={scale}
       rotation={rotation}
-      visible={idx == 0 || idx == 1 ? true : false}
+      visible={idx == 0 ? true : false}
     />
   ) : null;
 }
@@ -254,7 +273,7 @@ export function HomePage({
           />
         ))}
       </group>
-      {selectedCategory ? (
+      {/* {selectedCategory ? (
         <Float
           floatIntensity={10}
           rotationIntensity={2}
@@ -275,7 +294,7 @@ export function HomePage({
             />
           </Html>
         </Float>
-      ) : null}
+      ) : null} */}
       {/* <Float
         floatIntensity={10}
         // rotationIntensity={1}
@@ -335,7 +354,7 @@ export function HomePage({
             }}
           />
         </Html>
-      </Float> */}
+          </Float> */}
     </>
   );
 }
