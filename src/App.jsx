@@ -4,6 +4,7 @@ import { LandingComponent } from "./components/landingScreen/LandingScreen";
 import AppContext from "./context/context";
 import { useTranslation } from "react-i18next";
 import { ChangeLanguage } from "./components/ChangeLanguage";
+import { useGLTF } from "@react-three/drei";
 // import Scene from "./components/Scene";
 
 const LazyScene = lazy(() => import("./components/Scene"));
@@ -103,3 +104,5 @@ function App() {
 }
 
 export default App;
+
+useGLTF.preload("/assets/medical_glb_new/medical_statue_large.glb");
