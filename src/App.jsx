@@ -107,3 +107,6 @@ export default App;
 
 useGLTF.preload("/assets/medicine/medical_statue_large.glb");
 useGLTF.preload("/assets/platform/concept_hadashtex (1).glb");
+useGLTF.preload("/assets/taasia/engener (1).glb");
+useGLTF.preload("/assets/ai/ai_statue (1).glb");
+useGLTF.preload("/assets/miscrosoft/microsoft_large.glb");

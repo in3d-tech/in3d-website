@@ -30,6 +30,26 @@ const CameraControls = ({ position, target, idx }) => {
   // Determines camera up Axis
   camera.up = new Vector3(0, 1, 0);
   function cameraAnimate() {
+    // gsap.timeline().to(camera.position, {
+    //   duration: 2.5,
+    //   repeat: 0,
+    //   x: position.x,
+    //   y: position.y,
+    //   z: position.z,
+    //   ease: "power3.inOut",
+    // });
+    // gsap.timeline().to(
+    //   ref.current.target,
+    //   {
+    //     duration: 2.5,
+    //     repeat: 0,
+    //     x: target.x,
+    //     y: target.y,
+    //     z: target.z,
+    //     ease: "power3.inOut",
+    //   },
+    //   "<"
+    // );
     gsap.timeline().to(camera.position, {
       duration: 2.5,
       repeat: 0,
@@ -38,18 +58,19 @@ const CameraControls = ({ position, target, idx }) => {
       z: position.z,
       ease: "power3.inOut",
     });
-    gsap.timeline().to(
-      ref.current.target,
-      {
-        duration: 2.5,
-        repeat: 0,
-        x: target.x,
-        y: target.y,
-        z: target.z,
-        ease: "power3.inOut",
+
+    // Update the OrbitControls target position
+    gsap.timeline().to(ref.current.target, {
+      duration: 2.5,
+      repeat: 0,
+      x: target.x,
+      y: target.y,
+      z: target.z,
+      ease: "power3.inOut",
+      onUpdate: () => {
+        ref.current.update();
       },
-      "<"
-    );
+    });
   }
   useEffect(() => {
     cameraAnimate();
@@ -63,12 +84,12 @@ const CameraControls = ({ position, target, idx }) => {
         args={[camera, domElement]}
         panSpeed={1}
         maxPolarAngle={Math.PI / 2}
-        enabled={false}
+        // enabled={false}
         // enablePan={false} // Disable panning
         // enableRotate={false} // Disable rotatinge
         // enableZoom={false} // Disable zooming
       />
-      {idx == 1 && <DirectionalLightWithHelper />}
+      {/* {idx == 1 && <DirectionalLightWithHelper />} */}
     </>
   );
 };

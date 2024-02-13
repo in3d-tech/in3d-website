@@ -37,6 +37,7 @@ function GLTFModelComponent({
   setTarget,
   setSelectedCategory,
 }) {
+  // if (idx == 1 || idx == 2) return;
   const group = useRef();
   const { scene, animations } = useGLTF(modelPath);
   const mixer = useGLTFAnimations(scene, animations);
@@ -53,21 +54,15 @@ function GLTFModelComponent({
         e.stopPropagation();
         if (e.object?.parent?.position) {
           GLTFModelData.map((model) => {
-            if (model.position == position && idx != 1) {
-              console.log(position, idx, "SOME DATA", model.position);
+            console.log(position, idx, "SOME DATA", model.position);
+
+            if (model.position == position && idx != 0) {
               getCameraCoords({ setPosition, setTarget, idx });
             }
           });
         }
         // setSelectedCategory(idx);
       }}
-      // onClick={(e) => {
-      //   e.stopPropagation();
-      //   if (group.current?.position) {
-      //     // Handle your click logic here
-      //   }
-      //   setSelectedCategory(idx);
-      // }}
     />
   );
 }
@@ -140,19 +135,38 @@ function useGLTFAnimations(scene, animations) {
 
 const GLTFModelData = [
   {
+    path: "/assets/platform/concept_hadashtex (1).glb",
+    scale: [78, 78, 78],
+    rotation: [-0.38, 0, 0],
+    position: [0, -40, 157],
+  },
+  {
     path: "/assets/medicine/medical_statue_large.glb",
     // scale: [40, 40, 40],
     // rotation: [-0.1, 0, 0],
     // position: [60, -65, 110],
-    scale: [11, 11, 11],
-    rotation: [-0.25, 0, 0],
-    position: [17.1, -3, 221.2],
+    scale: [9, 9, 9],
+    // rotation: [-0.2, 0, 0],
+    position: [14, -3, 231.3],
+  },
+
+  {
+    path: "/assets/taasia/engener (1).glb",
+    scale: [9, 9, 9],
+    // rotation: [-0.2, 0, 0],
+    position: [33, -15, 210],
   },
   {
-    path: "/assets/platform/concept_hadashtex (1).glb",
-    scale: [70, 70, 70],
-    rotation: [-0.3, 0, 0],
-    position: [0, -25, 160],
+    path: "/assets/ai/ai_statue (1).glb",
+    scale: [9, 9, 9],
+    // rotation: [-0.2, 0, 0],
+    position: [-33, -15, 210],
+  },
+  {
+    path: "/assets/miscrosoft/microsoft_large.glb",
+    scale: [9, 9, 9],
+    // rotation: [-0.2, 0, 0],
+    position: [-33, -15, 160],
   },
 ];
 
@@ -166,7 +180,7 @@ export function HomePage({
 }) {
   return (
     <>
-      <Lights />
+      {/* <Lights /> */}
       <CameraControls
         position={position}
         target={target}
