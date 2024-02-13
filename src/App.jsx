@@ -105,4 +105,5 @@ function App() {
 
 export default App;
 
-useGLTF.preload("/assets/medical_glb_new/medical_statue_large.glb");
+useGLTF.preload("/assets/medicine/medical_statue_large.glb");
+useGLTF.preload("/assets/platform/concept_hadashtex (1).glb");

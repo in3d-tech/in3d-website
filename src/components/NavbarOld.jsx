@@ -70,7 +70,7 @@ export function Navbar({
                 }}
                 onClick={() => {
                   setSelectedCategory(null);
-                  getCameraCoords({ idx: 5, setTarget, setPosition });
+                  getCameraCoords({ setTarget, setPosition, idx: "out" });
                 }}
               >
                 {t("back")}
