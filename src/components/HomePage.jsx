@@ -180,7 +180,7 @@ export function HomePage({
 }) {
   return (
     <>
-      {/* <Lights /> */}
+      <Lights />
       <CameraControls
         position={position}
         target={target}
