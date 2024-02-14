@@ -136,37 +136,35 @@ function useGLTFAnimations(scene, animations) {
 const GLTFModelData = [
   {
     path: "/assets/platform/concept_hadashtex (1).glb",
-    scale: [78, 78, 78],
-    rotation: [-0.38, 0, 0],
-    position: [0, -40, 157],
+    scale: [130, 130, 130],
+    // position: [0, -40, 157],
+    // rotation: [0, 0, 0],
+    position: [0, 0, 150],
   },
   {
     path: "/assets/medicine/medical_statue_large.glb",
-    // scale: [40, 40, 40],
-    // rotation: [-0.1, 0, 0],
-    // position: [60, -65, 110],
-    scale: [9, 9, 9],
+    scale: [22, 22, 22],
     // rotation: [-0.2, 0, 0],
-    position: [14, -3, 231.3],
+    position: [34.5, 1.5, 258],
   },
 
   {
     path: "/assets/taasia/engener (1).glb",
-    scale: [9, 9, 9],
+    scale: [20, 20, 20],
     // rotation: [-0.2, 0, 0],
-    position: [33, -15, 210],
+    position: [102, 2.5, 210],
   },
   {
     path: "/assets/ai/ai_statue (1).glb",
-    scale: [9, 9, 9],
+    scale: [20, 20, 20],
     // rotation: [-0.2, 0, 0],
-    position: [-33, -15, 210],
+    position: [-101, 2.5, 194],
   },
   {
     path: "/assets/miscrosoft/microsoft_large.glb",
-    scale: [9, 9, 9],
+    scale: [15, 15, 15],
     // rotation: [-0.2, 0, 0],
-    position: [-33, -15, 160],
+    position: [-101, 2.5, 90],
   },
 ];
 
@@ -181,13 +179,13 @@ export function HomePage({
   return (
     <>
       <Lights />
-      <CameraControls
+      {/* <CameraControls
         position={position}
         target={target}
         idx={selectedCategory}
-      />
+      /> */}
       {/* <Model url="/assets/platform/concept_hadashtex (1).glb" /> */}
-      <group>
+      <group position={[0, -60, -50]}>
         {GLTFModelData.map((modelData, i) => (
           <GLTFModelComponent
             key={i}

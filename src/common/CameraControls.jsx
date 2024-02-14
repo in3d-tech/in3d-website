@@ -28,7 +28,7 @@ const CameraControls = ({ position, target, idx }) => {
   } = useThree();
   const ref = useRef(null);
   // Determines camera up Axis
-  camera.up = new Vector3(0, 1, 0);
+  // camera.up = new Vector3(0, 1, 0);
   function cameraAnimate() {
     // gsap.timeline().to(camera.position, {
     //   duration: 2.5,

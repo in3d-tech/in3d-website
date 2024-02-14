@@ -29,10 +29,60 @@ export function CountingBox({ onEnter }) {
 
   if (!visible) return null;
 
+  const loaderStyles = {
+    position: "relative",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  };
+
+  const containerStyles = {
+    background: "rgba(255, 255, 255, 0)",
+    backdropFilter: "blur(8px)",
+    position: "absolute",
+    width: "140px",
+    height: "55px",
+    zIndex: 20,
+    borderRadius: "0 0 10px 10px",
+    border: "1px solid rgba(255, 255, 255, 0.274)",
+    borderTop: "none",
+    boxShadow: "0 15px 20px rgba(0, 0, 0, 0.082)",
+  };
+
+  const dotStyles = {
+    background: "rgb(228, 228, 228)",
+    borderRadius: "50%",
+    width: "25px",
+    height: "25px",
+    zIndex: -1,
+    animation: "anim 2s infinite linear",
+    transform: "translateY(5px)",
+    margin: "0.2em",
+  };
+
   return (
-    <div onClick={onEnter} className="counting-box">
-      <span className="counting-text">{`${count}%`}</span>
-    </div>
+    <>
+      <div onClick={onEnter} className="counting-box">
+        <span className="counting-text">{`${count}%`}</span>
+      </div>
+      <div
+        style={{
+          zIndex: 50000000,
+          // background: "black",
+          marginTop: "40em",
+        }}
+      >
+        {/* <div style={loaderStyles}>
+          <div style={containerStyles} />
+          {[1, 2, 3, 4].map((index) => (
+            <div
+              key={index}
+              style={{ ...dotStyles, animationDelay: `calc(-0.3s * ${index})` }}
+            />
+          ))}
+        </div> */}
+      </div>
+    </>
   );
 }
 

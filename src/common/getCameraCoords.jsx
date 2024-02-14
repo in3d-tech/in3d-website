@@ -25,6 +25,7 @@ export function getCameraCoords({ setPosition, setTarget, idx }) {
     target = { x: 0, y: 0, z: 0 };
   } else if (idx === "out") {
     position = { x: 0, y: 30, z: 278 };
+    // position = { x: 0, y: 0, z: 50 };
     target = { x: 0, y: 0, z: 0 };
   }
 
