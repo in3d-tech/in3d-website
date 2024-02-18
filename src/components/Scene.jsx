@@ -1,6 +1,12 @@
-import { useState, Suspense, lazy } from "react";
-import { Canvas } from "@react-three/fiber";
-import { AdaptiveDpr, Preload, Stats, useProgress } from "@react-three/drei";
+import { useState, Suspense, lazy, useEffect } from "react";
+import { Canvas, useThree } from "@react-three/fiber";
+import {
+  AdaptiveDpr,
+  OrbitControls,
+  Preload,
+  Stats,
+  useProgress,
+} from "@react-three/drei";
 import { HomePage } from "./HomePage";
 import { Navbar } from "./NavbarOld";
 // import { ContentView } from "./catergories/ContentView";
@@ -9,14 +15,19 @@ import { useHorizontalScroll } from "../common/useHorizontalScroll";
 // import { Loader } from "./Loading";
 // import { HorizontalNav } from "./nav/HorizontalNav";
 import { MathUtils } from "three";
+import { CameraControls } from "../common/CameraControls";
 // const LazyHomepage = lazy(() => import("./HomePage"));
 const LazyContentView = lazy(() => import("./catergories/ContentView"));
 
 function Scene({ isLanding }) {
-  const [position, setPosition] = useState({ x: 0, y: 10, z: 278 }); // y: 80, z: 150 });
-  const [target, setTarget] = useState({ x: 0, y: 0, z: 0 });
+  // let position = { x: 0, y: -0, z: 580 };
+
+  // let target = { x: 0, y: 60, z: 0 };
+  const [position, setPosition] = useState({ x: 0, y: -0, z: 580 }); //{ x: 0, y: 10, z: 278 }); // y: 80, z: 150 });
+  const [target, setTarget] = useState({ x: 0, y: 60, z: 0 });
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [animation, setAnimation] = useState("static");
+  const [showFloat, setShowFloat] = useState(false);
   // position: [0, 10, 278],
   // rotation: [MathUtils.degToRad(-5), 0, 0],
   // const tankModel = useGLTF("/assets/new-tank/tanky future new.gltf");
@@ -33,6 +44,15 @@ function Scene({ isLanding }) {
     "rVzJDgDnKLI",
     "mAEM5q5YFtg",
   ];
+
+  // const { camera } = useThree();
+
+  // useEffect(() => {
+  //   if (!camera) return;
+  //   camera.zoom = 6;
+  //   camera.position = [0, 10, 278];
+  //   camera.rotation = [MathUtils.degToRad(-5), 0, 0];
+  // }, []);
 
   return (
     <>
@@ -76,16 +96,22 @@ function Scene({ isLanding }) {
         </>
       ) : null} */}
       <Canvas
-        orthographic
+        // orthographic
         camera={{
-          zoom: 6,
-          position: [0, 10, 278],
-          rotation: [MathUtils.degToRad(-5), 0, 0],
+          fov: 24,
+          // zoom: 1,
+          // lookAt: [2, 30, 0],
         }}
         frameloop="demand"
       >
-        {/* <Canvas frameloop="demand"> */}
+        {/* <OrbitControls /> */}
+        {/* <Canvas orthographic frameloop="demand"> */}
         <Stats />
+        <CameraControls
+          position={position}
+          target={target}
+          idx={selectedCategory}
+        />
         <Suspense fallback={null}>
           <HomePage
             position={position}
@@ -94,6 +120,7 @@ function Scene({ isLanding }) {
             setSelectedCategory={setSelectedCategory}
             setPosition={setPosition}
             setTarget={setTarget}
+            showFloat={showFloat}
           />
         </Suspense>
         <Preload all />
@@ -109,7 +136,11 @@ function Scene({ isLanding }) {
         (selectedCategory == 0 && (
           // <ContentView scrollRef={scrollRef} videoIds={videoIds} />
           <Suspense fallback={<div>Loading...</div>}>
-            <LazyContentView scrollRef={scrollRef} videoIds={videoIds} />
+            <LazyContentView
+              scrollRef={scrollRef}
+              videoIds={videoIds}
+              setShowFloat={setShowFloat}
+            />
           </Suspense>
         ))}
       {/* {isLanding ? null : <HorizontalNav />} */}

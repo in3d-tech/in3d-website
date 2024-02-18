@@ -20,7 +20,7 @@ export function CountingBox({ onEnter }) {
           return prevCount;
         });
       }, 50); // Adjust this as per your need
-    }, 5500); // This will start counting after 3 seconds
+    }, 500); // This will start counting after 3 seconds
 
     return () => {
       clearTimeout(timeout);
@@ -67,7 +67,7 @@ export function CountingBox({ onEnter }) {
       </div>
       <div
         style={{
-          zIndex: 50000000,
+          zIndex: 50,
           // background: "black",
           marginTop: "40em",
         }}

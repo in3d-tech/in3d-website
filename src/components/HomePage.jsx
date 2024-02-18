@@ -13,17 +13,6 @@ import { Lights } from "./ornaments/Lights";
 import { CameraControls } from "../common/CameraControls";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
-import {
-  customizeModel,
-  medicalModel,
-  soldierModel,
-  microsoftModel,
-  taasia,
-  ai,
-  hexagons,
-  logo,
-  platformModel,
-} from "./catergories/models/modelContent";
 import { getCameraCoords } from "../common/getCameraCoords";
 
 function GLTFModelComponent({
@@ -37,10 +26,19 @@ function GLTFModelComponent({
   setTarget,
   setSelectedCategory,
 }) {
+  const [isVisible, setIsVisible] = useState(true);
   // if (idx == 1 || idx == 2) return;
   const group = useRef();
   const { scene, animations } = useGLTF(modelPath);
   const mixer = useGLTFAnimations(scene, animations);
+
+  // if (idx == 1) {
+  //   model.traverse((o) => {
+  //     if (o.isMesh) {
+  //       o.material.wireframe = false;
+  //     }
+  //   });
+  // }
 
   return (
     <primitive
@@ -50,17 +48,17 @@ function GLTFModelComponent({
       position={position}
       scale={scale}
       rotation={rotation}
+      visible={isVisible}
       onClick={(e) => {
         e.stopPropagation();
         if (e.object?.parent?.position) {
-          GLTFModelData.map((model) => {
-            console.log(position, idx, "SOME DATA", model.position);
-
+          GLTFModelData.map((model, i) => {
             if (model.position == position && idx != 0) {
               getCameraCoords({ setPosition, setTarget, idx });
             }
           });
         }
+        modelData;
         // setSelectedCategory(idx);
       }}
     />
@@ -85,54 +83,6 @@ function useGLTFAnimations(scene, animations) {
   return mixer;
 }
 
-// function ModelComponent({
-//   modelPath,
-//   processModel,
-//   position,
-//   scale,
-//   rotation,
-//   textures,
-//   idx,
-//   setPosition,
-//   setTarget,
-//   setSelectedCategory,
-// }) {
-//   let texturesMap;
-//   if (textures) {
-//     texturesMap = useTexture(textures);
-//   }
-
-//   let fbx = useFBX(modelPath);
-//   if (processModel) fbx = useAnimations(fbx);
-
-//   useEffect(() => {
-//     if (fbx && processModel) {
-//       processModel(fbx, texturesMap, idx);
-//     }
-//   }, [fbx, processModel]);
-
-//   return fbx ? (
-//     <primitive
-//       // onClick={(e) => {
-//       //   e.stopPropagation();
-//       //   if (e.object?.parent?.position) {
-//       //     MODELS_DATA.map((model) => {
-//       //       if (model.position == position && idx != 5) {
-//       //         getCameraCoords({ setPosition, setTarget, idx });
-//       //       }
-//       //     });
-//       //   }
-//       //   setSelectedCategory(idx);
-//       // }}
-//       object={fbx}
-//       position={position}
-//       scale={scale}
-//       rotation={rotation}
-//       // visible={idx == 0 ? true : false}
-//     />
-//   ) : null;
-// }
-
 const GLTFModelData = [
   {
     path: "/assets/platform/concept_hadashtex (1).glb",
@@ -143,28 +93,47 @@ const GLTFModelData = [
   },
   {
     path: "/assets/medicine/medical_statue_large.glb",
-    scale: [22, 22, 22],
+    scale: [25, 25, 25],
     // rotation: [-0.2, 0, 0],
-    position: [34.5, 1.5, 258],
+    position: [39, 1.5, 258],
   },
 
   {
     path: "/assets/taasia/engener (1).glb",
-    scale: [20, 20, 20],
+    scale: [22, 22, 22],
     // rotation: [-0.2, 0, 0],
     position: [102, 2.5, 210],
   },
   {
     path: "/assets/ai/ai_statue (1).glb",
-    scale: [20, 20, 20],
-    // rotation: [-0.2, 0, 0],
-    position: [-101, 2.5, 194],
+    scale: [22, 22, 22],
+    rotation: [0, 0.2, 0],
+    position: [-104, 2.5, 194],
   },
   {
     path: "/assets/miscrosoft/microsoft_large.glb",
-    scale: [15, 15, 15],
+    scale: [16, 16, 16],
     // rotation: [-0.2, 0, 0],
-    position: [-101, 2.5, 90],
+    // position: [-101, 2.5, 90],
+    position: [31, 2.5, 130],
+  },
+  {
+    path: "/assets/military/soldy_large.glb",
+    scale: [30, 30, 30],
+    // rotation: [-0.2, 0, 0],
+    position: [51, 2.5, 80],
+  },
+  {
+    path: "/assets/in3d-customize/customize_large.glb",
+    scale: [22, 22, 22],
+    // rotation: [-0.2, 0, 0],
+    position: [-40, 2.5, 90],
+  },
+  {
+    path: "/assets/military/soldy.glb",
+    scale: [38, 38, 38],
+    // rotation: [-0.2, 0, 0],
+    position: [-67, 2.5, 140],
   },
 ];
 
@@ -175,6 +144,7 @@ export function HomePage({
   setPosition,
   setTarget,
   setSelectedCategory,
+  showFloat,
 }) {
   return (
     <>
@@ -184,8 +154,7 @@ export function HomePage({
         target={target}
         idx={selectedCategory}
       /> */}
-      {/* <Model url="/assets/platform/concept_hadashtex (1).glb" /> */}
-      <group position={[0, -60, -50]}>
+      <group>
         {GLTFModelData.map((modelData, i) => (
           <GLTFModelComponent
             key={i}
@@ -201,30 +170,21 @@ export function HomePage({
         ))}
       </group>
 
-      {/* <MyModel url={"/assets/medical_newest/scene.gltf"} /> */}
-      {/* <group>
-        {MODELS_DATA.map((modelData, i) => (
-          <ModelComponent
-            key={i}
-            modelPath={modelData.modelPath}
-            processModel={modelData.processModel}
-            position={modelData.position}
-            scale={modelData.scale}
-            rotation={modelData.rotation}
-            textures={modelData.textures}
-            idx={i}
-            setPosition={setPosition}
-            setTarget={setTarget}
-            setSelectedCategory={setSelectedCategory}
-          />
-        ))}
-      </group> */}
-      {/* {selectedCategory ? (
+      {showFloat ? (
         <Float
-          floatIntensity={10}
-          rotationIntensity={2}
-          position={[80, 50, -70]}
+          floatIntensity={1}
+          rotationIntensity={1.2}
+          position={[240, 20, -30]}
+          rotation={[0, -0.5, 0]}
         >
+          <mesh position={[0, 0, -40]}>
+            <boxGeometry args={[160, 160, 8]} />
+            <meshStandardMaterial
+              color={"rgb(0, 0, 0)"}
+              opacity={0.2}
+              transparent={true}
+            />
+          </mesh>
           <Html
             style={{ userSelect: "none" }}
             castShadow
@@ -232,86 +192,33 @@ export function HomePage({
             occlude="blending"
             transform
           >
-            <iframe
-              title="embed"
-              width={7000}
-              height={5000}
-              src="https://in3d-tech.com//"
-            />
+            <div
+              className="tesz show"
+              style={{
+                width: "6400px",
+                height: "6000px",
+                background: "rgba(99, 204, 218, 0.6)",
+                fontSize: "100px",
+                opacity: 1,
+              }}
+            >
+              <h1 style={{ color: "rgb(255, 255, 255)" }}>hello world</h1>
+              <AnimatedText />
+            </div>
           </Html>
         </Float>
-      ) : null} */}
-      {/* <Float
-        floatIntensity={10}
-        // rotationIntensity={1}
-        position={[-250, 10, -30]}
-        rotation={null}
-      >
-        <Html
-          style={{ userSelect: "none" }}
-          castShadow
-          receiveShadow
-          occlude="blending"
-          transform
-        >
-          <div
-            style={{
-              color: "black",
-              fontSize: "800px",
-              height: "500px",
-              position: "relative",
-              top: "500px",
-              left: "100px",
-              fontFamily: "Gotham",
-            }}
-          >
-            Chat with ChatGPT
-          </div>
-          <iframe
-            title="embed"
-            width={8000}
-            height={6000}
-            src="https://in3d-tech.com//"
-            style={{ background: "white", opacity: 0.6 }}
-          />
-        </Html>
-      </Float> */}
-      {/* <Float
-        floatIntensity={10}
-        rotationIntensity={2}
-        position={[-250, 10, -30]}
-        // rotation={null}
-      >
-        <Html
-          style={{ userSelect: "none" }}
-          castShadow
-          receiveShadow
-          occlude="blending"
-          transform
-        >
-          <iframe
-            title="embed"
-            width={8000}
-            height={6000}
-            style={{
-              backgroundImage: "linear-gradient(145deg, #145da0, #941dc8)",
-              opacity: 0.6,
-              backgroundSize: "cover",
-            }}
-          />
-        </Html>
-          </Float> */}
+      ) : null}
     </>
   );
 }
 
 const AnimatedText = () => {
   const text1 = "Artificial Intelligence something";
-  const text2 = "some points";
-  const text3 = "more basic information dsfsdf";
-  const text4 = "Specialties fdsdfsd";
-  const text5 = "This is a sentence about something cool";
-  const text6 = "She sells sea shells by the sea shore";
+  const text2 = "- some points";
+  const text3 = "- more basic information dsfsdf";
+  const text4 = "- Specialties fdsdfsd";
+  const text5 = "- This is a sentence about something cool";
+  // const text6 = "She sells sea shells by the sea shore";
   const [animationStarted, setAnimationStarted] = useState(false);
 
   useEffect(() => {
@@ -326,8 +233,8 @@ const AnimatedText = () => {
           key={"word" + index}
           style={{
             animationDelay: `${(index + 23) * 0.04}s`,
-            fontSize: "2em",
-            marginInlineStart: "2.9em",
+            fontSize: "1.5em",
+            // marginInlineStart: "2.9em",
           }}
         >
           {word}
@@ -349,7 +256,7 @@ const AnimatedText = () => {
       <br />
       {splitText(text5)}
       <br />
-      {splitText(text6)}
+      {/* {splitText(text6)} */}
     </div>
   );
 };

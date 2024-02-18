@@ -54,7 +54,7 @@ const Text = () => {
   );
 };
 
-function ContentView({ scrollRef, videoIds }) {
+function ContentView({ scrollRef, videoIds, setShowFloat }) {
   // return null;
   const [videos, setVideos] = useState([...videoz]);
   const [selectedTopic, setSelectedTopic] = useState("");
@@ -131,7 +131,7 @@ function ContentView({ scrollRef, videoIds }) {
       {/* </div> */}
       <div
         // className="content-left"
-        onClick={handleClick}
+        // onClick={handleClick}
         className={`content-left ${isButtonClicked ? "button-clicked" : ""}`}
         style={{
           // background: "rgb(0, 0, 0, 0.8)",
@@ -143,20 +143,38 @@ function ContentView({ scrollRef, videoIds }) {
       >
         <div className="selected-content-option-container">
           <div
-            onClick={() => setSelectedTopic(true)}
+            // onClick={() => setSelectedTopic(true)}
+            onClick={() => setShowFloat(true)}
             className="selected-content-option"
           >
             Chat with ChatGPT
           </div>
           <div
-            onClick={() => setSelectedTopic(true)}
+            // onClick={() => setSelectedTopic(true)}
             className="selected-content-option"
           >
             Adapting to the new AI world
           </div>
+          <div
+            // onClick={() => setSelectedTopic(true)}
+            className="selected-content-option"
+          >
+            Another topic
+          </div>
           {isButtonClicked ? <AnimatedText /> : null}
         </div>
-
+        <div
+          style={{
+            width: "100%",
+            marginTop: "22%",
+            height: "40%",
+            display: "flex",
+            flexWrap: "wrap",
+            // border: "1px solid rgb(255,255,255, 0.4)",
+          }}
+        >
+          {contentPlaceholder}
+        </div>
         {/* animated text placed under here --------> */}
 
         {/* <div
@@ -198,10 +216,10 @@ function ContentView({ scrollRef, videoIds }) {
             height: "40%",
             display: "flex",
             flexWrap: "wrap",
-            border: "1px solid rgb(255,255,255, 0.4)",
+            // border: "1px solid rgb(255,255,255, 0.4)",
           }}
         >
-          {contentPlaceholder}
+          {/* {contentPlaceholder} */}
         </div>
       </div>
     </div>
@@ -263,7 +281,7 @@ const BottomSelection = ({ slide, idx, vidIds, setVideos, onReadyFunct }) => {
   const [hovered, setHovered] = useState(false);
 
   const opts2 = {
-    height: "100%",
+    height: "74px",
     width: "100%",
     borderRadius: "5px",
     playerVars: {
