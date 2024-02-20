@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import YouTube from "react-youtube";
+import { getLettersByModel } from "../../common/getModelByIndex";
 // import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 // import ReactPlayer from "react-player/youtube";
 
@@ -11,32 +12,22 @@ const videoz = [
   "mAEM5q5YFtg",
 ];
 
-const Text = () => {
-  const letters = [
-    "A",
-    "R",
-    "T",
-    "I",
-    "F",
-    "I",
-    "C",
-    "I",
-    "A",
-    "L",
-    " ",
-    "I",
-    "N",
-    "T",
-    "E",
-    "L",
-    "L",
-    "I",
-    "G",
-    "E",
-    "N",
-    "C",
-    "E",
-  ];
+const Text = ({ selectedCategory }) => {
+  // console.log({ selectedModel });
+  const letters = getLettersByModel(selectedCategory);
+
+  if (!letters) return null;
+  //       color: #af3737; medicine red?
+
+  const shadowColor = {
+    1: { color: "#af3737" },
+    2: { color: "#999" },
+    3: { color: "#999" },
+    4: { color: "#999" },
+    5: { color: "#999" },
+    6: { color: "#999" },
+    7: { color: "#999" },
+  };
 
   return (
     <>
@@ -46,7 +37,9 @@ const Text = () => {
         {letters.map((letter, index) => (
           <div className="wrapper-test" key={index}>
             <div className="letter">{letter}</div>
-            <div className="shadow">{letter}</div>
+            <div className="shadow" style={shadowColor[selectedCategory]}>
+              {letter}
+            </div>
           </div>
         ))}
       </div>
@@ -54,7 +47,7 @@ const Text = () => {
   );
 };
 
-function ContentView({ scrollRef, videoIds, setShowFloat }) {
+function ContentView({ videoIds, setShowFloat, selectedCategory }) {
   // return null;
   const [videos, setVideos] = useState([...videoz]);
   const [selectedTopic, setSelectedTopic] = useState("");
@@ -113,22 +106,7 @@ function ContentView({ scrollRef, videoIds, setShowFloat }) {
         zIndex: 2,
       }}
     >
-      {/* <div
-        style={{
-          width: "50%",
-          height: "5em",
-          position: "absolute",
-          left: 0,
-          right: 0,
-          marginLeft: "auto",
-          marginRight: "auto",
-          background: "white",
-          opacity: "0.8",
-        }}
-      > */}
-      {/* Artifical Intelligence */}
-      <Text />
-      {/* </div> */}
+      <Text selectedCategory={selectedCategory} />
       <div
         // className="content-left"
         // onClick={handleClick}
@@ -139,9 +117,11 @@ function ContentView({ scrollRef, videoIds, setShowFloat }) {
           opacity: 1,
           display: "flex",
           flexDirection: "column",
+          justifyContent: "space-between",
         }}
       >
-        <div className="selected-content-option-container">
+        <div></div>
+        {/* <div className="selected-content-option-container">
           <div
             // onClick={() => setSelectedTopic(true)}
             onClick={() => setShowFloat(true)}
@@ -162,32 +142,10 @@ function ContentView({ scrollRef, videoIds, setShowFloat }) {
             Another topic
           </div>
           {isButtonClicked ? <AnimatedText /> : null}
-        </div>
-        <div
-          style={{
-            width: "100%",
-            marginTop: "22%",
-            height: "40%",
-            display: "flex",
-            flexWrap: "wrap",
-            // border: "1px solid rgb(255,255,255, 0.4)",
-          }}
-        >
-          {contentPlaceholder}
-        </div>
-        {/* animated text placed under here --------> */}
-
-        {/* <div
-          style={{
-            width: "100%",
-            height: "60%",
-            border: "1px solid pink",
-            // background: "white",
-            // opacity: 0.6,
-          }}
-        >
-          {selectedTopic ? <AnimatedText /> : null}
         </div> */}
+        <div className="content-placeholder-container">
+          {/* {contentPlaceholder} */}
+        </div>
       </div>
       <div style={{ flex: 1 }}></div>
       <div
@@ -195,33 +153,7 @@ function ContentView({ scrollRef, videoIds, setShowFloat }) {
         style={{
           flex: 1,
         }}
-      >
-        {/* <div className="selected-content-option-container">
-          <div
-            onClick={() => setSelectedTopic(true)}
-            className="selected-content-option"
-          >
-            Chat with ChatGPT
-          </div>
-          <div
-            onClick={() => setSelectedTopic(true)}
-            className="selected-content-option"
-          >
-            Adapting to the new AI world
-          </div>
-        </div> */}
-        <div
-          style={{
-            width: "100%",
-            height: "40%",
-            display: "flex",
-            flexWrap: "wrap",
-            // border: "1px solid rgb(255,255,255, 0.4)",
-          }}
-        >
-          {/* {contentPlaceholder} */}
-        </div>
-      </div>
+      ></div>
     </div>
   );
 }

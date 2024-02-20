@@ -1,5 +1,5 @@
 export function getCameraCoords({ setPosition, setTarget, idx }) {
-  console.log(idx);
+  console.log("model clicked by index: ", idx);
   // let position = { x: 24.6, y: 25.4, z: -222 };
   let position = { x: 0, y: 10, z: 278 };
   let target = { x: 0, y: -8, z: 0 };
@@ -7,27 +7,29 @@ export function getCameraCoords({ setPosition, setTarget, idx }) {
     // platform
     return;
   } else if (idx === 1) {
-    console.log("yee 1");
     // medicine
-    position = { x: 0, y: 16, z: 240 };
-    target = { x: 0, y: 0, z: 0 };
+    position = { x: -180, y: 20, z: 60 };
+    target = { x: 60, y: 30, z: 70 };
   } else if (idx === 2) {
-    console.log("yee 2");
-
     // taasia
-    position = { x: 180, y: 10, z: 350 };
+    position = { x: 190, y: 10, z: 370 };
     target = { x: -20, y: 30, z: 0 };
   } else if (idx === 3) {
     // ai
-    position = { x: -193, y: -0, z: 340 };
+    position = { x: -140, y: 38, z: 370 };
 
-    target = { x: 40, y: 30, z: 0 };
+    target = { x: -60, y: 35, z: 0 };
   } else if (idx === 4) {
-    position = { x: 5, y: 5, z: 205 };
-    target = { x: 210, y: 0, z: 0 };
+    // microsoft
+    position = { x: 0, y: 20, z: 440 };
+    target = { x: 0, y: 30, z: 0 };
   } else if (idx === 5) {
-    position = { x: -9.5, y: 30, z: 278 };
-    target = { x: 0, y: 0, z: 0 };
+    // military
+    position = { x: 120, y: 20, z: 280 };
+    target = { x: -60, y: 30, z: 20 };
+  } else if (idx === 6) {
+    position = { x: -100, y: 20, z: 300 };
+    target = { x: 10, y: 30, z: 60 };
   } else if (idx === "out") {
     position = { x: 0, y: -0, z: 580 };
 

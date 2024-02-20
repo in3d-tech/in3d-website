@@ -10,6 +10,11 @@
   src: url("../src/fonts/GothamBold.otf");
 }
 
+@font-face {
+  font-family: taasia;
+  src: url("../src/fonts/Cartesian-0W5Oo.otf");
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -217,29 +222,6 @@ h1 {
   transform-style: preserve-3d;
 }
 
-.grid-container {
-  display: flex;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  padding: 0.5em;
-  /* height: 28%; */
-  gap: 0.8em;
-  align-items: center;
-  justify-content: center;
-  /* box-shadow: 1px 0px 20px 6px rgba(151, 27, 27, 0.75);
-  -webkit-box-shadow: 1px 0px 20px 6px rgba(151, 27, 27, 0.75);
-  -moz-box-shadow: 1px 0px 20px 6px rgba(151, 27, 27, 0.75); */
-}
-
-.grid-container::-webkit-scrollbar {
-  height: 0.5em; /* Set the width of the scrollbar */
-}
-
-.grid-container::-webkit-scrollbar-thumb {
-  background-color: #888; /* Color of the scrollbar thumb */
-  border-radius: 0.25em; /* Rounded corners for the thumb */
-}
-
 .cardz {
   flex-shrink: 0;
   width: 40%;
@@ -249,8 +231,9 @@ h1 {
   background-repeat: no-repeat;
   background-position: center center;
   background: rgba(255, 255, 255, 0.1);
-  margin-left: 5%;
-  margin-top: 15px;
+  /* margin-left: 5%; */
+  /* margin-top: 15px; */
+  border: 1px solid yellow;
   box-shadow: 0px 0px 7px 6px rgba(0, 0, 0, 0.6);
   -webkit-box-shadow: 0px 0px 7px 6px rgba(0, 0, 0, 0.6);
   -moz-box-shadow: 0px 0px 7px 6px rgba(0, 0, 0, 0.6);
@@ -2927,21 +2910,6 @@ h1 {
   transform: translateY(-50%);
 }
 
-.react-player {
-  flex-shrink: 0;
-  min-width: 100%;
-  /* min-height: 100%; */
-  max-height: 90%;
-}
-
-.react-player-bg {
-  flex-shrink: 0;
-  min-width: 100%;
-  min-height: 100%;
-  max-height: 90%;
-  animation: fadeIn 3s;
-}
-
 /* new landing screen updates: */
 
 .loadingScreen__progress {
@@ -3152,26 +3120,37 @@ h1 {
   /* border: 1px solid rgba(255, 255, 255, 0.4); */
   border-radius: 5px;
   /* margin-left: 3em; */
-  margin-top: 35%;
-  height: 20%;
+  /* margin-top: 35%; */
+  height: 15%;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-evenly;
   /* background: rgba(244, 244, 244, 0.1); */
   z-index: 5;
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.41);
+  border-radius: 16px;
+  box-shadow: 0px 1px 21px 0px rgba(255, 255, 255, 0.25);
+  -webkit-box-shadow: 0px 1px 21px 0px rgba(255, 255, 255, 0.25);
+  -moz-box-shadow: 0px 1px 21px 0px rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(5.4px);
+  -webkit-backdrop-filter: blur(5.4px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .selected-content-option {
   background: rgb(252, 251, 251);
-  margin-top: 0.5em;
+  /* margin-top: 0.5em; */
   opacity: 0.6;
   width: 60%;
   text-align: center;
   border-radius: 50px;
   color: rgb(0, 0, 0);
   font-family: Gotham;
-  height: 2em;
+  height: 24%;
+  /* height: 2em; */
   text-align: center;
   vertical-align: middle;
   line-height: 5em;
@@ -3454,4 +3433,23 @@ url("/assets/background/water_webp/water_00001_00001.webp"); */
   width: 3000px;
   height: 2400px;
   opacity: 1;
+}
+
+.content-placeholder-container {
+  /* From https://css.glass */
+  width: 100%;
+  /* margin-top: 22%; */
+  height: 24%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1em;
+  margin-left: 1em;
+  justify-content: space-evenly; /* or justify-content: space-around; */
+  flex-wrap: wrap;
+  background: rgba(255, 255, 255, 0.41);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5.4px);
+  -webkit-backdrop-filter: blur(5.4px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }

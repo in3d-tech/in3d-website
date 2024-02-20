@@ -22,33 +22,6 @@ const LazyScene = lazy(() => import("./components/Scene"));
 //   );
 // };
 
-// -----------------------------------------------
-
-// MODEL SIZES (all fbx)
-
-// customize -> 25095 KB
-// ai -> 6,750 KB
-// microsoft -> 2,490 KB
-// military -> 2,928 KB
-// taasia -> 32,000 KB
-// Medical -> 4958 KB
-// -----------------------------------------------
-
-// GTLTF MODELS
-// DRACO LOADER
-
-// optimize models
-// optimize textures
-// low level detail models? (texutres?)
-
-// water webp png sequence
-
-// bg_sky
-
-// plant_final png sequence
-
-// city
-
 function App() {
   const {
     i18n: { changeLanguage, language },
@@ -108,8 +81,9 @@ function App() {
 
 export default App;
 
-useGLTF.preload("/assets/medicine/medical_statue_large.glb");
+useGLTF.preload("/assets/medicine/medical_statue_8 (3).glb");
 useGLTF.preload("/assets/platform/concept_hadashtex (1).glb");
 useGLTF.preload("/assets/taasia/engener (1).glb");
-useGLTF.preload("/assets/ai/ai_statue (1).glb");
+useGLTF.preload("/assets/ai/ai_statue.glb");
 useGLTF.preload("/assets/miscrosoft/microsoft_large.glb");
+useGLTF.preload("/assets/military/soldier_statue.glb");

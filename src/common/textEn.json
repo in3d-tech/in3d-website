@@ -11,6 +11,32 @@
     "headerTitle": "My {{appName}} Header Title",
     "enter": "Enter",
     "back": "Zoom out",
-    "backToFullView": "Back to Full View"
+    "backToFullView": "Back to Full View",
+
+    "TAASIA-CATEGORY": "HERE",
+
+    "remoteSupportIntel": "Remote support - INTEL",
+    "remoteTraining": "• Remote trainings",
+    "implementationSupport": "• Implementation support - Cornit Guides",
+    "fortificationPlanningAndSupport": "• Fortification planning and support",
+    "engineeringControl": "• Engineering control - bromine pipeline bridges",
+    "learningPracticeExamination": "• Learning, practice and examination",
+    "simulators": "• Simulators",
+    "environemtn": "• Environment",
+    "maintenanceSupportsExecution": "• Maintenance supports execution",
+    "digitalTwinsSmartWarehous": "• Digital twins - smart warehouse",
+    "safety": "• safety",
+    "logisticsManagment": "• Logistics management",
+
+    "MEDICINE-CATEGORY": "HERE",
+
+    "remoteSupportMedicine": "• Remote support",
+    "tutorials": "• Step by step tutorials - general video (check with Shashi)",
+    "supportForPerformingAnalysis": "• Step by step tutorials - general video (check with Shashi)",
+    "leaningPracticeExamination": "• Learning, practice and examination",
+    "simulatorsMedicine": "• Simulators",
+    "digitalTwinsMedicine": "• Digital twins",
+    "safetyMedicine": "• safety",
+    "aidInSurgeryPrep": "• Aids in preparation for surgery, surgery and patient experience"
   }
 }

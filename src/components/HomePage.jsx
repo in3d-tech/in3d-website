@@ -14,6 +14,13 @@ import { CameraControls } from "../common/CameraControls";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { getCameraCoords } from "../common/getCameraCoords";
+import {
+  Bloom,
+  DepthOfField,
+  EffectComposer,
+  Noise,
+  Vignette,
+} from "@react-three/postprocessing";
 
 function GLTFModelComponent({
   modelPath,
@@ -25,20 +32,101 @@ function GLTFModelComponent({
   setPosition,
   setTarget,
   setSelectedCategory,
+  modelClick,
+  isSelected,
+  selectedCategory,
 }) {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isRotating, setIsRotating] = useState(false);
+  const [rotationDirection, setRotationDirection] = useState(1);
+
   // if (idx == 1 || idx == 2) return;
   const group = useRef();
   const { scene, animations } = useGLTF(modelPath);
   const mixer = useGLTFAnimations(scene, animations);
 
-  // if (idx == 1) {
-  //   model.traverse((o) => {
-  //     if (o.isMesh) {
-  //       o.material.wireframe = false;
+  useFrame(() => {
+    if (isRotating) {
+      group.current.rotation.y -= 0.01; // Adjust the rotation speed as needed
+      // console.log(group.current.rotation.y);
+
+      if (idx === 1 || idx === 6) {
+        if (group.current.rotation.y <= getRotationAmount(idx)) {
+          console.log("less than");
+          setIsRotating(false);
+        }
+      }
+
+      if (idx === 2) {
+        if (group.current.rotation.y >= -1.6) {
+          console.log("greater than");
+        }
+      }
+    }
+  });
+
+  // useFrame(() => {
+  // trying to get it to change directions
+  //   if (isRotating) {
+  //     rotationDirection > 1
+  //       ? (group.current.rotation.y -= 0.01)
+  //       : (group.current.rotation.y += 0.01); // Adjust the rotation speed as needed
+  //     // console.log(group.current.rotation.y);
+
+  //     if (rotationDirection > 1) {
+  //       if (idx === 1 || idx === 6) {
+  //         if (group.current.rotation.y <= getRotationAmount(idx)) {
+  //           console.log("less than");
+  //           setIsRotating(false);
+  //         }
+  //       }
+  //     } else if (rotationDirection < 1) {
+  //       if (idx === 1 || idx === 6) {
+  //         if (group.current.rotation.y >= 0) {
+  //           console.log("less than");
+  //           setIsRotating(false);
+  //         }
+  //       }
   //     }
-  //   });
-  // }
+
+  //     if (idx === 2) {
+  //       if (group.current.rotation.y >= -1.6) {
+  //         console.log("greater than");
+  //       }
+  //     }
+  //   }
+  // });
+
+  // useFrame(() => {
+  //   if (isRotating) {
+  //     group.current.rotation.y += 0.01 * rotationDirection; // Adjust the rotation speed as needed
+
+  //     // Check if rotation reaches the target angle
+  //     const targetRotation = getRotationAmount(idx);
+  //     if (
+  //       rotationDirection === 1 &&
+  //       group.current.rotation.y >= targetRotation
+  //     ) {
+  //       setIsRotating(false);
+  //     } else if (rotationDirection === -1 && group.current.rotation.y <= 0) {
+  //       setIsRotating(false);
+  //     }
+  //   }
+  // });
+
+  const getRotationAmount = (idx) => {
+    if (idx == 0) return;
+
+    const rotations = {
+      1: -1.6,
+      2: 0.4,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: -0.5,
+      7: 0,
+    };
+    return rotations[idx];
+  };
 
   return (
     <primitive
@@ -48,20 +136,48 @@ function GLTFModelComponent({
       position={position}
       scale={scale}
       rotation={rotation}
-      visible={isVisible}
+      visible={idx == 0 ? true : isSelected} //{!selectedCategory ? true : isSelected} //{isVisible}
       onClick={(e) => {
         e.stopPropagation();
+        setSelectedCategory(idx);
         if (e.object?.parent?.position) {
           GLTFModelData.map((model, i) => {
             if (model.position == position && idx != 0) {
+              modelClick();
+              // setRotationDirection(rotationDirection === 1 ? -1 : 1);
+              setTimeout(() => setIsRotating(true), 1000);
+              // setIsRotating(true);
               getCameraCoords({ setPosition, setTarget, idx });
             }
           });
         }
-        modelData;
+        // modelData;
         // setSelectedCategory(idx);
       }}
     />
+  );
+}
+
+function Effects() {
+  return (
+    <EffectComposer>
+      <DepthOfField
+        focusDistance={1}
+        focalLength={0.1}
+        bokehScale={0}
+        height={480}
+      />
+      <Bloom
+        luminanceThreshold={0}
+        luminanceSmoothing={0.9}
+        height={300}
+        opacity={1}
+        bloomLayers={[1]}
+        intensity={0.3}
+      />
+      <Noise opacity={0.02} />
+      <Vignette eskil={false} offset={0.1} darkness={1.1} />
+    </EffectComposer>
   );
 }
 
@@ -87,53 +203,47 @@ const GLTFModelData = [
   {
     path: "/assets/platform/concept_hadashtex (1).glb",
     scale: [130, 130, 130],
-    // position: [0, -40, 157],
-    // rotation: [0, 0, 0],
     position: [0, 0, 150],
   },
   {
-    path: "/assets/medicine/medical_statue_large.glb",
+    path: "/assets/medicine/medical_statue_8 (3).glb",
     scale: [25, 25, 25],
-    // rotation: [-0.2, 0, 0],
-    position: [39, 1.5, 258],
+    position: [-34, 2.5, 102],
+    // rotation: [0, -1.6, 0],
   },
 
   {
     path: "/assets/taasia/engener (1).glb",
-    scale: [22, 22, 22],
-    // rotation: [-0.2, 0, 0],
+    scale: [26, 26, 26],
     position: [102, 2.5, 210],
+    // rotation: [0, 0.5, 0],
   },
   {
-    path: "/assets/ai/ai_statue (1).glb",
-    scale: [22, 22, 22],
-    rotation: [0, 0.2, 0],
-    position: [-104, 2.5, 194],
+    path: "/assets/ai/ai_statue.glb",
+    scale: [26, 26, 26],
+    rotation: [0, 0.6, 0],
+    position: [-110, 2.5, 194],
   },
   {
     path: "/assets/miscrosoft/microsoft_large.glb",
-    scale: [16, 16, 16],
-    // rotation: [-0.2, 0, 0],
-    // position: [-101, 2.5, 90],
-    position: [31, 2.5, 130],
+    scale: [23, 23, 23],
+    position: [1, 2.5, 258],
   },
   {
-    path: "/assets/military/soldy_large.glb",
-    scale: [30, 30, 30],
-    // rotation: [-0.2, 0, 0],
-    position: [51, 2.5, 80],
+    path: "/assets/military/soldier_statue.glb",
+    scale: [42, 42, 42],
+    position: [35, 2.5, 162],
   },
   {
     path: "/assets/in3d-customize/customize_large.glb",
-    scale: [22, 22, 22],
-    // rotation: [-0.2, 0, 0],
-    position: [-40, 2.5, 90],
+    scale: [29, 29, 29],
+    position: [-35, 2.5, 164],
+    // rotation: [0, -0.5, 0],
   },
   {
     path: "/assets/military/soldy.glb",
     scale: [38, 38, 38],
-    // rotation: [-0.2, 0, 0],
-    position: [-67, 2.5, 140],
+    position: [79, 2.5, 110],
   },
 ];
 
@@ -146,14 +256,31 @@ export function HomePage({
   setSelectedCategory,
   showFloat,
 }) {
+  const [modelVisibility, setModelVisibility] = useState(
+    Array(GLTFModelData.length).fill(true)
+  );
+
+  useEffect(() => {
+    if (selectedCategory === null) {
+      console.log("heyo");
+      setTimeout(
+        () => setModelVisibility(Array(GLTFModelData.length).fill(true)),
+        2500
+      );
+    }
+  }, [selectedCategory]);
+
+  const handleModelClick = (idx) => {
+    const newVisibility = Array(GLTFModelData.length).fill(false);
+    newVisibility[idx] = true;
+    setModelVisibility(newVisibility);
+  };
+
   return (
     <>
       <Lights />
-      {/* <CameraControls
-        position={position}
-        target={target}
-        idx={selectedCategory}
-      /> */}
+      {/* <Bloom mipmapBlur luminanceThreshold={1} /> */}
+      <Effects />
       <group>
         {GLTFModelData.map((modelData, i) => (
           <GLTFModelComponent
@@ -166,21 +293,23 @@ export function HomePage({
             setPosition={setPosition}
             setTarget={setTarget}
             setSelectedCategory={setSelectedCategory}
+            isSelected={modelVisibility[i]}
+            modelClick={() => handleModelClick(i)}
           />
         ))}
       </group>
 
-      {showFloat ? (
+      {selectedCategory && showFloat ? (
         <Float
           floatIntensity={1}
           rotationIntensity={1.2}
-          position={[240, 20, -30]}
+          position={[-30, 20, 140]}
           rotation={[0, -0.5, 0]}
         >
           <mesh position={[0, 0, -40]}>
-            <boxGeometry args={[160, 160, 8]} />
+            <boxGeometry args={[90, 90, 8]} />
             <meshStandardMaterial
-              color={"rgb(0, 0, 0)"}
+              color={"rgb(99, 204, 218)"}
               opacity={0.2}
               transparent={true}
             />
@@ -195,8 +324,8 @@ export function HomePage({
             <div
               className="tesz show"
               style={{
-                width: "6400px",
-                height: "6000px",
+                width: "3200px",
+                height: "3800px",
                 background: "rgba(99, 204, 218, 0.6)",
                 fontSize: "100px",
                 opacity: 1,
