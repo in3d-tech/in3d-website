@@ -25,7 +25,7 @@ export function getCameraCoords({ setPosition, setTarget, idx }) {
     target = { x: 0, y: 30, z: 0 };
   } else if (idx === 5) {
     // military
-    position = { x: 120, y: 20, z: 280 };
+    position = { x: 120, y: 20, z: 290 };
     target = { x: -60, y: 30, z: 20 };
   } else if (idx === 6) {
     position = { x: -100, y: 20, z: 300 };

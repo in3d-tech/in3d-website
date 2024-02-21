@@ -43,8 +43,9 @@ function Scene({ isLanding }) {
         <>
           <div className={`animated-sky ${animation}`}></div>
           <div className={`animated-water ${animation}`}></div>
-        </>
+        </
       ) : null} */}
+      <div className={`animated-sky ${animation}`}></div>
       <Canvas
         camera={{
           fov: 24,
@@ -88,7 +89,6 @@ function Scene({ isLanding }) {
           />
         </Suspense>
       ) : null}
-      {/* {isLanding ? null : <HorizontalNav />} */}
     </>
   );
 }

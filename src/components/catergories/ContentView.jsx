@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import YouTube from "react-youtube";
 import { getLettersByModel } from "../../common/getModelByIndex";
+import { t } from "../../common/t";
+import { getCategoryDetails } from "./logic/getCategoryDetails";
 // import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 // import ReactPlayer from "react-player/youtube";
 
@@ -18,17 +20,15 @@ const Text = ({ selectedCategory }) => {
 
   if (!letters) return null;
   //       color: #af3737; medicine red?
-
   const shadowColor = {
     1: { color: "#af3737" },
     2: { color: "#999" },
     3: { color: "#999" },
-    4: { color: "#999" },
-    5: { color: "#999" },
+    4: { color: "#00A4EF" },
+    5: { color: "#2B5317" },
     6: { color: "#999" },
     7: { color: "#999" },
   };
-
   return (
     <>
       <div className="overlay-test"></div>
@@ -93,6 +93,18 @@ function ContentView({ videoIds, setShowFloat, selectedCategory }) {
     </>
   ));
 
+  const categoryDetails = getCategoryDetails(selectedCategory);
+
+  const bgStyles = {
+    1: "rgb(175, 55, 55, 0.6)",
+    2: "#999",
+    3: "rgba(99, 204, 218, 0.6)",
+    4: "#00A4EF",
+    5: "rgba(	43,	83,	23, 0.6)",
+    6: "#999",
+    7: "#999",
+  };
+
   return (
     <div
       className="content-something"
@@ -121,7 +133,10 @@ function ContentView({ videoIds, setShowFloat, selectedCategory }) {
         }}
       >
         <div></div>
-        {/* <div className="selected-content-option-container">
+        <div
+          className="selected-content-option-container"
+          style={{ backgroundColor: bgStyles[selectedCategory] }}
+        >
           <div
             // onClick={() => setSelectedTopic(true)}
             onClick={() => setShowFloat(true)}
@@ -142,7 +157,7 @@ function ContentView({ videoIds, setShowFloat, selectedCategory }) {
             Another topic
           </div>
           {isButtonClicked ? <AnimatedText /> : null}
-        </div> */}
+        </div>
         <div className="content-placeholder-container">
           {/* {contentPlaceholder} */}
         </div>
@@ -153,7 +168,21 @@ function ContentView({ videoIds, setShowFloat, selectedCategory }) {
         style={{
           flex: 1,
         }}
-      ></div>
+      >
+        <div className="selected-content-info">
+          <h3>{categoryDetails.title}</h3>
+          <ul>
+            {categoryDetails.texts?.map((detail, idx) => (
+              <li className="selected-content-list" key={idx}>
+                {t(detail)}
+              </li>
+            ))}
+            {/* <li>{t("remoteSupportMedicine")}</li>
+            <li>{t("tutorials")}</li>
+            <li>{t("supportForPerformingAnalysis")}</li> */}
+          </ul>
+        </div>
+      </div>
     </div>
   );
 }

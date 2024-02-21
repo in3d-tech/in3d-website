@@ -178,7 +178,7 @@ export function Lights({ Lightcolor }) {
   // });
 
   function SpotLightWithHelper() {
-    useHelper(spotRef, THREE.SpotLightHelper, "cyan");
+    // useHelper(spotRef, THREE.SpotLightHelper, "cyan");
     return (
       <spotLight
         ref={spotRef}
