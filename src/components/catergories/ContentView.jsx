@@ -182,6 +182,10 @@ function ContentView({ videoIds, setShowFloat, selectedCategory }) {
             <li>{t("supportForPerformingAnalysis")}</li> */}
           </ul>
         </div>
+        {/* <div>
+          <div className="selected-content-info num2"></div>
+          <div className="selected-content-info num2"></div>
+        </div> */}
       </div>
     </div>
   );

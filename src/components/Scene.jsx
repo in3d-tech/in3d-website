@@ -1,20 +1,9 @@
 import { useState, Suspense, lazy, useEffect } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
-import {
-  AdaptiveDpr,
-  OrbitControls,
-  Preload,
-  Stats,
-  useProgress,
-} from "@react-three/drei";
+import { AdaptiveDpr, Preload, Stats, useProgress } from "@react-three/drei";
 import { HomePage } from "./HomePage";
 import { Navbar } from "./NavbarOld";
-// import { ContentView } from "./catergories/ContentView";
-// import { useHorizontalScroll } from "../common/useHorizontalScroll";
-// import AssetLoader from "./ornaments/AssetLoader";
 // import { Loader } from "./Loading";
-// import { HorizontalNav } from "./nav/HorizontalNav";
-import { MathUtils } from "three";
 import { CameraControls } from "../common/CameraControls";
 
 // const LazyHomepage = lazy(() => import("./HomePage"));
@@ -24,8 +13,11 @@ function Scene({ isLanding }) {
   const [position, setPosition] = useState({ x: 0, y: -0, z: 580 }); //{ x: 0, y: 10, z: 278 }); // y: 80, z: 150 });
   const [target, setTarget] = useState({ x: 0, y: 60, z: 0 });
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [isRotating, setIsRotating] = useState(false);
+  const [rotationDirection, setRotationDirection] = useState(1);
   const [animation, setAnimation] = useState("static");
   const [showFloat, setShowFloat] = useState(false);
+  const [test, setTest] = useState("");
 
   setTimeout(() => setAnimation("animate"), 25000);
 
@@ -45,7 +37,11 @@ function Scene({ isLanding }) {
           <div className={`animated-water ${animation}`}></div>
         </
       ) : null} */}
-      <div className={`animated-sky ${animation}`}></div>
+
+      {/* {go back to this and uncomment css: after} */}
+      {<div className={`animated-sky ${animation}`}></div>}
+      <div className="hovered-model-header">{test}</div>
+      {<Header />}
       <Canvas
         camera={{
           fov: 24,
@@ -54,11 +50,7 @@ function Scene({ isLanding }) {
       >
         <Stats />
 
-        <CameraControls
-          position={position}
-          target={target}
-          idx={selectedCategory}
-        />
+        <CameraControls position={position} target={target} />
         <Suspense fallback={null}>
           <HomePage
             position={position}
@@ -68,6 +60,9 @@ function Scene({ isLanding }) {
             setPosition={setPosition}
             setTarget={setTarget}
             showFloat={showFloat}
+            isRotating={isRotating}
+            setIsRotating={setIsRotating}
+            setTest={setTest}
           />
         </Suspense>
         <Preload all />
@@ -94,3 +89,40 @@ function Scene({ isLanding }) {
 }
 
 export default Scene;
+
+const Header = () => {
+  const [isNavOpen, setIsNavOpen] = useState(false);
+
+  const toggleNav = () => {
+    setIsNavOpen(!isNavOpen);
+  };
+
+  return (
+    <header>
+      <div className="hamburger-icon" id="icon" onClick={toggleNav}>
+        <div className={isNavOpen ? "icon-1 a" : "icon-1"}></div>
+        <div className={isNavOpen ? "icon-2 c" : "icon-2"}></div>
+        <div className={isNavOpen ? "icon-3 b" : "icon-3"}></div>
+        <div className="clear"></div>
+      </div>
+
+      <nav id="nav" className={isNavOpen ? "show" : ""}>
+        <ul>
+          <li>Medicine</li>
+          <li>Customization</li>
+          <li>Artifical Intelligence</li>
+          <li>Military</li>
+          <li>Industry</li>
+          <li>Security</li>
+        </ul>
+      </nav>
+
+      <div className="dark-blue" id="blue"></div>
+
+      <section className="content">
+        <h1>Hello We are animated!</h1>
+        <p className="small">Lorem ipsum dolor sit amet</p>
+      </section>
+    </header>
+  );
+};

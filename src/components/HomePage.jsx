@@ -14,37 +14,51 @@ import { CameraControls } from "../common/CameraControls";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { getCameraCoords } from "../common/getCameraCoords";
-import {
-  Bloom,
-  DepthOfField,
-  EffectComposer,
-  Noise,
-  Vignette,
-} from "@react-three/postprocessing";
-import { GLTFModelData } from "../common/getModelByIndex";
+// import {
+//   Bloom,
+//   DepthOfField,
+//   EffectComposer,
+//   Noise,
+//   Vignette,
+// } from "@react-three/postprocessing";
+import { GLTFModelData, modelByIndexCapital } from "../common/getModelByIndex";
+import { TroubleshootOutlined } from "@mui/icons-material";
 
 function GLTFModelComponent({
   modelPath,
   position,
   scale,
   rotation,
-  // animations,
   idx,
   setPosition,
   setTarget,
   setSelectedCategory,
-  modelClick,
+  handleModelClick,
   isSelected,
   selectedCategory,
-  floatCoords,
+  setTest,
 }) {
   const [isRotating, setIsRotating] = useState(false);
   const [rotationDirection, setRotationDirection] = useState(1);
+  const [hovered, setHovered] = useState(false);
 
   // if (idx == 1 || idx == 2) return;
   const group = useRef();
   const { scene, animations } = useGLTF(modelPath);
   const mixer = useGLTFAnimations(scene, animations);
+
+  useEffect(() => {
+    document.body.style.cursor = hovered ? "pointer" : "auto";
+  }, [hovered]);
+
+  useEffect(() => {
+    if (selectedCategory === 0 && idx == 1) {
+      setRotationDirection(-1);
+      setTimeout(() => setIsRotating(true), 250);
+      // setRotationDirection(rotationDirection == 1 ? -1 : 1);
+      // console.log("GLTFMODELCOMPONENT - category changed to null");
+    }
+  }, [selectedCategory]);
 
   // useFrame(() => {
   //   if (isRotating) {
@@ -81,7 +95,7 @@ function GLTFModelComponent({
 
   const getRotationAmount = (idx) => {
     if (idx == 0) return;
-    console.log({ idx });
+    // console.log({ idx });
     const rotations = {
       1: -1.6,
       2: 0,
@@ -97,25 +111,43 @@ function GLTFModelComponent({
   };
 
   useFrame(() => {
-    if (isRotating && idx != 3) {
-      rotationDirection === 1
-        ? (group.current.rotation.y -= 0.01 * rotationDirection)
-        : (group.current.rotation.y += 0.01 * rotationDirection);
+    if (!isRotating) {
+      return;
+    }
+    // if (isRotating && idx != 0) {
+    //   rotationDirection === 1
+    //     ? (group.current.rotation.y -= 0.01 * rotationDirection)
+    //     : (group.current.rotation.y += 0.01 * rotationDirection);
 
-      // Assuming original rotation is 0
-      if (
-        rotationDirection === 1 &&
-        group.current.rotation.y <= getRotationAmount(idx)
-      ) {
-        console.log("in 1 way");
+    //   // Assuming original rotation is 0
+    //   // if (
+    //   //   rotationDirection === 1 &&
+    //   //   group.current.rotation.y <= getRotationAmount(idx)
+    //   // ) {
+    //   //   console.log("in 1 way");
+    //   //   setIsRotating(false);
+    //   //   setRotationDirection(-1); // Set it back to rotate reversing
+    //   // } else if (rotationDirection === -1 && group.current.rotation.y >= 0) {
+    //   //   console.log("in the other way");
+    //   //   setIsRotating(false);
+    //   //   setRotationDirection(1);
+    //   // }
+    //   // console.log("yellow", rotationDirection);
+    // }
+    if (isRotating && rotationDirection == -1 && idx == 1) {
+      // rotate counter-clockwise
+      group.current.rotation.y += 0.01;
+      console.log(group.current.rotation.y);
+      if (group.current.rotation.y >= 0) {
         setIsRotating(false);
-        setRotationDirection(-1); // Set it back to rotate reversing
-      } else if (rotationDirection === -1 && group.current.rotation.y >= 0) {
-        console.log("in the other way");
-        setIsRotating(false);
-        setRotationDirection(1);
+        setSelectedCategory(null);
       }
-      console.log("yellow", rotationDirection);
+    }
+    if (isRotating && rotationDirection == 1 && idx == 1) {
+      // rotate clockwise
+      group.current.rotation.y -= 0.01;
+      if (group.current.rotation.y <= getRotationAmount(idx))
+        setIsRotating(false);
     }
   });
 
@@ -129,13 +161,24 @@ function GLTFModelComponent({
         scale={scale}
         rotation={rotation}
         visible={idx == 0 ? true : isSelected}
+        // onPointerEnter={() => setTest(modelByIndexCapital[idx])}
+        // onPointerLeave={() => setTest("")}
+        onPointerOver={() => {
+          setHovered(TroubleshootOutlined);
+          setTest(modelByIndexCapital[idx]);
+        }}
+        onPointerOut={() => {
+          setHovered(false);
+          setTest("");
+        }}
         onClick={(e) => {
           e.stopPropagation();
           setSelectedCategory(idx);
           if (e.object?.parent?.position) {
             GLTFModelData.map((model, i) => {
               if (model.position == position && idx != 0) {
-                modelClick();
+                handleModelClick();
+                console.log({ isRotating });
                 setTimeout(() => setIsRotating(!isRotating), 750);
                 getCameraCoords({ setPosition, setTarget, idx });
               }
@@ -147,28 +190,28 @@ function GLTFModelComponent({
   );
 }
 
-function Effects() {
-  return (
-    <EffectComposer>
-      <DepthOfField
-        focusDistance={1}
-        focalLength={0.1}
-        bokehScale={0}
-        height={480}
-      />
-      <Bloom
-        luminanceThreshold={0}
-        luminanceSmoothing={0.9}
-        height={300}
-        opacity={1}
-        bloomLayers={[1]}
-        intensity={0.3}
-      />
-      <Noise opacity={0.02} />
-      <Vignette eskil={false} offset={0.1} darkness={1.1} />
-    </EffectComposer>
-  );
-}
+// function Effects() {
+//   return (
+//     <EffectComposer>
+//       <DepthOfField
+//         focusDistance={1}
+//         focalLength={0.1}
+//         bokehScale={0}
+//         height={480}
+//       />
+//       <Bloom
+//         luminanceThreshold={0}
+//         luminanceSmoothing={0.9}
+//         height={300}
+//         opacity={1}
+//         bloomLayers={[1]}
+//         intensity={0.3}
+//       />
+//       <Noise opacity={0.02} />
+//       <Vignette eskil={false} offset={0.1} darkness={1.1} />
+//     </EffectComposer>
+//   );
+// }
 
 function useGLTFAnimations(scene, animations) {
   const { invalidate } = useThree();
@@ -196,6 +239,9 @@ export function HomePage({
   setTarget,
   setSelectedCategory,
   showFloat,
+  isRotating,
+  setIsRotating,
+  setTest,
 }) {
   const [modelVisibility, setModelVisibility] = useState(
     Array(GLTFModelData.length).fill(true)
@@ -204,7 +250,7 @@ export function HomePage({
   const [floatCoords, setFloatCoords] = useState(null);
 
   useEffect(() => {
-    if (selectedCategory == null) {
+    if (selectedCategory != 3) {
       // console.log("back to null");
       return;
     }
@@ -212,8 +258,9 @@ export function HomePage({
     setFloatCoords(getFloatCoords(selectedCategory));
   }, [selectedCategory]);
 
+  // uncomment to unhandle model VISIBILITY
   useEffect(() => {
-    if (selectedCategory === null) {
+    if (selectedCategory === null || selectedCategory === 0) {
       setTimeout(
         () => setModelVisibility(Array(GLTFModelData.length).fill(true)),
         2500
@@ -245,14 +292,101 @@ export function HomePage({
             setTarget={setTarget}
             setSelectedCategory={setSelectedCategory}
             isSelected={modelVisibility[i]}
-            modelClick={() => handleModelClick(i)}
+            handleModelClick={() => handleModelClick(i)}
             floatCoords={floatCoords}
             selectedCategory={selectedCategory}
+            setTest={setTest}
           />
         ))}
       </group>
+      {!selectedCategory ? (
+        <Float
+          // floatIntensity={1}
+          // rotationIntensity={1.2}
+          position={floatCoords?.position}
+          rotation={floatCoords?.rotation}
+          onClick={() => console.log("OOOK")}
+          preve
+        >
+          {selectedCategory && (
+            <Html
+              style={{
+                userSelect: "none",
+                // border: "3px solid red",
+                width: "82vw",
+                height: "160vh",
+                // pointerEvents: selectedCategory == idx ? "auto" : "none",
+              }}
+              onClick={() => console.log("whats this I see")}
+              // castShadow
+              // receiveShadow
+              occlude="blending"
+              transform
+            >
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  border: "5px solid black",
+                  height: "100%",
+                  justifyContent: "space-between",
+                }}
+                onClick={() => console.log("does this work at least")}
+              >
+                <div
+                  style={{
+                    // border: "1px solid yellow",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    // height: "10%",
+                    flex: 1,
+                  }}
+                >
+                  <div
+                    className="tesz show"
+                    style={{
+                      width: "40%",
+                      // width: "3200px",
+                      // height: "3800px",
+                      background: "rgba(99, 204, 218, 0.6)",
+                      fontSize: "100px",
+                      opacity: 1,
+                    }}
+                  >
+                    sds
+                    {/* <h1 style={{ color: "rgb(255, 255, 255)" }}>hello world</h1> */}
+                    {/* <AnimatedText /> */}
+                  </div>
+                  <div
+                    className="tesz show"
+                    style={{
+                      width: "40%",
 
-      {/*  */}
+                      // width: "3200px",
+                      // height: "3800px",
+                      background: "rgba(0, 0, 0, 0.6)",
+                      fontSize: "100px",
+                      opacity: 1,
+                    }}
+                  ></div>
+                </div>
+
+                <div
+                  style={{
+                    background: "orange",
+                    width: "100%",
+                    flex: 1,
+                    height: "96%",
+                    opacity: 0.6,
+                  }}
+                >
+                  dfsdsasddsdssda
+                </div>
+              </div>
+            </Html>
+          )}
+        </Float>
+      ) : null}
     </>
   );
 }

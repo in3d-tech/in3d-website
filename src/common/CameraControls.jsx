@@ -4,7 +4,7 @@ import { gsap } from "gsap";
 import { useRef, useEffect } from "react";
 import { Vector3, SpotLight, DirectionalLightHelper, MathUtils } from "three";
 
-const CameraControls = ({ target, position, idx }) => {
+const CameraControls = ({ target, position }) => {
   // let position = { x: 0, y: -0, z: 580 };
 
   // let target = { x: 0, y: 60, z: 0 };

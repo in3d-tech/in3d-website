@@ -9,6 +9,17 @@ export const getModelByIndex = {
   7: "security",
 };
 
+export const modelByIndexCapital = {
+  0: "platform",
+  1: "MEDICINE",
+  2: "INDUSTRY",
+  3: "ARTIFICAL INTELLIGENCE",
+  4: "MICROSOFT",
+  5: "MILITARY",
+  6: "CUSTOMIZATION",
+  7: "SECURITY",
+};
+
 export const getLettersByModel = (modelIdx) => {
   if (!modelIdx || typeof modelIdx !== "number" || modelIdx == 0) {
     console.log("why we in here", typeof modelIdx);

@@ -8,9 +8,9 @@ import { useGLTF } from "@react-three/drei";
 // import Scene from "./components/Scene";
 
 const LazyScene = lazy(() => import("./components/Scene"));
-// const LazySceneMobile = lazy(() =>
-//   import("./components/mobileView/SceneMobile")
-// );
+const LazySceneMobile = lazy(() =>
+  import("./components/mobileView/SceneMobile")
+);
 
 // export const LoaderComponent = () => {
 //   const { active, progress, errors } = useProgress();
