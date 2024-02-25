@@ -440,19 +440,6 @@ h1 {
   /* z-index: 12; */
 }
 
-.static-water {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  /* background: url("/assets/background/water_webp/water_00001_00001.webp") center */
-  /* center no-repeat; */
-  background: url("/landing_screen_bg.jpg") center center no-repeat;
-  background-size: cover;
-  /* z-index: 3333321; */
-}
-
 .animated-sky {
   content: "";
   position: absolute;
@@ -495,6 +482,20 @@ h1 {
 
   background-size: cover;
   animation: bottom-sequence 20s infinite;
+  /* z-index: 6; */
+}
+
+.static-water {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("/assets/background/water_webp/water_00001_00001.webp") center
+    center no-repeat;
+
+  background-size: cover;
   /* z-index: 6; */
 }
 
@@ -3325,6 +3326,40 @@ h1 {
   }
 }
 
+.text-test-mobile {
+  font-family: "Yanone Kaffeesatz";
+  font-size: 2em;
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  user-select: none;
+  .wrapper-test {
+    padding-left: 5px;
+    padding-right: 20px;
+    padding-top: 5px;
+    .letter {
+      transition: ease-out 1s;
+      transform: translateY(40%);
+    }
+    .shadow {
+      transform: scale(1, -1);
+      color: #999;
+      transition: ease-in 5s, ease-out 5s;
+    }
+    &:hover {
+      .letter {
+        transform: translateY(-200%);
+      }
+      .shadow {
+        opacity: 0;
+        transform: translateY(200%);
+      }
+    }
+  }
+}
+
 /* new loading stuff -------------------> */
 
 .loading-animation-container {
@@ -3509,7 +3544,7 @@ url("/assets/background/water_webp/water_00001_00001.webp"); */
 header {
   width: 100%;
   height: 100%;
-  background: #e74c3c;
+  background: rgba(255, 134, 134, 0.5);
   position: absolute;
   overflow: auto;
 }
@@ -3581,7 +3616,7 @@ header {
 }
 
 nav {
-  background: #0288d1;
+  background: rgb(255, 255, 255, 0.6);
   position: absolute;
   top: 0;
   left: 0;
@@ -3596,7 +3631,7 @@ nav {
     margin: 0;
     position: absolute;
     top: 30%;
-    left: 40%;
+    /* left: 40%; */
     li {
       list-style: none;
       font-size: 24px;
@@ -3609,7 +3644,7 @@ nav {
 }
 
 nav.show {
-  width: 50%;
+  width: 80%;
   opacity: 1;
 }
 
@@ -3656,5 +3691,22 @@ nav.show {
     font-size: 70px;
     animation: shotup 600ms ease-in-out;
     animation-delay: 300ms;
+  }
+}
+
+.mobile-nav-list-item {
+}
+
+.mobile-canvas-container {
+  animation: moveUp 2s ease forwards;
+  z-index: 5;
+  border: 1px solid black;
+}
+@keyframes moveUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
   }
 }

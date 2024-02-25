@@ -51,6 +51,10 @@ function GLTFModelComponent({
     document.body.style.cursor = hovered ? "pointer" : "auto";
   }, [hovered]);
 
+  if (idx == 4) {
+    console.log({ scene });
+  }
+
   useEffect(() => {
     if (selectedCategory === 0 && idx == 1) {
       setRotationDirection(-1);

@@ -20,7 +20,7 @@ export const modelByIndexCapital = {
   7: "SECURITY",
 };
 
-export const getLettersByModel = (modelIdx) => {
+export const getLettersByModel = (modelIdx = 1) => {
   if (!modelIdx || typeof modelIdx !== "number" || modelIdx == 0) {
     console.log("why we in here", typeof modelIdx);
     return;
@@ -68,8 +68,10 @@ export const GLTFModelData = [
     position: [-110, 2.5, 194],
   },
   {
-    path: "/assets/miscrosoft/microsoft_large.glb",
-    scale: [23, 23, 23],
+    path: "/assets/miscrosoft/hologram_soldier (1).glb",
+    scale: [120, 120, 120],
+    // scale: [23, 23, 23],
+    rotation: [0, Math.PI, 0],
     position: [1, 2.5, 258],
   },
   {
