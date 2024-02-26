@@ -163,9 +163,10 @@ function SceneMobile({ isLanding }) {
             zIndex: 1,
             background: "rgb(0,0,0, 0.6)",
             display: "flex",
+            flexDirection: "column",
           }}
         >
-          <div style={{ flex: 2 }}>
+          <div style={{ flex: 3 }}>
             <AnimatedText isNavOpen={isNavOpen} />
           </div>
           <div
@@ -173,8 +174,8 @@ function SceneMobile({ isLanding }) {
               flex: 1,
               // border: "1px solid cyan",
               display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
+              flexDirection: "row",
+              justifyContent: "space-evenly",
               alignItems: "center",
             }}
           >
@@ -304,7 +305,7 @@ const BottomSelection = ({ slide, idx, vidIds, setVideos, onReadyFunct }) => {
   const [hovered, setHovered] = useState(false);
 
   const opts2 = {
-    height: "74px",
+    height: "35px",
     width: "100%",
     borderRadius: "5px",
     playerVars: {
