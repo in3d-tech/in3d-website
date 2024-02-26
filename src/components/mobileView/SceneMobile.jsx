@@ -179,7 +179,7 @@ function SceneMobile({ isLanding }) {
               alignItems: "center",
             }}
           >
-            {contentPlaceholder}
+            {/* {contentPlaceholder} */}
           </div>
         </div>
       </div>
