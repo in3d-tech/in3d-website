@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { ChangeLanguage } from "./components/ChangeLanguage";
 import { useGLTF } from "@react-three/drei";
 // import Scene from "./components/Scene";
-
+import useWindowDimensions from "./common/useWindowDimensions";
 const LazyScene = lazy(() => import("./components/Scene"));
 const LazySceneMobile = lazy(() =>
   import("./components/mobileView/SceneMobile")
@@ -33,6 +33,8 @@ function App() {
   const [animate, setAnimate] = useState(false);
   const [test, setTest] = useState(false);
 
+  const { width, height } = useWindowDimensions();
+
   // setTimeout(() => {
   //   setTest(false)
   // }, 20000)
@@ -58,6 +60,7 @@ function App() {
         <LandingComponent
           onEnter={() => setIsLanding(false)}
           started={isLanding}
+          width={width}
         />
       ) : (
         <div

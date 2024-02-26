@@ -54,8 +54,8 @@ function GLTFModelComponent({
     6: "customize",
     7: "security",
   };
-  const scale = idx == 0 ? [30, 30, 30] : [40, 40, 40];
-  const position = idx == 0 ? [56, -15, 100] : [0, -15, 100];
+  const scale = idx == 0 ? [28, 28, 28] : [40, 40, 40];
+  const position = idx == 0 ? [51, -15, 100] : [0, -15, 100];
   return (
     <group>
       <primitive
@@ -112,11 +112,11 @@ export function HomePageMobile({ selectedCategory, setSelectedCategory }) {
 }
 
 const AnimatedText = () => {
-  const text1 = "Artificial Intelligence something";
-  const text2 = "- some points";
-  const text3 = "- more basic information dsfsdf";
-  const text4 = "- Specialties fdsdfsd";
-  const text5 = "- This is a sentence about something cool";
+  const text1 = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."; //"Artificial Intelligence something";
+  const text2 = "Vestibulum ullamcorper nisl id arcu pulvinar,"; //"- some points";
+  const text3 = "eget condimentum"; //- more basic information dsfsdf";
+  const text4 = "neque ultricies."; //"- Specialties fdsdfsd";
+  const text5 = "In et ligula ex."; //- This is a sentence about something cool";
   // const text6 = "She sells sea shells by the sea shore";
   const [animationStarted, setAnimationStarted] = useState(false);
 

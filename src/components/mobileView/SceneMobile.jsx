@@ -1,4 +1,4 @@
-import { useState, Suspense, lazy } from "react";
+import { useState, Suspense, lazy, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import {
   AdaptiveDpr,
@@ -57,6 +57,7 @@ function SceneMobile({ isLanding }) {
   const [target, setTarget] = useState({ x: 0, y: 60, z: 0 });
   const [selectedCategory, setSelectedCategory] = useState(0);
   const [animation, setAnimation] = useState("static");
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
   return (
     <>
@@ -72,12 +73,16 @@ function SceneMobile({ isLanding }) {
         <Header
           setSelectedCategory={setSelectedCategory}
           selectedCategory={selectedCategory}
+          isNavOpen={isNavOpen}
+          setIsNavOpen={setIsNavOpen}
         />
-        <div style={{ flex: 1 }}>
-          <SelectedCategory />
-        </div>
+        {/* <div style={{ flex: 1 }}> */}
+        {/* <SelectedCategory /> */}
+        {/* </div> */}
 
         <div style={{ flex: 1 }} className="mobile-canvas-container">
+          <SelectedCategory />
+
           <Canvas
             frameloop="demand"
             camera={{
@@ -99,7 +104,15 @@ function SceneMobile({ isLanding }) {
             <AdaptiveDpr pixelated />
           </Canvas>
         </div>
-        <div style={{ border: "1px solid red", flex: 1 }}></div>
+        <div
+          style={{
+            flex: 1,
+            zIndex: 1,
+            background: "rgb(0,0,0, 0.6)",
+          }}
+        >
+          <AnimatedText isNavOpen={isNavOpen} />
+        </div>
       </div>
     </>
   );
@@ -107,8 +120,13 @@ function SceneMobile({ isLanding }) {
 
 export default SceneMobile;
 
-const Header = ({ setSelectedCategory, selectedCategory }) => {
-  const [isNavOpen, setIsNavOpen] = useState(false);
+const Header = ({
+  setSelectedCategory,
+  selectedCategory,
+  isNavOpen,
+  setIsNavOpen,
+}) => {
+  // const [isNavOpen, setIsNavOpen] = useState(false);
 
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
@@ -140,7 +158,10 @@ const Header = ({ setSelectedCategory, selectedCategory }) => {
             <li
               key={topic.key}
               className="mobile-nav-list-item"
-              onClick={() => setSelectedCategory(topic.key)}
+              onClick={() => {
+                setIsNavOpen(false);
+                setTimeout(() => setSelectedCategory(topic.key), 500);
+              }}
               // onClick={setSelectedCategory(topic.key)}
               style={selectedCategory == topic.key ? { color: "black" } : null}
             >
@@ -157,5 +178,54 @@ const Header = ({ setSelectedCategory, selectedCategory }) => {
         <p className="small">Lorem ipsum dolor sit amet</p>
       </section> */}
     </header>
+  );
+};
+
+const AnimatedText = ({ isNavOpen }) => {
+  const text1 = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."; //"Artificial Intelligence something";
+  const text2 = "Vestibulum ullamcorper nisl id arcu pulvinar,"; //"- some points";
+  const text3 = "eget condimentum"; //- more basic information dsfsdf";
+  const text4 = "neque ultricies."; //"- Specialties fdsdfsd";
+  const text5 = "In et ligula ex."; //- This is a sentence about something cool";
+  // const text6 = "She sells sea shells by the sea shore";
+  const [animationStarted, setAnimationStarted] = useState(false);
+
+  useEffect(() => {
+    setAnimationStarted(true);
+  }, []);
+
+  const splitText = (text) => {
+    return text.split(/\s+/).map((word, index) => (
+      <>
+        <span
+          className="selected-content-span"
+          key={"word" + index}
+          style={{
+            animationDelay: `${(index + 23) * 0.04}s`,
+            fontSize: "1.5em",
+            // marginInlineStart: "2.9em",
+          }}
+        >
+          {isNavOpen ? null : word}
+        </span>
+        <span key={"space" + index}>&nbsp;</span>
+      </>
+    ));
+  };
+
+  return (
+    <div className={animationStarted ? "selected-content-header animated" : ""}>
+      {splitText(text1)}
+      <br />
+      {splitText(text2)}
+      <br />
+      {splitText(text3)}
+      <br />
+      {splitText(text4)}
+      <br />
+      {splitText(text5)}
+      <br />
+      {/* {splitText(text6)} */}
+    </div>
   );
 };
