@@ -14,7 +14,23 @@ import {
 import { HomePageMobile } from "./HomePageMobile";
 import { CameraControls } from "../../common/CameraControls";
 import { getLettersByModel } from "../../common/getModelByIndex";
+import YouTube from "react-youtube";
 
+const videoIds = [
+  "9vA8qX_p11w",
+  "enJ6be4qLMs",
+  "Bj6KLv7kv2Q",
+  // "rVzJDgDnKLI",
+  // "mAEM5q5YFtg",
+];
+
+const videoz = [
+  "9vA8qX_p11w",
+  "enJ6be4qLMs",
+  "Bj6KLv7kv2Q",
+  "rVzJDgDnKLI",
+  "mAEM5q5YFtg",
+];
 // const LazyHomepage = lazy(() => import("./HomePage"));
 
 const SelectedCategory = ({ selectedCategory }) => {
@@ -58,6 +74,42 @@ function SceneMobile({ isLanding }) {
   const [selectedCategory, setSelectedCategory] = useState(0);
   const [animation, setAnimation] = useState("static");
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [videos, setVideos] = useState([...videoz]);
+
+  useEffect(() => {
+    if (!videos.length) {
+      setVideos([...videoIds]);
+    }
+  }, []);
+
+  // useEffect(() => {
+  //   console.log("annnnd a re-render");
+  // }, [videos]);
+
+  const opts = {
+    height: "100%",
+    width: "100%",
+    playerVars: {
+      // https://developers.google.com/youtube/player_parameters
+      // autoplay: 1,
+    },
+  };
+
+  const onReadyFunct = (e) => {
+    if (e.target) e.target.pauseVideo();
+  };
+
+  const contentPlaceholder = videoIds.map((slide, idx) => (
+    <>
+      <BottomSelection
+        slide={slide}
+        idx={idx}
+        vidIds={videos}
+        setVideos={setVideos}
+        onReadyFunct={onReadyFunct}
+      />
+    </>
+  ));
 
   return (
     <>
@@ -68,6 +120,7 @@ function SceneMobile({ isLanding }) {
           display: "flex",
           flexDirection: "column",
           height: "100vh",
+          overflow: "scroll",
         }}
       >
         <Header
@@ -109,9 +162,24 @@ function SceneMobile({ isLanding }) {
             flex: 1,
             zIndex: 1,
             background: "rgb(0,0,0, 0.6)",
+            display: "flex",
           }}
         >
-          <AnimatedText isNavOpen={isNavOpen} />
+          <div style={{ flex: 2 }}>
+            <AnimatedText isNavOpen={isNavOpen} />
+          </div>
+          <div
+            style={{
+              flex: 1,
+              // border: "1px solid cyan",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {contentPlaceholder}
+          </div>
         </div>
       </div>
     </>
@@ -226,6 +294,56 @@ const AnimatedText = ({ isNavOpen }) => {
       {splitText(text5)}
       <br />
       {/* {splitText(text6)} */}
+    </div>
+  );
+};
+
+const BottomSelection = ({ slide, idx, vidIds, setVideos, onReadyFunct }) => {
+  // return null;
+  const [showVid, setShowVid] = useState(false);
+  const [hovered, setHovered] = useState(false);
+
+  const opts2 = {
+    height: "74px",
+    width: "100%",
+    borderRadius: "5px",
+    playerVars: {
+      // https://developers.google.com/youtube/player_parameters
+    },
+  };
+
+  return (
+    <div key={idx} className="cardz">
+      <div
+        className="curved-border"
+        onMouseEnter={(e) => setHovered(true)}
+        onMouseLeave={(e) => setHovered(false)}
+        style={{ opacity: hovered ? 1 : 0.2 }}
+        onClick={() => {
+          const arrayCopy = [...vidIds];
+          const elementToMove = arrayCopy.splice(idx, 1)[0];
+          arrayCopy.unshift(elementToMove);
+          setVideos(arrayCopy);
+        }}
+      >
+        <div
+          // onMouseEnter={(e) => setHovered(true)}
+          // onMouseLeave={(e) => setHovered(false)}
+          className="overlay"
+        ></div>
+        <YouTube
+          videoId={slide}
+          opts={opts2}
+          onReady={(e) => onReadyFunct(e)}
+          style={{
+            height: "100%",
+            borderRadius: "10px",
+            zIndex: -1,
+            pointerEvents: "none",
+          }}
+          onPlay={() => console.log("onPlay")}
+        />
+      </div>
     </div>
   );
 };
